@@ -894,9 +894,15 @@ pre code {
 }
 
 .row {
-    margin-left: -15px;
+    margin-left: 15px;
     margin-right: -15px;
     color: beige
+}
+.row div
+{
+    height: 400px;
+    width:
+    
 }
 
 .col-xs-1,
