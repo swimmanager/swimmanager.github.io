@@ -223,7 +223,7 @@ var Conector = {
             return $http.get(uri);
         },
         add: function ($http, data, auth) {
-            var uri = Conector.url + Conector.torneos;
+            var uri = Conector.url + Conector.torneos.base;
             var confg = {
                 headers: {
                     "Authorization": "Basic " + auth
@@ -232,7 +232,7 @@ var Conector = {
             return $http.post(uri, data, confg);
         },
         update: function ($http, data, auth, id, etag) {
-            var uri = Conector.url + Conector.torneos + "/" + id;
+            var uri = Conector.url + Conector.torneos.base + "/" + id;
             var config = {
                 headers: {
                     "Authorization": "Basic " + auth,
@@ -243,7 +243,7 @@ var Conector = {
         },
         delete: function ($http, auth, id, etag) {
             console.log(auth);
-            var uri = Conector.url + Conector.torneos + "/" + id;
+            var uri = Conector.url + Conector.torneos.base + "/" + id;
             var config = {
                 headers: {
                     "Authorization": "Basic " + auth,
@@ -253,5 +253,193 @@ var Conector = {
             return $http.delete(uri, config);
         }
 
+    },
+    ediciones: {
+        base: "/ediciones",
+        getAll: function ($http) {
+            var uri = Conector.url + Conector.ediciones.base;
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.ediciones.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.ediciones.base;
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
+            return $http.post(uri, data, confg);
+        },
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.ediciones.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.patch(uri, data, config);
+        },
+        delete: function ($http, auth, id, etag) {
+            console.log(auth);
+            var uri = Conector.url + Conector.ediciones.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.delete(uri, config);
+        }
+
+    },
+    eventos: {
+        base: "/eventos",
+        getAll: function ($http) {
+            var uri = Conector.url + Conector.eventos.base;
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.eventos.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.eventos.base;
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
+            return $http.post(uri, data, confg);
+        },
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.eventos.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.patch(uri, data, config);
+        },
+        delete: function ($http, auth, id, etag) {
+            console.log(auth);
+            var uri = Conector.url + Conector.eventos.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.delete(uri, config);
+        }
+
+    },
+    resultados: {
+        base: "/resultados",
+        getAll: function ($http) {
+            var uri = Conector.url + Conector.resultados.base;
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.resultados.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.resultados.base;
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
+            return $http.post(uri, data, confg);
+        },
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.resultados.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.patch(uri, data, config);
+        },
+        delete: function ($http, auth, id, etag) {
+            console.log(auth);
+            var uri = Conector.url + Conector.resultados.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.delete(uri, config);
+        }
+
+    },
+    usuarios: {
+        base: "/anvandaren",
+        getAll: function ($http) {
+            var uri = Conector.url + Conector.usuarios.base;
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.usuarios.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.usuarios.base;
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
+            return $http.post(uri, data, confg);
+        },
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.usuarios.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.patch(uri, data, config);
+        },
+        delete: function ($http, auth, id, etag) {
+            console.log(auth);
+            var uri = Conector.url + Conector.usuarios.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.delete(uri, config);
+        }
+
+    },
+    logIn: function ($http, $scope, user, pass) {
+        var uri = Conector.url + "/log";
+        var data = {
+            user: user
+        };
+        var auth = Base64.encode(user + ":" + pass);
+        var confg = {
+            headers: {
+                "Authorization": "Basic " + auth
+            }
+        };
+        return $http.post(uri, data, confg).then(function (response) {
+            console.log(response);
+            $scope.auth = response.status == 201;
+            $scope.auth_p = auth;
+        }, function (response) {
+            console.error(response);
+            $scope.auth = false;
+        });
     }
 };
