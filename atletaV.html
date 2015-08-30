@@ -21,7 +21,7 @@
 
 
 
-<body ng-app="SwimManager">
+<body ng-app="SwimManager" ng-controller="AtletasCtrl" ng-init="getallnombre()">
 
     <div class="page-header">
         <h1>Atletas</h1>
@@ -37,13 +37,13 @@
     <div class="container marketing">
 
         <!-- Three columns of text below the carousel -->
-        <div class="row" ng-controller="AtletasCtrl" style="margin-botton:500px">
+        <div class="row" style="margin-botton:500px">
             <div class="col-md-3 col-sm-6 text-center" ng-repeat="atleta in atletas|filter:searchBar">
                 <img ng-src="{{atleta.Imagen}}">
                 <h5>{{atleta.Nombre+ " "+atleta.Apellido1+ " "+atleta.Apellido2}}</h5>
                 <p>{{atleta.Carrera}}</p>
 
-                <p><a href="AtletaM.html" class="btn btn-default" role="button">Ver mas..</a>
+                <p><a href="AtletaM.html?id={{atleta._id}}" class="btn btn-default" role="button">Ver mas..</a>
                 </p>
             </div>
         </div>
@@ -51,3 +51,5 @@
 
     </div>
 </body>
+
+</html>

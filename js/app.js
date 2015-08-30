@@ -8,12 +8,14 @@ function getUrlVars() {
     return vars;
 }
 app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
-    Conector.atletas.getNombre($http)
-        .then(function (response) {
-            $scope.atletas = response.data._items;
-        }, function (response) {
-            console.error(response);
-        });
+    $scope.getallnombre = function () {
+        Conector.atletas.getNombre($http)
+            .then(function (response) {
+                $scope.atletas = response.data._items;
+            }, function (response) {
+                console.error(response);
+            });
+    };
 
     $scope.atleta = {
         "Nombre": "",

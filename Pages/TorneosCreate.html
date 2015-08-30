@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html ng-app="SwimManager">
 
-  <head>
+<head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
     <meta charset="utf-8">
     <title>Swim Manager</title>
-    <meta content="Bootply" name="generator"/>
+    <meta content="Bootply" name="generator" />
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
     <!--[if lt IE 9]> <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
     <link href="../css/styles.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/angular.min.js"></script>
-  </head>
 </head>
 
-<body >
-  <div class="page-header">
-    <h1>Atletas</h1>
-  </div>
+<body>
+    <div class="page-header">
+        <h1>Atletas</h1>
+    </div>
 
-  <div style="background-color:white">
-    <div class="container">
-      <div>
-        <div class="col-sm-6">
-<!-- FORM ============ -->
+    <div style="background-color:white">
+        <div class="container">
+            <div>
+                <div class="col-sm-6">
+                    <!-- FORM ============ -->
 
-          <form enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addTorneo()">
-            <h3>Torneos</h3>
-            <h5>* Datos requeridos</h5>
+                    <form enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addTorneo()">
+                        <h3>Torneos</h3>
+                        <h5>* Datos requeridos</h5>
 
-<!-- NAME -->
-            <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-              <label style="width:120px ">Nombre*</label>
-              <input name="name" ng-model="torneo.Nombre" placeholder="nombre" required type="text">
+                        <!-- NAME -->
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+                            <label style="width:120px ">Nombre*</label>
+                            <input name="name" ng-model="torneo.Nombre" placeholder="nombre" required type="text">
 
-            </div>
-<!-- <p></p>
+                        </div>
+                        <!-- <p></p>
             <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
               <label style="width:120px ">Primer Apellido*</label>
               <input name="Apellido1" ng-model="atleta.Apellido1" placeholder="Primer apellido" required type="text">
@@ -141,19 +140,21 @@
 
             </div>
 -->
-            <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="submit">Submit</button>
+                        <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="submit">Submit</button>
 
-          </form>
+                    </form>
+                </div>
+
+            </div>
         </div>
-
-      </div>
     </div>
-  </div>
-<!--Modules-Connectors-->
-  <script src="../js/app.js"></script>
-  <script src="../js/conector.js"></script>
-  <script src="../js/sweetalert.min.js"></script>
-<!--Contollers-->
-  <script src="../js/Controllers/TorneosController.js"></script>
+    <!--Modules-Connectors-->
+    <script src="../js/app.js"></script>
+    <script src="../js/conector.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
+    <!--Contollers-->
+    <script src="../js/Controllers/TorneosController.js"></script>
 
 </body>
+
+</html>
