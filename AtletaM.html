@@ -8,10 +8,12 @@
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/swim.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
@@ -23,22 +25,22 @@
     </div>
     <div class="row">
         <div class="col-md-3 col-sm-4 col-xs-7 text-center">
-            <img src="pizarro.jpg">
+            <img src="{{atletaOne.Nombre.Imagen}}">
             <h6>{{atletaOne.Nombre.Nombre +" " + atletaOne.Nombre.Apellido1 +" " + atletaOne.Nombre.Apellido2 }}</h6>
-            <h6>1-1245-8956</h6>
+            <h6>{{atletaOne.Cedula}}</h6>
             <p><a href="AtletaM.html" class="btn btn-default" role="button">Modificar</a>
                 <a href="AtletaM.html" class="btn btn-default" role="button">Eliminar</a>
             </p>
         </div>
         <div class="col-md-3 col-sm-4 col-xs-6 text-center ">
             <h4>carné</h4>
-            <h6>1-1245-8956</h6>
-            <h4>telefono</h4>
-            <h6>8888-8888</h6>
+            <h6>{{atletaOne.Carne}}</h6>
+            <h4>Telefono</h4>
+            <h6>{{atletaOne.Telefonos}}</h6>
             <h4>feha Nacimiento</h4>
-            <h6>9/03/1994</h6>
+            <h6>{{atletaOne.FechaNacimiento}}</h6>
             <h4>Peso</h4>
-            <h6>73 Kg</h6>
+            <h6>{{atletaOne.Peso}} Kg</h6>
 
         </div>
         <div class="col-md-3 col-sm-4 col-xs-6 text-center">
