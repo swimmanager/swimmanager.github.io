@@ -382,12 +382,14 @@ var Conector = {
     },
     usuarios: {
         base: "/anvandaren",
+        no_pass: "?projection={\"losenord\":0}",
         getAll: function ($http) {
-            var uri = Conector.url + Conector.usuarios.base;
+            var uri = Conector.url + Conector.usuarios.base + Conector.usuarios.no_pass;
+            console.log(uri);
             return $http.get(uri);
         },
         getOne: function ($http, id) {
-            var uri = Conector.url + Conector.usuarios.base + "/" + id;
+            var uri = Conector.url + Conector.usuarios.base + "/" + id + Conector.usuarios.no_pass;
             return $http.get(uri);
         },
         add: function ($http, data, auth) {
@@ -436,6 +438,23 @@ var Conector = {
         return $http.post(uri, data, confg).then(function (response) {
             console.log(response);
             $scope.auth = response.status == 201;
+            $scope.auth_p = auth;
+        }, function (response) {
+            console.error(response);
+            $scope.auth = false;
+        });
+    },
+    logInAdmin: function ($http, $scope, user, pass) {
+        var uri = Conector.url + Conector.usuarios.base + Conector.usuarios.no_pass;
+        var auth = Base64.encode(user + ":" + pass);
+        var confg = {
+            headers: {
+                "Authorization": "Basic " + auth
+            }
+        };
+        return $http.get(uri, confg).then(function (response) {
+            console.log(response);
+            $scope.auth = response.status == 200;
             $scope.auth_p = auth;
         }, function (response) {
             console.error(response);
