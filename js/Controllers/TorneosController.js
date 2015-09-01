@@ -18,30 +18,25 @@ app.controller('TorneosCtrl', function($scope, $http) { // ejemplo
       });
   }
 
-  $scope.updateEdicion = function() {
-      $scope.edicion.Nombre=$scope.edicionOne.Nombre;
-      $scope.edicion.fecha=$scope.edicionOne.fecha;
-      $scope.edicion.Torneo=$scope.edicionOne.Torneo;
-      var auth = "Nata2015:__Swim__2015"; //login data
+  $scope.updateEdicion = function(index) {
+    var edicionModificar = $scope.EdicionesTorneo[index];
+    console.log(edicionModificar);
+    var edicionModificarSend = {
+      'Nombre': edicionModificar.Nombre,
+      'Torneo': edicionModificar.Torneo,
+      'fecha':  edicionModificar.fecha.valueOf().toString()
+    }
+    var auth = "Nata2015:__Swim__2015"; //login data
 
+    console.log(edicionModificarSend);
     Conector.ediciones.update($http,
-      $scope.edicion,
-      Base64.encode(auth),
-      $scope.edicionOne._id,
-      $scope.edicionOne._etag)
+        edicionModificarSend,
+        Base64.encode(auth),
+        edicionModificar._id,
+        edicionModificar._etag)
       .then(function(response) {
-        PopUp.successChangePage("Edicion Modificada","TorneosOneView.html?id="+$scope.edicion.Torneo);
+        PopUp.successSamePage("Edicion Modificada");
         console.log(response);
-      }, function(response) {
-        console.error(response);
-      });
-  }
-  $scope.loadOneEdicion = function() {
-    var id = getUrlVars()["id"];
-    Conector.ediciones.getOne($http, id)
-      .then(function(response) {
-        $scope.edicionOne = response.data;
-        $scope.edicionOne.fecha = new Date(parseInt($scope.edicionOne.fecha));
       }, function(response) {
         console.error(response);
       });
@@ -60,7 +55,10 @@ app.controller('TorneosCtrl', function($scope, $http) { // ejemplo
     Conector.ediciones.getAllbyTorneo($http, id)
       .then(function(response) {
         $scope.EdicionesTorneo = response.data._items;
-        console.log(response);
+        for (i = 0; i < $scope.EdicionesTorneo.length; i++) {
+          $scope.EdicionesTorneo[i].fecha = new Date(parseInt($scope.EdicionesTorneo[i].fecha));
+        }
+        console.log($scope.EdicionesTorneo);
       }, function(response) {
         console.error(response);
       });
@@ -101,7 +99,7 @@ app.controller('TorneosCtrl', function($scope, $http) { // ejemplo
 
     Conector.torneos.update($http, $scope.torneo, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
       .then(function(response) {
-        PopUp.successChangePage("Torneo Modificado","TorneosAllView.html");
+        PopUp.successChangePage("Torneo Modificado", "TorneosAllView.html");
       }, function(response) {
         console.error(response); // Deberia haber un mejor manejo aqui
       });
@@ -114,7 +112,7 @@ app.controller('TorneosCtrl', function($scope, $http) { // ejemplo
       if (response === 1) {
         Conector.torneos.delete($http, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
           .then(function(response) {
-            PopUp.successChangePage("Torneo Borrado","TorneosAllView.html");
+            PopUp.successChangePage("Torneo Borrado", "TorneosAllView.html");
           }, function(response) {
             console.error(response); // Deberia haber un mejor manejo aqui
           });
