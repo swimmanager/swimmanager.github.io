@@ -28,16 +28,14 @@
     </div>
     <div class="row">
         <div class="col-md-3 col-sm-4 col-xs-6 text-center ">
-            <div class="col-md-3 col-sm-4 col-xs-7 text-center">
-                <img class="img-responsive fit" src="{{atletaOne.Nombre.Imagen}}">
-                <h6>{{atletaOne.Nombre.Nombre +" " + atletaOne.Nombre.Apellido1 +" " + atletaOne.Nombre.Apellido2 }}</h6>
-                <h6>{{atletaOne.Cedula}}</h6>
-                <p>
-                    <button class="btn btn-default" ng-click="deleteAthlete()">Borrar</button>
-                    <a href="AtletaUp.html?id={{atletaOne.Nombre._id}}" class="btn btn-default" role="button">modificar</a>
-                </p>
+            <img class="img-responsive" src="{{atletaOne.Nombre.Imagen}}">
+            <h6>{{atletaOne.Nombre.Nombre +" " + atletaOne.Nombre.Apellido1 +" " + atletaOne.Nombre.Apellido2 }}</h6>
+            <h6>{{atletaOne.Cedula}}</h6>
+            <p>
+                <button class="btn btn-default" ng-click="deleteAthlete()">Borrar</button>
+                <a href="AtletaUp.html?id={{atletaOne.Nombre._id}}" class="btn btn-default" role="button">modificar</a>
+            </p>
 
-            </div>
         </div>
         <div class="col-md-3 col-sm-4 col-xs-6 text-center ">
             <h4>carné</h4>
