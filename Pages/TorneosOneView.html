@@ -2,93 +2,98 @@
 <html ng-app="SwimManager">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Swim Manager</title>
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Swim Manager</title>
+  <meta name="generator" content="Bootply" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
 
-    <!--[if lt IE 9]>
+  <!--[if lt IE 9]>
   <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-    <link href="../css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../css/swim.css">
-    <link rel="stylesheet" type="text/css" href="../css/swim2.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/angular.min.js"></script>
-    <script src="../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+  <link href="../css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../css/swim.css">
+  <link rel="stylesheet" type="text/css" href="../css/adv.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/angular.min.js"></script>
+  <script src="../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
 </head>
 
 <body ng-controller="TorneosCtrl" ng-init="loadOneTorneo()">
-    <div class="container">
-        <div class="row">
-            <div class="page-header">
-                <h1>{{torneoOne.Nombre}}</h1>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-7">
-                <img src="../Img/pool.png" class="img-responsive">
-                <p><a href="TorneosUpdate.html?id={{torneoOne._id}}" class="btn btn-default" role="button">Modificar</a>
-                    <a ng-click="deleteTorneo()" class="btn btn-default" role="button">Eliminar</a>
-                </p>
+  <div class="page-header">
+    <h1>{{torneoOne.Nombre}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-4 col-xs-7">
+      <img src="../Img/pool.png" class="img-responsive">
+      <p><a href="TorneosUpdate.html?id={{torneoOne._id}}" class="btn btn-default" role="button">Modificar</a>
+        <a ng-click="deleteTorneo()" class="btn btn-default" role="button">Eliminar</a>
+      </p>
 
-                <!--Form de Edicion-->
-                <h2>Agregar Edicion</h2>
-                <form enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEdicion()">
-                    <div class="form-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
-                        <h3 style="color:rgb(245, 245, 220)">Nombre Edicion *</h3>
-                        <input name="edicion" ng-model="edicion.Nombre" placeholder="Ej:UNED 2015" required type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <h3 style="color:rgb(245, 245, 220)">Fecha</h3>
-                        <input name="fecha" value="2015-11-30" type="date" class="form-control" datepicker-popup ng-model="edicion.fecha" close-text="Close" />
-                    </div>
-                    <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
-                </form>
-
-                <!---->
-            </div>
-            <div class="col-md-8 col-sm-12 col-xs-12 text-center ">
-                <h1>Ediciones</h1>
-                <div class="list-group">
-                    <div ng-repeat="edicion in EdicionesTorneo">
-
-                        <div class="col-md-8">
-                            <a href="#" class="list-group-item">
-                                <span>{{edicion.Nombre}}</span>
-                                <span>{{edicion.fecha|date:"mediumDate"}}</span>
-                            </a>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="EdicionUpdate.html?id={{edicion._id}}">
-                                <button class="btn btn-warning" type="submit">Modificar</button>
-                            </a>
-                        </div>
-
-                        <div class="col-md-2">
-                            <button class="btn btn-danger" ng-click="deleteEdicion($index)" type="submit">Borrar</button>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
+      <!--Form de Edicion-->
+      <h2>Agregar Edicion</h2>
+      <form enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEdicion()">
+        <div class="form-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
+          <h3 style="color:rgb(245, 245, 220)">Nombre Edicion *</h3>
+          <input name="edicion" ng-model="edicion.Nombre" placeholder="Ej:UNED 2015" required type="text">
         </div>
+
+        <div class="form-group">
+          <h3 style="color:rgb(245, 245, 220)">Fecha</h3>
+          <input name="fecha" value="2015-11-30" type="date" class="form-control" datepicker-popup ng-model="edicion.fecha" close-text="Close" />
+        </div>
+        <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
+      </form>
+
+      <!---->
     </div>
-    <!--Modules-Connectors-->
-    <script src="../js/app.js"></script>
-    <script src="../js/conector.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <script src="../js/ExtraFunctions/PopUp.js"></script>
-    <!--Controllers-->
-    <script src="../js/Controllers/EdicionesController.js"></script>
-    <script src="../js/Controllers/EventosController.js"></script>
-    <script src="../js/Controllers/TorneosController.js"></script>
+    <div class="col-md-8 col-sm-12 col-xs-12 text-center ">
+      <div class="col-md-8">
+        <div class="col-md-6">
+          <h1>Nombre</h1>
+        </div>
+        <div class="col-md-6">
+          <h1>Fecha</h1>
+        </div>
+      </div>
+
+      <div ng-repeat="edicion in EdicionesTorneo">
+
+        <div class="col-md-8">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Nombre" ng-model="edicion.Nombre">
+          </div>
+          <div class="col-md-6">
+            <input name="fecha" type="date" class="form-control"
+            datepicker-popup ng-model="edicion.fecha"
+             close-text="Close" />
+          </div>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-warning" ng-click="updateEdicion($index)" type="submit">Modificar</button>
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-danger" ng-click="deleteEdicion($index)" type="submit">Borrar</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!--Modules-Connectors-->
+  <script src="../js/app.js"></script>
+  <script src="../js/conector.js"></script>
+  <script src="../js/sweetalert.min.js"></script>
+  <script src="../js/ExtraFunctions/PopUp.js"></script>
+  <!--Controllers-->
+  <script src="../js/Controllers/EdicionesController.js"></script>
+  <script src="../js/Controllers/EventosController.js"></script>
+  <script src="../js/Controllers/TorneosController.js"></script>
 
 </body>
-
-</html>
