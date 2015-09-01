@@ -6,3 +6,13 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.Inverse {
+    color: rgb(6, 109, 139);
+    font-weight: 500
+}
+
+.Inverse h5 {
+    font-weight: 700;
+    font-size: 2em
+}
