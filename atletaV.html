@@ -43,12 +43,14 @@
         <!-- Three columns of text below the carousel -->
         <div class="row" style="margin-botton:500px">
             <div class="col-md-3 col-sm-6 text-center" ng-repeat="atleta in atletas|filter:searchBar">
-                <img ng-src="{{atleta.Imagen}}">
-                <h5>{{atleta.Nombre+ " "+atleta.Apellido1+ " "+atleta.Apellido2}}</h5>
-                <p>{{atleta.Carrera}}</p>
+                <div class="thumbnail">
+                    <img class="" ng-src="{{atleta.Imagen}}">
+                    <h5>{{atleta.Nombre+ " "+atleta.Apellido1+ " "+atleta.Apellido2}}</h5>
+                    <p>{{atleta.Carrera}}</p>
 
-                <p><a href="AtletaM.html?id={{atleta._id}}" class="btn btn-default" role="button">Ver mas..</a>
-                </p>
+                    <p><a href="AtletaM.html?id={{atleta._id}}" class="btn btn-default" role="button">Ver mas..</a>
+                    </p>
+                </div>
             </div>
         </div>
         <!-- /.row -->
