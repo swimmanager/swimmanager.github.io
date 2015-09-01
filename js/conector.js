@@ -363,6 +363,11 @@ var Conector = {
             var uri = Conector.url + Conector.resultados.base + "/" + id;
             return $http.get(uri);
         },
+        getbyIds: function ($http, idE, idP) {
+            var uri = Conector.url + Conector.resultados.base +
+                "?embedded={\"Atleta\":1}&where={\"Edicion\":\"" + idE + "\",\"Evento\":\"" + idP + "\"}";
+            return $http.get(uri);
+        },
         add: function ($http, data, auth) {
             var uri = Conector.url + Conector.resultados.base;
             var confg = {

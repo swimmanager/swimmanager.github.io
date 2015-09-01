@@ -16,3 +16,19 @@
     font-weight: 700;
     font-size: 2em
 }
+
+.fit {
+    width: 650%;
+}
+
+.caja {
+    border: 1px;
+    border-style: dotted;
+    border-color: dodgerblue;
+    padding: 5px;
+    margin: 5px;
+}
+
+input {
+    color: black
+}

@@ -14,6 +14,7 @@
     <link href="css/styles.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
     <link rel="stylesheet" type="text/css" href="css/swim.css">
+    <link rel="stylesheet" type="text/css" href="css/swim2.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/swim.css">
@@ -27,16 +28,16 @@
 
 
 
-<body ng-app="SwimManager" ng-controller="ResultadosCtrl" ng-init="load()">
+<body ng-app="SwimManager" ng-controller="ResultadosBCtrl">
 
     <div class="page-header">
         <h1>Resultados</h1>
     </div>
-    <div class="container">
+    <div class="container" ng-init="loadT()">
 
         <div class="row clearfix">
-            <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
-
+            <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                <!--
                 <form class="InverseForm" ng-submit="guardar()">
                     <h2>Datos del Torneo</h2>
                     <label>Torneo</label>
@@ -68,20 +69,45 @@
         <button class="btn btn-danger" type="button" ng-click="quitar(idx)">Eliminar</button>
       </span>
                             </div>
-                            <!-- /input-group -->
                         </div>
                     </div>
                     <button class="btn btn-primary" ng-click="addUsuario()" type="submit">Submit</button>
-                </form>
+                </form> -->
+                <div class="caja" ng-repeat="torneo in torneos" ng-model="torneos">
+                    <h2>{{torneo.Nombre}}</h2>
+                    <div class="caja" ng-repeat="edicion in torneo.ediciones ">
+                        <h3>{{edicion.Nombre}} Fecha{{edicion.Fecha|date:"mediumDate "}} </h3>
+                        <div class="caja" ng-repeat="prueba in edicion.eventos ">
+                            <h4>{{prueba.Nombre}} Genero {{prueba.Genero}} </h4>
+                            <div class="caja" ng-repeat="atleta in prueba.atletas ">
+                                <label>Nombre</label>
+                                <div class="input-group ">
+                                    <label>{{atleta.Atleta.Nombre+" "+atleta.Atleta.Apellido1+ " " +atleta.Atleta.Apellido2}}</label>
+                                    <span class="input-group-btn ">
+        <button class="btn btn-danger " type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+      </span>
+                                </div>
+                                <label>Tiempo</label>
+                                <div class="input-group ">
+                                    <input type="text " class="form-control " ng-model="atleta.TiempoRealizado " readonly>
+                                    <span class="input-group-btn ">
+        <button class="btn btn-default " type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+      </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <p><a href="resultados.html" class="btn btn-default" role="button">Agregar</a></p>
     </div>
 
-    <script src="./js/app.js"></script>
-    <script src="./js/sweetalert.min.js"></script>
-    <script src="./js/conector.js"></script>
+    <script src="./js/app.js "></script>
+    <script src="./js/sweetalert.min.js "></script>
+    <script src="./js/conector.js "></script>
     <!--Controllers-->
-    <script src="./js/Controllers/ResultadosController.js"></script>
+    <script src="./js/Controllers/ResultadosBController.js "></script>
 
 </body>
 

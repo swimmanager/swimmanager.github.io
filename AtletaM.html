@@ -14,6 +14,7 @@
 		<![endif]-->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/swim.css" rel="stylesheet">
+    <link href="css/swim2.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
@@ -25,13 +26,16 @@
         <h1>Atletas</h1>
     </div>
     <div class="row">
-        <div class="col-md-3 col-sm-4 col-xs-7 text-center">
-            <img src="{{atletaOne.Nombre.Imagen}}">
-            <h6>{{atletaOne.Nombre.Nombre +" " + atletaOne.Nombre.Apellido1 +" " + atletaOne.Nombre.Apellido2 }}</h6>
-            <h6>{{atletaOne.Cedula}}</h6>
-            <p><a href="AtletaM.html" class="btn btn-default" role="button">Modificar</a>
-                <a href="AtletaM.html" class="btn btn-default" role="button">Eliminar</a>
-            </p>
+        <div class="col-md-3 col-sm-4 col-xs-6 text-center ">
+            <div class="col-md-3 col-sm-4 col-xs-7 text-center">
+                <img class="fit" src="{{atletaOne.Nombre.Imagen}}">
+                <h6>{{atletaOne.Nombre.Nombre +" " + atletaOne.Nombre.Apellido1 +" " + atletaOne.Nombre.Apellido2 }}</h6>
+                <h6>{{atletaOne.Cedula}}</h6>
+                <p><a href="AtletaM.html" class="btn btn-default" role="button">Modificar</a>
+                    <a href="AtletaM.html" class="btn btn-default" role="button">Eliminar</a>
+                </p>
+
+            </div>
         </div>
         <div class="col-md-3 col-sm-4 col-xs-6 text-center ">
             <h4>carné</h4>
