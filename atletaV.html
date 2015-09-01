@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
     <script src="js/sweetalert.min.js"></script>
     <script src="js/conector.js"></script>
     <script src="js/app.js"></script>
@@ -42,7 +43,7 @@
         <!-- Three columns of text below the carousel -->
         <div class="row" style="margin-botton:500px">
             <div class="col-md-3 col-sm-6 text-center" ng-repeat="atleta in atletas|filter:searchBar">
-                <img ng-src="{{atleta.Imagen}}">
+                <img class="img-responsive Inverse" ng-src="{{atleta.Imagen}}">
                 <h5>{{atleta.Nombre+ " "+atleta.Apellido1+ " "+atleta.Apellido2}}</h5>
                 <p>{{atleta.Carrera}}</p>
 
