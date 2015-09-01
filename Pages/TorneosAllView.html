@@ -37,7 +37,7 @@
     </nav>
     <div class="container marketing">
 
-        <div class="row" style="margin-botton:500px">
+        <div class="row"  style="margin-botton:500px">
             <div class="col-md-3 col-sm-6 text-center" ng-repeat="torneo in torneos|filter:searchText">
                 <img src="../Img/pool.png" class="img-responsive">
                 <p>{{torneo.Nombre}}</p>
@@ -50,12 +50,11 @@
     </div>
     <!--Modules-Connectors-->
     <script src="../js/app.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
+      <script src="../js/sweetalert.min.js"></script>
     <script src="../js/conector.js"></script>
 
     <!--Controllers-->
     <script src="../js/Controllers/TorneosController.js"></script>
 
 </body>
-
 </html>
