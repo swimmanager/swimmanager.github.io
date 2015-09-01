@@ -28,11 +28,41 @@
 
 
 <body ng-app="SwimManager" ng-controller="ResultadosCtrl" ng-init="load()">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Swim Manager</a>
+        </div>
+        <center>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Index <span class="sr-only">(current)</span></a></li>
+                    <li><a href="atletaV.html">Atletas</a></li>
+                    <li><a href="#">Historicos</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manejo de Torneos <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./Pages/TorneosAllView.html">Torneos</a></li>
+                            <li><a href="./Pages/TorneosAllView.html">Ediciones</a></li>
+                            <li><a href="./Pages/EventosView.html">Eventos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="resultadosV.html">Resultados</a></li>
+                    <li><a href="./Pages/Usuarios.html">Usuarios</a></li>
+                </ul>
+            </div>
+        </center>
 
-    <div class="page-header">
-        <h1>Resultados</h1>
     </div>
+    <br>
     <div class="container">
+        <div class="page-header">
+            <h1>Resultados</h1>
+        </div>
 
         <div class="row clearfix">
             <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">

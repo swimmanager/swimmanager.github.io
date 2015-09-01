@@ -11,7 +11,18 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
         idt: "int0"
     }];
 
+    $scope.PruebasSelect = {
+        _id: "",
+        Nombre: "",
+        Genero: ""
+    };
+
+
+
+    $scope.count = 1;
+
     $scope.load = function () {
+        $scope.count = 1;
         Conector.torneos.getAll($http).then(function (response) {
             $scope.torneos = response.data._items;
         }, function (response) {
@@ -24,162 +35,86 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
         });
     };
 
-    $scope.loadUsuarios = function () {
-        //Loading.show();
-        var user = "Nata2015";
-        var pass = "__Swim__2015";
-
-        Conector.logInAdmin($http, $scope, user, pass).then(function () {
-            if ($scope.auth) {
-                Conector.usuarios.getAll($http)
-                    .then(function (response) {
-                        $scope.users = response.data._items;
-                        console.log($scope.users);
-                        //Loading.hide();
-                    }, function (response) {
-                        console.error(response); // Deberia haber un mejor manejo aqui
-                    });
-            } else {
-                console.log($scope.auth);
-            }
-        }, function (err) {
-            console.error(err);
-            window.location.replace("../index.html");
-        });
-    };
-
-    $scope.addUsuario = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
-        Conector.usuarios.add($http, $scope.userMod, Base64.encode(auth)).
-        then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Usuario Agregado",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
-            });
+    $scope.getEdiciones = function () {
+        var index = document.getElementById("idTorneos").selectedIndex;
+        Conector.ediciones.getAllbyTorneo($http, $scope.torneos[index]._id).then(function (response) {
+            $scope.ediciones = response.data._items;
         }, function (response) {
-            console.error(response); // Deberia haber un mejor manejo aqui
+            console.error(response);
         });
+
     };
 
-    $scope.patchUsername = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+    $scope.agregar = function () {
 
-        var data = {
-            anvandarnamn: $scope.userMod.anvandarnamn
-        };
+        $scope.idList.push({
+            id: "inp" + $scope.count,
+            idt: "int" + $scope.count
+        });
+        $scope.count += 1;
+    };
 
-        var id = document.getElementById("idselector").selectedIndex;
-        var currnt = $scope.users[id];
+    $scope.quitar = function (idx) {
+        var index = $scope.idList.indexOf(idx);
+        $scope.idList.splice(index, 1);
+    };
 
-        Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
-        then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Nombre de Usuario Cambiado",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
-            });
+    $scope.getAtletas = function () {
+        var index = document.getElementById("idPrueba").selectedIndex;
+        var genero = $scope.eventos[index].Genero;
+        var req = genero === "Mixto" ? Conector.atletas.getAllonlyName($http) : Conector.atletas.getAllbyGeneroonlyName($http, genero);
+        req.then(function (response) {
+            $scope.atletas = response.data._items;
+            console.log($scope.atletas);
         }, function (response) {
-            console.error(response); // Deberia haber un mejor manejo aqui
+            console.error(response);
         });
     };
 
-    $scope.patchPass = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+    $scope.tohidden = function (elem, id) {
+        document.getElementById(id).value = elem.Nombre._id;
+    };
 
-        var data = {
-            losenord: $scope.userMod.losenord
-        };
+    $scope.guardar = function () {
 
-        var id = document.getElementById("idselector").selectedIndex;
-        var currnt = $scope.users[id];
+        var data = [];
+        var indexP = document.getElementById("idPrueba").selectedIndex;
+        var prueba = $scope.eventos[indexP]._id;
 
-        Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
-        then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Contraseña Cambiada",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
+        var indexE = document.getElementById("idEdiciones").selectedIndex;
+        var edicion = $scope.ediciones[indexE]._id;
+
+
+
+        $scope.idList.forEach(function (item) {
+            data.push({
+                Atleta: document.getElementById(item.id).value,
+                Evento: prueba,
+                Edicion: edicion,
+                //Carril: -1,
+                //Hit: -1,
+                //TiempoRegistro: -1,
+                //Puntos: 0,
+                TiempoRealizado: document.getElementById(item.idt).value
             });
-        }, function (response) {
-            console.error(response); // Deberia haber un mejor manejo aqui
         });
-    };
-
-    $scope.patchRol = function () {
+        console.log(data);
         var auth = "Nata2015:__Swim__2015"; //login data
-
-        var data = {
-            roll: $scope.userMod.roll
-        };
-
-        var id = document.getElementById("idselector").selectedIndex;
-        var currnt = $scope.users[id];
-
-        Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
-        then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Rol Cambiado",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
+        Conector.resultados.add($http, data, Base64.encode(auth))
+            .then(function (response) {
+                //PopUp.showSuccess('Usuario Agregado Exitosamente');
+                swal({
+                    title: "Exito",
+                    text: "Resultado Agregado",
+                    type: "success",
+                    showConfirmButton: true,
+                    closeOnConfirm: true
+                }, function () {
+                    window.location.replace("./resultados.html");
+                });
+            }, function (response) {
+                console.error(response); // Deberia haber un mejor manejo aqui
             });
-        }, function (response) {
-            console.error(response); // Deberia haber un mejor manejo aqui
-        });
     };
 
-
-    //funcion que borra el torneo de la base
-    $scope.deleteUsuario = function () {
-        var auth = "Nata2015:__Swim__2015";
-        swal({
-            title: "Seguro desea borrarlo?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, Borrar!",
-            cancelButtonText: "No",
-            closeOnConfirm: false,
-            closeOnCancel: true
-        }, function (isConfirm) {
-            if (isConfirm) {
-                var id = document.getElementById("idselector").selectedIndex;
-                var currnt = $scope.users[id];
-                Conector.usuarios.delete($http, Base64.encode(auth), currnt._id, currnt._etag)
-                    .then(function (response) {
-                        swal({
-                            title: "Exito",
-                            text: "Usuario Borrado",
-                            type: "success",
-                            showConfirmButton: true,
-                            closeOnConfirm: true
-                        }, function () {
-                            window.location.replace("Usuarios.html");
-                        });
-                    }, function (response) {
-                        console.error(response); // Deberia haber un mejor manejo aqui
-                    });
-            } else {}
-        });
-    };
 });

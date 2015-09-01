@@ -32,3 +32,16 @@
 input {
     color: black
 }
+
+.nom {
+    background-color: #066d8b;
+}
+.h1grande{
+    font-size: 3.5em;
+}
+.deco {
+    background-color: darkcyan;
+    margin: 5px;
+    border-radius: 5px;
+        
+}

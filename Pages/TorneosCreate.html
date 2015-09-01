@@ -23,17 +23,48 @@
 </head>
 
 <body>
-    <div class="page-header">
-        <h1>Agregar Torneo</h1>
-    </div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Swim Manager</a>
+        </div>
+        <center>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                    <li><a href="../index.html">Index <span class="sr-only">(current)</span></a></li>
+                    <li><a href="../atletaV.html">Atletas</a></li>
+                    <li><a href="#">Historicos</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manejo de Torneos <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./TorneosAllView.html">Torneos</a></li>
+                            <li><a href="./TorneosAllView.html">Ediciones</a></li>
+                            <li><a href="./EventosView.html">Eventos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../resultadosV.html">Resultados</a></li>
+                    <li class="active"><a href="./Usuarios.html">Usuarios</a></li>
+                </ul>
+            </div>
+        </center>
 
-    <div style="background-color:white">
-        <div class="container">
+    </div>
+    <br>
+    <div class="container">
+        <div class="page-header">
+            <h1>Agregar Torneo</h1>
+        </div>
+
+        <div style="background-color:white">
             <div>
                 <div class="col-sm-6">
                     <!-- FORM ============ -->
 
-                    <form enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addTorneo()">
+                    <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addTorneo()">
                         <h3>Torneos</h3>
                         <h5>* Datos requeridos</h5>
 
