@@ -16,7 +16,7 @@ var Ediciones = {
     data.fecha=d.valueOf().toString();
     Conector.ediciones.add($http,data, Base64.encode(auth)).
     then(function(response) {
-      console.log(response);
+      console.log(data);
       ediciones.push(data);
       PopUp.successSamePage("Edicion Agregada");
     }, function(response) {
