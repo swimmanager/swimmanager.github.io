@@ -140,6 +140,7 @@ var Conector = {
             var uri = Conector.url + Conector.atletas.nombres;
             return $http.get(uri);
         },
+
         addNombre: function ($http, data, auth) {
             var uri = Conector.url + Conector.atletas.nombres;
             var confg = {
@@ -173,6 +174,16 @@ var Conector = {
 
         getAll: function ($http) {
             var uri = Conector.url + Conector.atletas.all + "?embedded={\"Nombre\":1}";
+            return $http.get(uri);
+        },
+        getAllbyGeneroonlyName: function ($http, genero) {
+            var uri = Conector.url + Conector.atletas.all +
+                "?embedded={\"Nombre\":1}&projection={\"Nombre\":1}&where={\"Genero\":\"" + genero + "\"}";
+            return $http.get(uri);
+        },
+        getAllonlyName: function ($http) {
+            var uri = Conector.url + Conector.atletas.all +
+                "?embedded={\"Nombre\":1}&projection={\"Nombre\":1}";
             return $http.get(uri);
         },
         getOneAll: function ($http, id) {
@@ -262,6 +273,10 @@ var Conector = {
         },
         getOne: function ($http, id) {
             var uri = Conector.url + Conector.ediciones.base + "/" + id;
+            return $http.get(uri);
+        },
+        getAllbyTorneo: function ($http, id) {
+            var uri = Conector.url + Conector.ediciones.base + "?where={\"Torneo\":\"" + id + "\"}";
             return $http.get(uri);
         },
         add: function ($http, data, auth) {

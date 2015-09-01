@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Swim Manager</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="css/swim.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/swim.css">
+    <link rel="stylesheet" type="text/css" href="css/adv.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+</head>
+
+
+
+<body ng-app="SwimManager" ng-controller="ResultadosCtrl" ng-init="load()">
+
+    <div class="page-header">
+        <h1>Resultados</h1>
+    </div>
+    <div class="container">
+
+        <div class="row clearfix">
+            <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+
+                <form class="InverseForm" ng-submit="guardar()">
+                    <h2>Datos del Torneo</h2>
+                    <label>Torneo</label>
+                    <select id="idTorneos" name="TorneosSelect" ng-model="TorneosSelect" class="form-control" ng-change="getEdiciones()">
+                        <option ng-repeat="torneo in torneos" value="{{torneo._id}}">{{torneo.Nombre}}</option>
+                    </select>
+                    <label>Edición</label>
+                    <select id="idEdiciones" name="EdicionesSelect" ng-model="EdicionesSelect" class="form-control">
+                        <option ng-repeat="edicion in ediciones" value="{{edicion._id}}">
+                            {{edicion.Nombre}}, Fecha: {{edicion.fecha|date:"mediumDate"}}</option>
+                    </select>
+                    <label>Prueba</label>
+                    <select id="idPrueba" name="PruebasSelect" ng-model="PruebasSelect" class="form-control" ng-change="getAtletas()">
+                        <option ng-repeat="evento in eventos" value="{{evento._id}}">{{evento.Nombre}}, Genero: {{evento.Genero}}</option>
+                    </select>
+                    <div class="input-group">
+                        <h2 class="InverseForm">Atletas</h2>
+                        <span class="input-group-btn">
+        <button class="btn btn-success" type="button" ng-click="agregar()">Agregar</button>
+      </span>
+                    </div>
+                    <div id="atletasGroup">
+                        <div class="Space" ng-repeat="idx in idList">
+                            <input type="text" class="form-control" placeholder="Atleta" ng-model="atletaData" iid="{{atleta.Nombre._id}}" typeahead="(atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2) for atleta in atletas | filter:$viewValue | limitTo:10" typeahead-on-select="tohidden($item, idx.id)">
+                            <input id="{{idx.id}}" type="hidden">
+                            <div class="input-group">
+                                <input id="{{idx.idt}}" type="text" class="form-control" placeholder="Tiempo">
+                                <span class="input-group-btn">
+        <button class="btn btn-danger" type="button" ng-click="quitar(idx)">Eliminar</button>
+      </span>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" ng-click="addUsuario()" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/sweetalert.min.js"></script>
+    <script src="./js/conector.js"></script>
+    <!--Controllers-->
+    <script src="./js/Controllers/ResultadosController.js"></script>
+
+</body>
+
+</html>
