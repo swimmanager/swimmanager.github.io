@@ -33,15 +33,24 @@ input {
     color: black
 }
 
+.spamEvent {
+    width: 75px;
+}
+
+.spamEventB {
+    width: 100px;
+}
+
 .nom {
     background-color: #066d8b;
 }
-.h1grande{
+
+.h1grande {
     font-size: 3.5em;
 }
+
 .deco {
     background-color: darkcyan;
     margin: 5px;
     border-radius: 5px;
-        
 }

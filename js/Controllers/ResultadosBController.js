@@ -55,7 +55,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
                             showConfirmButton: true,
                             closeOnConfirm: true
                         }, function () {
-                            window.location.replace("resultadosV.html");
+                            window.location.replace("./resultadosV.html");
                         });
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
@@ -91,7 +91,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
                         showConfirmButton: true,
                         closeOnConfirm: true
                     }, function () {
-                        window.location.replace("resultadosV.html");
+                        window.location.replace("./resultadosV.html");
                     });
                 }, function (response) {
                     console.error(response); // Deberia haber un mejor manejo aqui

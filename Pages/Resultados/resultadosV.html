@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Swim Manager</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link href="../../css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../../css/swim.css">
+    <link rel="stylesheet" type="text/css" href="../../css/swim2.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/swim.css">
+    <link rel="stylesheet" type="text/css" href="../../css/swim2.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/angular.min.js"></script>
+    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+</head>
+
+
+
+<body ng-app="SwimManager" ng-controller="ResultadosBCtrl">
+    <navbarswim current-tab="Resultados"></navbarswim>
+    <br>
+    <div class="container" ng-init="loadT()">
+        <div class="page-header">
+            <h1>Resultados</h1>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="caja" ng-repeat="torneo in torneos" ng-model="torneos">
+                    <h2>{{torneo.Nombre}}</h2>
+                    <div class="caja" ng-repeat="edicion in torneo.ediciones ">
+                        <h3>{{edicion.Nombre}} Fecha{{edicion.Fecha|date:"mediumDate "}} </h3>
+                        <div class="caja" ng-repeat="prueba in edicion.eventos ">
+                            <h4>{{prueba.Nombre}} Genero {{prueba.Genero}} </h4>
+                            <div class="caja" ng-repeat="atleta in prueba.atletas ">
+                                <label>Nombre</label>
+                                <div class="input-group ">
+                                    <label>{{atleta.Atleta.Nombre+" "+atleta.Atleta.Apellido1+ " " +atleta.Atleta.Apellido2}}</label>
+                                    <span class="input-group-btn ">
+        <button class="btn btn-danger " type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+      </span>
+                                </div>
+                                <label>Tiempo</label>
+                                <div class="input-group ">
+                                    <input type="text " class="form-control " ng-model="atleta.TiempoRealizado " readonly>
+                                    <span class="input-group-btn ">
+        <button class="btn btn-default " type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+      </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p><a href="resultados.html" class="btn btn-default" role="button">Agregar</a></p>
+    </div>
+
+    <script src="../../js/app.js "></script>
+    <script src="../../js/sweetalert.min.js "></script>
+    <script src="../../js/conector.js "></script>
+    <!--Controllers-->
+    <script src="../../js/Controllers/ResultadosBController.js "></script>
+
+</body>
+
+</html>
