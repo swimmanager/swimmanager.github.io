@@ -34,7 +34,7 @@ input {
 }
 
 .spamEvent {
-    width: 75px;
+    width: 80px;
 }
 
 .spamEventB {
@@ -53,4 +53,8 @@ input {
     background-color: darkcyan;
     margin: 5px;
     border-radius: 5px;
+}
+
+.Inverse a {
+    color: rgb(245, 245, 220);
 }

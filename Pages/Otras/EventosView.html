@@ -29,49 +29,61 @@
             <h1>Eventos</h1>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <!--Form de Edicion-->
-                <h2>Agregar Evento</h2>
-                <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEvento()">
-                    <div class="form-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
-                        <label>Nombre Evento *</label>
-                        <input class="form-control" name="eventos" ng-model="eventos.Nombre" placeholder="Ej:3000" required type="text">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Genero</label>
-                        <div class="btn-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
-                            <label btn-radio="'Masculino'" class="btn btn-primary" ng-model="eventos.Genero" uncheckable>Masculino</label>
-                            <label btn-radio="'Mixto'" class="btn btn-success" ng-model="eventos.Genero" uncheckable>Mixto</label>
-                            <label btn-radio="'Femenino'" class="btn btn-danger" ng-model="eventos.Genero" uncheckable>Femenino</label>
+            <div class="col-md-12">
+                <ul class="nav nav-tabs nav-justified Inverse">
+                    <li class="active"><a data-toggle="tab" href="#Agregar">Agregar Evento</a></li>
+                    <li><a data-toggle="tab" href="#Editar">Editar Eventos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div id="Agregar" class="tab-pane fade in active">
+                <div class="col-md-6 col-md-offset-3">
+                    <!--Form de Edicion-->
+                    <h2>Agregar Evento</h2>
+                    <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEvento()">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
+                            <label>Nombre Evento *</label>
+                            <input class="form-control" name="eventos" ng-model="eventos.Nombre" placeholder="Ej:3000" required type="text">
                         </div>
-                    </div>
-                    <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
-                </form>
 
+                        <div class="form-group">
+                            <label>Genero</label>
+                            <div class="btn-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
+                                <label btn-radio="'Masculino'" class="btn btn-primary" ng-model="eventos.Genero" uncheckable>Masculino</label>
+                                <label btn-radio="'Mixto'" class="btn btn-success" ng-model="eventos.Genero" uncheckable>Mixto</label>
+                                <label btn-radio="'Femenino'" class="btn btn-danger" ng-model="eventos.Genero" uncheckable>Femenino</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
+                    </form>
+                </div>
                 <!---->
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <h2>Editar Eventos</h2>
-                <div ng-repeat="evento in eventosAll">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon spamEvent">Evento</span>
-                            <input type="text" class="form-control" placeholder="Nombre" ng-model="evento.Nombre">
-                            <span class="input-group-btn">
+            <div id="Editar" class="tab-pane fade">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                    <h2>Editar Eventos</h2>
+                    <div ng-repeat="evento in eventosAll">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon spamEvent">Evento</span>
+                                <input type="text" class="form-control" placeholder="Nombre" ng-model="evento.Nombre">
+                                <span class="input-group-btn">
         <button class="btn btn-warning spamEventB " ng-click="updateEvento($index)" type="submit">Modificar</button>
       </span>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon spamEvent">Genero</span>
-                            <input type="text" class="form-control" ng-model="evento.Genero" typeahead="evento for evento in listaEventos | filter:$viewValue | limitTo:8">
-                            <span class="input-group-btn">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon spamEvent">Genero</span>
+                                <input type="text" class="form-control" ng-model="evento.Genero" typeahead="evento for evento in listaEventos | filter:$viewValue | limitTo:8">
+                                <span class="input-group-btn">
         <button class="btn btn-danger spamEventB " ng-click="deleteEvento($index)" type="submit">Borrar</button>
       </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!--Modules-Connectors-->
