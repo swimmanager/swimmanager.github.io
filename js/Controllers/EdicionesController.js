@@ -2,21 +2,21 @@
 var Ediciones = {
     addEdicion: function ($http, data, auth) {
         var d = new Date(data.fecha);
-        data.fecha = d.valueOf().toString();
+        data.fecha = d.valueOf();
         Conector.ediciones.add($http, data, Base64.encode(auth)).
         then(function (response) {
             console.log(response);
-            PopUp.successChangePage("Torneo Agregado", "./Torneos/TorneosAllView.html")
+            PopUp.successChangePage("Torneo Agregado", "./TorneosAllView.html")
         }, function (response) {
             console.log(response);
         });
     },
     addOtherEdicion: function ($http, data, auth, ediciones) {
         var d = new Date(data.fecha);
-        data.fecha = d.valueOf().toString();
+        data.fecha = d.valueOf();
         Conector.ediciones.add($http, data, Base64.encode(auth)).
         then(function (response) {
-            data.fecha = new Date(parseInt(data.fecha));
+            data.fecha = new Date(data.fecha);
             ediciones.push(data);
             PopUp.successSamePage("Edicion Agregada");
         }, function (response) {

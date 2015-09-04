@@ -1,9 +1,10 @@
 app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
-
+    $scope.loading=true;
     $scope.getallnombre = function () {
         Conector.atletas.getNombre($http)
             .then(function (response) {
                 $scope.atletas = response.data._items;
+                $scope.loading=false;
             }, function (response) {
                 console.error(response);
             });
@@ -48,9 +49,10 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
                 Conector.atletas.addNombre($http, $scope.atleta, Base64.encode(auth)).then(function (rep2) {
 
                     $scope.atletaB.Nombre = rep2.data._id;
-                    $scope.atletaB.FechaNacimiento = $scope.atletaB.FechaNacimiento.valueOf().toString();
+                    $scope.atletaB.FechaNacimiento = $scope.atletaB.FechaNacimiento.valueOf();
 
                     Conector.atletas.addAll($http, $scope.atletaB, Base64.encode(auth)).then(function () {
+                      $scope.loading=false;
                         sweetAlert("Registrado con exito");
                         window.location.href = "atletas.html";
 
@@ -66,6 +68,7 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
         });
     };
     $scope.addAthleteFull = function () {
+        $scope.loading=true;
         var reader = new FileReader();
         var archivo = $('#image')[0].files[0];
         reader.readAsDataURL(archivo); //esto convierte la imagen al formato que acepta imgur

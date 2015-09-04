@@ -24,6 +24,7 @@
 
 
 <body ng-controller="TorneosCtrl" ng-init="loadTorneos()">
+    <img src="../../Img/loading.gif" class="loading" ng-show="loading">
     <navbarswim current-tab="Torneos"></navbarswim>
     <br>
     <div class="container">
@@ -39,7 +40,6 @@
             </form>
         </nav>
         <div class="container marketing">
-
             <div class="row" style="margin-botton:500px">
                 <div class="col-md-3 col-sm-6 text-center" ng-repeat="torneo in torneos|filter:searchText | orderBy:'Nombre'">
                     <div class="deco">
@@ -50,6 +50,7 @@
             </div>
             <!-- /.row -->
         </div>
+
     </div>
     <!--Modules-Connectors-->
     <script src="../../js/app.js"></script>

@@ -1,4 +1,5 @@
 app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
+    $scope.loading=true;
     //Schema
     $scope.torneo = {
         "Nombre": ""
@@ -12,6 +13,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
         Conector.torneos.getAll($http)
             .then(function (response) {
                 $scope.torneos = response.data._items;
+                $scope.loading=false;
                 console.log($scope.torneos);
             }, function (response) {
                 console.error(response);
@@ -24,7 +26,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
         var edicionModificarSend = {
             'Nombre': edicionModificar.Nombre,
             'Torneo': edicionModificar.Torneo,
-            'fecha': edicionModificar.fecha.valueOf().toString()
+            'fecha': edicionModificar.fecha.valueOf()
         }
         var auth = "Nata2015:__Swim__2015"; //login data
 
@@ -56,7 +58,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
             .then(function (response) {
                 $scope.EdicionesTorneo = response.data._items;
                 for (i = 0; i < $scope.EdicionesTorneo.length; i++) {
-                    $scope.EdicionesTorneo[i].fecha = new Date(parseInt($scope.EdicionesTorneo[i].fecha));
+                    $scope.EdicionesTorneo[i].fecha = new Date($scope.EdicionesTorneo[i].fecha);
                 }
                 console.log($scope.EdicionesTorneo);
             }, function (response) {
@@ -99,7 +101,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
 
         Conector.torneos.update($http, $scope.torneo, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
             .then(function (response) {
-                PopUp.successChangePage("Torneo Modificado", "./Torneos/TorneosAllView.html");
+                PopUp.successChangePage("Torneo Modificado", "./TorneosAllView.html");
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
             });
@@ -112,7 +114,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
             if (response === 1) {
                 Conector.torneos.delete($http, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
                     .then(function (response) {
-                        PopUp.successChangePage("Torneo Borrado", "./Torneos/TorneosAllView.html");
+                        PopUp.successChangePage("Torneo Borrado", "./TorneosAllView.html");
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });

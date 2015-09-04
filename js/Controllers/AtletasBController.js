@@ -35,7 +35,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
         Conector.atletas.getOneAll($http, id)
             .then(function (response) {
                 $scope.atletaOne = response.data._items[0];
-                $scope.atletaOne.FechaNacimiento = new Date(parseInt($scope.atletaOne.FechaNacimiento));
+                $scope.atletaOne.FechaNacimiento = new Date($scope.atletaOne.FechaNacimiento);
                 console.log(response);
 
             }, function (response) {
@@ -67,7 +67,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
                         "Estatura": $scope.atletaOne.Estatura,
                         "Carne": $scope.atletaOne.Carne,
                         "Correo": $scope.atletaOne.Correo,
-                        "FechaNacimiento": $scope.atletaOne.FechaNacimiento.valueOf().toString(),
+                        "FechaNacimiento": $scope.atletaOne.FechaNacimiento.valueOf(),
                         "Beneficiario": {
                             "Nombre": $scope.atletaOne.Beneficiario.Nombre,
                             "Cedula": $scope.atletaOne.Beneficiario.Cedula

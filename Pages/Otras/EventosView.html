@@ -74,7 +74,11 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon spamEvent">Genero</span>
-                                <input type="text" class="form-control" ng-model="evento.Genero" typeahead="evento for evento in listaEventos | filter:$viewValue | limitTo:8">
+                                <select class="form-control" ng-model="evento.Genero">
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="Mixto">Mixto</option>
+                                </select>
                                 <span class="input-group-btn">
         <button class="btn btn-danger spamEventB " ng-click="deleteEvento($index)" type="submit">Borrar</button>
       </span>

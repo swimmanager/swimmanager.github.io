@@ -26,7 +26,8 @@
 
 </head>
 
-<body ng-app="SwimManager">
+<body ng-app="SwimManager" ng-controller="AtletasCtrl" ng-init="(loading=false)">
+  <img src="../../Img/loading.gif" class="loading" ng-show="loading">
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
     <div class="container">
@@ -39,7 +40,8 @@
         <div class="col-md-8 col-md-offset-2">
             <!-- FORM ============ -->
 
-            <form class="InverseForm" ng-controller="AtletasCtrl" name="userForm" ng-submit="addAthleteFull()" enctype="multipart/form-data" novalidate>
+            <form class="InverseForm" name="userForm" ng-submit="addAthleteFull()" enctype="multipart/form-data" novalidate>
+                  <img src="../../Img/loading.gif" class="loading" ng-show="loading">
                 <h3>Informacion del Atleta</h3>
                 <h5>* Datos requeridos</h5>
 
@@ -143,12 +145,12 @@
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Estatura</label>
                     <input class="form-control" type="number" name="estatura" ng-model="atletaB.Estatura" placeholder="Estatura">
-                    <span class="label label-primary"><label>Kg</label></span>
+                    <span class="label label-primary"><label>metros</label></span>
                 </div>
 
                 <div class="form-group">
                     <label>Fecha Nacimiento</label>
-                    <input class="form-control" type="date" name="fecha" ng-model="atletaB.FechaNacimiento">
+                    <input class="form-control" type="date" name="fecha" datepicker-popup ng-model="atletaB.FechaNacimiento">
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
