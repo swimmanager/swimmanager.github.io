@@ -23,11 +23,16 @@
     <script src="../../js/conector.js"></script>
     <script src="../../js/app.js"></script>
     <script src="../../js/Controllers/AtletasController.js"></script>
-        <script src="../../js/Directives/DefaultImageDirective.js"></script>
+    <script src="../../js/Directives/DefaultImageDirective.js"></script>
 </head>
 
 
 <body ng-app="SwimManager" ng-controller="AtletasCtrl" ng-init="getallnombre()">
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
     <img src="../../Img/loading.gif" class="loading" ng-show="loading">
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
