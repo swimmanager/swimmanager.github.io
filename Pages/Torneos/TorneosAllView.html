@@ -24,6 +24,11 @@
 
 
 <body ng-controller="TorneosCtrl" ng-init="loadTorneos()">
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
     <img src="../../Img/loading.gif" class="loading" ng-show="loading">
     <navbarswim current-tab="Torneos"></navbarswim>
     <br>

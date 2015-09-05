@@ -23,6 +23,11 @@
 </head>
 
 <body>
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
     <navbarswim current-tab="Torneos"></navbarswim>
     <br>
     <div class="container">

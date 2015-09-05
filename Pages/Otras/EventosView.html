@@ -22,6 +22,11 @@
 </head>
 
 <body ng-controller="EventosCtrl" ng-init="loadEventos()">
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
     <navbarswim current-tab="Eventos"></navbarswim>
     <br>
     <div class="container">
