@@ -15,6 +15,8 @@
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/swim.css" rel="stylesheet">
     <link href="../../css/swim2.css" rel="stylesheet">
+    <link href="../../css/sweetalert.css" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/angular.min.js"></script>
@@ -27,7 +29,7 @@
 </head>
 
 <body ng-app="SwimManager" ng-controller="AtletasCtrl" ng-init="(loading=false)">
-  <img src="../../Img/loading.gif" class="loading" ng-show="loading">
+    <img src="../../Img/loading.gif" class="loading" ng-show="loading">
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
     <div class="container">
@@ -41,7 +43,7 @@
             <!-- FORM ============ -->
 
             <form class="InverseForm" name="userForm" ng-submit="addAthleteFull()" enctype="multipart/form-data" novalidate>
-                  <img src="../../Img/loading.gif" class="loading" ng-show="loading">
+                <img src="../../Img/loading.gif" class="loading" ng-show="loading">
                 <h3>Informacion del Atleta</h3>
                 <h5>* Datos requeridos</h5>
 

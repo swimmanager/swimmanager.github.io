@@ -403,14 +403,23 @@ var Conector = {
     usuarios: {
         base: "/anvandaren",
         no_pass: "?projection={\"losenord\":0}",
-        getAll: function ($http) {
+        getAll: function ($http, auth) {
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
             var uri = Conector.url + Conector.usuarios.base + Conector.usuarios.no_pass;
-            console.log(uri);
-            return $http.get(uri);
+            return $http.get(uri, confg);
         },
-        getOne: function ($http, id) {
+        getOne: function ($http, id, auth) {
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
             var uri = Conector.url + Conector.usuarios.base + "/" + id + Conector.usuarios.no_pass;
-            return $http.get(uri);
+            return $http.get(uri, confg);
         },
         add: function ($http, data, auth) {
             var uri = Conector.url + Conector.usuarios.base;

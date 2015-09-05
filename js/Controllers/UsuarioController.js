@@ -12,7 +12,8 @@ app.controller('UsuariosCtrl', function ($scope, $http) { // ejemplo
 
         Conector.logInAdmin($http, $scope, user, pass).then(function () {
             if ($scope.auth) {
-                Conector.usuarios.getAll($http)
+                console.log($scope.auth);
+                Conector.usuarios.getAll($http, $scope.auth_p)
                     .then(function (response) {
                         $scope.users = response.data._items;
                         console.log($scope.users);
