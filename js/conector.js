@@ -134,15 +134,32 @@ var Base64 = {
 var Conector = {
     url: "https://eve-test-1.herokuapp.com",
     atletas: {
-        nombres: "/atletanombres",
-        all: "/atletas",
-        getNombre: function ($http) {
-            var uri = Conector.url + Conector.atletas.nombres;
+        base: "/atletas",
+        get: function ($http) {
+            var uri = Conector.url + Conector.atletas.base;
+            return $http.get(uri);
+        },
+        getBasic: function ($http) {
+            var uri = Conector.url + Conector.atletas.base + "projection={\"Nombre\":1,\"Foto\":1,\"Carrera\":1}";
             return $http.get(uri);
         },
 
-        addNombre: function ($http, data, auth) {
-            var uri = Conector.url + Conector.atletas.nombres;
+        getbyGeneroonlyName: function ($http, genero) {
+            var uri = Conector.url + Conector.atletas.all +
+                "&projection={\"Nombre\":1}&where={\"Genero\":\"" + genero + "\"}";
+            return $http.get(uri);
+        },
+        getonlyName: function ($http) {
+            var uri = Conector.url + Conector.atletas.base +
+                "&projection={\"Nombre\":1}";
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.atletas.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.atletas.base;
             var confg = {
                 headers: {
                     "Authorization": "Basic " + auth
@@ -150,8 +167,8 @@ var Conector = {
             };
             return $http.post(uri, data, confg);
         },
-        updateNombre: function ($http, data, auth, id, etag) {
-            var uri = Conector.url + Conector.atletas.nombres + "/" + id;
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.atletas.base + "/" + id;
             var config = {
                 headers: {
                     "Authorization": "Basic " + auth,
@@ -160,58 +177,9 @@ var Conector = {
             };
             return $http.patch(uri, data, config);
         },
-        deleteNombre: function ($http, auth, id, etag) {
+        delete: function ($http, auth, id, etag) {
             console.log(auth);
-            var uri = Conector.url + Conector.atletas.nombres + "/" + id;
-            var config = {
-                headers: {
-                    "Authorization": "Basic " + auth,
-                    "If-Match": etag
-                }
-            };
-            return $http.delete(uri, config);
-        },
-
-        getAll: function ($http) {
-            var uri = Conector.url + Conector.atletas.all + "?embedded={\"Nombre\":1}";
-            return $http.get(uri);
-        },
-        getAllbyGeneroonlyName: function ($http, genero) {
-            var uri = Conector.url + Conector.atletas.all +
-                "?embedded={\"Nombre\":1}&projection={\"Nombre\":1}&where={\"Genero\":\"" + genero + "\"}";
-            return $http.get(uri);
-        },
-        getAllonlyName: function ($http) {
-            var uri = Conector.url + Conector.atletas.all +
-                "?embedded={\"Nombre\":1}&projection={\"Nombre\":1}";
-            return $http.get(uri);
-        },
-        getOneAll: function ($http, id) {
-            var uri = Conector.url + Conector.atletas.all + "?embedded={\"Nombre\":1}&where={\"Nombre\":\"" + id + "\"}";
-            return $http.get(uri);
-        },
-        addAll: function ($http, data, auth) {
-            var uri = Conector.url + Conector.atletas.all;
-            var confg = {
-                headers: {
-                    "Authorization": "Basic " + auth
-                }
-            };
-            return $http.post(uri, data, confg);
-        },
-        updateAll: function ($http, data, auth, id, etag) {
-            var uri = Conector.url + Conector.atletas.all + "/" + id;
-            var config = {
-                headers: {
-                    "Authorization": "Basic " + auth,
-                    "If-Match": etag
-                }
-            };
-            return $http.patch(uri, data, config);
-        },
-        deleteAll: function ($http, auth, id, etag) {
-            console.log(auth);
-            var uri = Conector.url + Conector.atletas.all + "/" + id;
+            var uri = Conector.url + Conector.atletas.base + "/" + id;
             var config = {
                 headers: {
                     "Authorization": "Basic " + auth,
@@ -343,6 +311,48 @@ var Conector = {
         delete: function ($http, auth, id, etag) {
             console.log(auth);
             var uri = Conector.url + Conector.eventos.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.delete(uri, config);
+        }
+
+    },
+    eventotipos: {
+        base: "/eventotipos",
+        getAll: function ($http) {
+            var uri = Conector.url + Conector.eventotipos.base;
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.eventotipos.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.eventotipos.base;
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
+            return $http.post(uri, data, confg);
+        },
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.eventotipos.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.patch(uri, data, config);
+        },
+        delete: function ($http, auth, id, etag) {
+            console.log(auth);
+            var uri = Conector.url + Conector.eventotipos.base + "/" + id;
             var config = {
                 headers: {
                     "Authorization": "Basic " + auth,
