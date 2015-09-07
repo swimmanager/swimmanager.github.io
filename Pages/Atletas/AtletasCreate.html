@@ -40,7 +40,6 @@
         <div class="sprite-spinner">
             <img src="http://i.imgur.com/sJfQZdC.png?1" alt="" />
         </div>
-
     </div>
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
@@ -57,10 +56,10 @@
             <form class="InverseForm" name="userForm" ng-submit="addAthleteFull()" enctype="multipart/form-data" novalidate>
 
                 <h3>Informacion del Atleta</h3>
-                <h5>* Datos requeridos</h5>
+                <h5>Todos los campos son Requeridos*****</h5>
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Carrera*</label>
+                    <label>Carrera</label>
                     <select class="form-control" required ng-model="atleta.Carrera">
                         <option ng-repeat="carrera in carreras" value="{{carrera._id}}" selected>{{carrera.Nombre}}</option>
                     </select>
@@ -68,7 +67,7 @@
                 </div>
                 <!-- NAME -->
                 <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-                    <label>Nombre*</label>
+                    <label>Nombre</label>
                     <input class="form-control" type="text" name="name" ng-model="atleta.Nombre.Nombre" required placeholder="nombre">
 
 
@@ -138,12 +137,12 @@
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>cedula</label>
+                    <label>Cédula</label>
                     <input class="form-control" type="text" name="cedula" ng-model="atleta.Cedula" placeholder="Cedula">
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Genero</label>
+                    <label>Género</label>
                     <select class="form-control" ng-model="atleta.Genero">
                         <option value="Masculino" selected>Masculino</option>
                         <option value="Femenino">Femenino</option>
@@ -151,7 +150,7 @@
                     </select>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Telefono</label>
+                    <label>Teléfono</label>
                     <input class="form-control" type="text" name="telefono" ng-model="atleta.Telefonos" placeholder="Telefono">
 
                 </div>
@@ -175,7 +174,7 @@
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
 
-                    <label>Foto</label>
+                    <label>Foto*(Obligatoria)</label>
                     <input class="form-control" type="file" ng-model="atleta.Imagen" id="image" required>
 
                 </div>

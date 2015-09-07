@@ -34,6 +34,11 @@
         if ((host == window.location.host) && (window.location.protocol != "https:"))
             window.location.protocol = "https";
     </script>
+    <div class="spinner-wrap loading" ng-show="loading">
+        <div class="sprite-spinner">
+            <img src="http://i.imgur.com/sJfQZdC.png?1" alt="" />
+        </div>
+    </div>
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
     <div class="container">
@@ -48,6 +53,14 @@
             <form class="InverseForm" name="userForm" enctype="multipart/form-data" novalidate ng-submit="updateAthlete()">
                 <h3>Informacion del Atleta</h3>
                 <h5>* Datos requeridos</h5>
+
+                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                    <label>Carrera*</label>
+                    <select class="form-control" required ng-model="atleta.Carrera">
+                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}" selected>{{carrera.Nombre}}</option>
+                    </select>
+                    <a href="../Otras/Carreras.html" class="btn btn-success" role="button">Nueva</a>
+                </div>
 
                 <!-- NAME -->
                 <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
@@ -86,7 +99,7 @@
 
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>tipo de Sangre</label>
+                    <label>Tipo de Sangre</label>
 
                     <select class="form-control" ng-model="atletaOne.TipoSangre">
                         <option value="A+" selected="selected">A+</option>
@@ -97,12 +110,6 @@
                         <option value="B-">B-</option>
                         <option value="AB-">AB-</option>
                         <option value="O-">O-</option>
-                    </select>
-                </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Carrera*</label>
-                    <select class="form-control" required ng-model="atletaOne.Carrera._id">
-                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}" selected>{{carrera.Nombre}}</option>
                     </select>
                 </div>
 
@@ -126,12 +133,12 @@
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>cedula</label>
+                    <label>Cédula</label>
                     <input class="form-control" type="text" name="cedula" ng-model="atletaOne.Cedula" placeholder="Cedula">
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Genero</label>
+                    <label>Género</label>
                     <select class="form-control" ng-model="atletaOne.Genero">
                         <option value="Masculino" selected>Masculino</option>
                         <option value="Femenino">Femenino</option>
@@ -139,7 +146,7 @@
                     </select>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Telefono</label>
+                    <label>Teléfono</label>
                     <input class="form-control" type="text" name="telefono" ng-model="atletaOne.Telefonos" placeholder="Telefono">
 
                 </div>
