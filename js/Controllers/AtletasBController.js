@@ -8,6 +8,8 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
 
     $scope.loadOneAtleta = function () {
+        $scope.loading = true;
+
         var id = getUrlVars().id;
 
         Conector.carreras.getAll($http).then(function (response) {

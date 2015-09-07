@@ -12,6 +12,7 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
     };
 
     $scope.init = function () {
+        $scope.loading = true;
         Conector.carreras.getAll($http).then(function (response) {
             $scope.carreras = response.data._items;
             $scope.loading = false;

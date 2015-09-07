@@ -10,3 +10,8 @@
     margin: 100px auto;
     z-index: 10000;
 }
+
+.spinner-wrap-img {
+    height: auto;
+    width: auto;
+}
