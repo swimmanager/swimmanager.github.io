@@ -45,7 +45,7 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
                 //aca puede hacer console.log(response);
                 //para que vea lo q imgur responde
 
-                $scope.atleta.Imagen = response.data.link;
+                $scope.atleta.Imagen = response.data.link.replace("http", "https");
             },
             error: function (response) {
                 console.log(response);

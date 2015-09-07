@@ -96,7 +96,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
                         'type': "base64",
                     },
                     success: function (response) {
-                        $scope.updateKey(true, response.data.link);
+                        $scope.updateKey(true, response.data.link.replace("http", "https"));
                     },
                     error: function (response) {
                         console.log(response);
