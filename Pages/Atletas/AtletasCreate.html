@@ -26,15 +26,22 @@
     <script src="../../js/sweetalert.min.js"></script>
     <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
 
+    <link href="../../css/spinner.css" rel="stylesheet">
+
 </head>
 
-<body ng-app="SwimManager" ng-controller="AtletasCtrl" ng-init="(loading=false)">
+<body ng-app="SwimManager" ng-controller="AtletasCtrl" ng-init="init()">
     <script>
         var host = "swimmanager.github.io";
         if ((host == window.location.host) && (window.location.protocol != "https:"))
             window.location.protocol = "https";
     </script>
-    <img src="../../Img/loading.gif" class="loading" ng-show="loading">
+    <div class="spinner-wrap loading" ng-show="loading">
+        <div class="sprite-spinner">
+            <img src="http://i.imgur.com/sJfQZdC.png?1" alt="" />
+        </div>
+
+    </div>
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
     <div class="container">
@@ -48,28 +55,35 @@
             <!-- FORM ============ -->
 
             <form class="InverseForm" name="userForm" ng-submit="addAthleteFull()" enctype="multipart/form-data" novalidate>
-                <img src="../../Img/loading.gif" class="loading" ng-show="loading">
+
                 <h3>Informacion del Atleta</h3>
                 <h5>* Datos requeridos</h5>
 
+                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                    <label>Carrera*</label>
+                    <select class="form-control" required ng-model="atleta.Carrera">
+                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}" selected>{{carrera.Nombre}}</option>
+                    </select>
+                    <a href="../Otras/Carreras.html" class="btn btn-success" role="button">Nueva</a>
+                </div>
                 <!-- NAME -->
                 <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
                     <label>Nombre*</label>
-                    <input class="form-control" type="text" name="name" ng-model="atleta.Nombre" required placeholder="nombre">
+                    <input class="form-control" type="text" name="name" ng-model="atleta.Nombre.Nombre" required placeholder="nombre">
 
 
                 </div>
                 <p></p>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
                     <label>Primer Apellido*</label>
-                    <input class="form-control" type="text" name="Apellido1" ng-model="atleta.Apellido1" required placeholder="Primer apellido">
+                    <input class="form-control" type="text" name="Apellido1" ng-model="atleta.Nombre.Apellido1" required placeholder="Primer apellido">
 
 
                 </div>
                 <p></p>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
                     <label>Segundo Apellido*</label>
-                    <input class="form-control" type="text" name="Apellido2" ng-model="atleta.Apellido2" required placeholder="Segundo apellido">
+                    <input class="form-control" type="text" name="Apellido2" ng-model="atleta.Nombre.Apellido2" required placeholder="Segundo apellido">
                 </div>
                 <p></p>
 
@@ -78,7 +92,7 @@
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Correo</label>
-                    <input class="form-control" type="email" name="email" ng-model="atletaB.Correo" size="40">
+                    <input class="form-control" type="email" name="email" ng-model="atleta.Correo" size="40">
                     <span class="label label-warning">
                     <label ng-show="userForm.email.$invalid && !userForm.email.$pristine">Ingrese un email valido</label>
                     </span>
@@ -89,9 +103,9 @@
 
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>tipo de Sangre</label>
+                    <label>Tipo de Sangre</label>
 
-                    <select class="form-control" ng-model="atletaB.TipoSangre">
+                    <select class="form-control" ng-model="atleta.TipoSangre">
                         <option value="A+" selected="selected">A+</option>
                         <option value="B+">B+</option>
                         <option value="AB+">AB+</option>
@@ -102,19 +116,11 @@
                         <option value="O-">O-</option>
                     </select>
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Carrera*</label>
-                    <select class="form-control" required ng-model="atleta.Carrera">
-                        <option value="Ing. en Computacion" selected>Ing. en Computacion</option>
-                        <option value="Administracion de empresas">Administracion de empresas</option>
-                        <option value="Ing. en Computadores">Ing. en Computadores</option>
-                        <option value="Administración en tecnologías de Información">Administración en tecnologías de Información</option>
-                    </select>
-                </div>
+
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Lateralidad</label>
-                    <select class="form-control" ng-model="atletaB.Lateralidad">
+                    <select class="form-control" ng-model="atleta.Lateralidad">
                         <option value="Izquierda" selected>Izquierda</option>
                         <option value="Derecha">Derecha</option>
 
@@ -122,23 +128,23 @@
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Peso</label>
-                    <input class="form-control" size="8" name="peso" type="number" ng-model="atletaB.Peso">
+                    <input class="form-control" size="8" name="peso" type="number" ng-model="atleta.Peso">
                     <span class="label label-primary"><label>Kg</label></span>
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Carné</label>
-                    <input class="form-control" type="text" name="carne" ng-model="atletaB.Carne" placeholder="Carné">
+                    <input class="form-control" type="text" name="carne" ng-model="atleta.Carne" placeholder="Carné">
 
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>cedula</label>
-                    <input class="form-control" type="text" name="cedula" ng-model="atletaB.Cedula" placeholder="Cedula">
+                    <input class="form-control" type="text" name="cedula" ng-model="atleta.Cedula" placeholder="Cedula">
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Genero</label>
-                    <select class="form-control" ng-model="atletaB.Genero">
+                    <select class="form-control" ng-model="atleta.Genero">
                         <option value="Masculino" selected>Masculino</option>
                         <option value="Femenino">Femenino</option>
 
@@ -146,43 +152,43 @@
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Telefono</label>
-                    <input class="form-control" type="text" name="telefono" ng-model="atletaB.Telefonos" placeholder="Telefono">
+                    <input class="form-control" type="text" name="telefono" ng-model="atleta.Telefonos" placeholder="Telefono">
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Estatura</label>
-                    <input class="form-control" type="number" name="estatura" ng-model="atletaB.Estatura" placeholder="Estatura">
+                    <input class="form-control" type="number" name="estatura" ng-model="atleta.Estatura" placeholder="Estatura">
                     <span class="label label-primary"><label>metros</label></span>
                 </div>
 
                 <div class="form-group">
                     <label>Fecha Nacimiento</label>
-                    <input class="form-control" type="date" name="fecha" datepicker-popup ng-model="atletaB.FechaNacimiento">
+                    <input class="form-control" type="date" name="fecha" datepicker-popup ng-model="atleta.FechaNacimiento">
 
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Beneficiario</label>
-                    <input class="form-control" type="text" name="beneficiaro" ng-model="atletaB.Beneficiario.Nombre" placeholder="Nombre" size="40">
-                    <input class="form-control" type="text" name="beneficiaro" ng-model="atletaB.Beneficiario.Cedula" placeholder="Cedula" size="40">
+                    <input class="form-control" type="text" name="beneficiaro" ng-model="atleta.Beneficiario.Nombre" placeholder="Nombre" size="40">
+                    <input class="form-control" type="text" name="beneficiaro" ng-model="atleta.Beneficiario.Cedula" placeholder="Cedula" size="40">
 
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
 
                     <label>Foto</label>
-                    <input class="form-control" type="file" ng-model="atleta.Imagen" id="image">
+                    <input class="form-control" type="file" ng-model="atleta.Imagen" id="image" required>
 
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
             </form>
         </div>
 
 
     </div>
-
+    <script src="../../js/spinner.js"></script>
 </body>
 
 </html>

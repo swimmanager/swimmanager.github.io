@@ -11,6 +11,16 @@ var PopUp = {
     });
   },
 
+  successSamePageNoReload:function(action){
+    swal({
+      title: "Exito",
+      text: action,
+      type: "success",
+      showConfirmButton: true,
+      closeOnConfirm: true
+    });
+  },
+
   successSamePage:function(action){
     swal({
       title: "Exito",
@@ -18,6 +28,8 @@ var PopUp = {
       type: "success",
       showConfirmButton: true,
       closeOnConfirm: true
+    },function() {
+        window.location.reload();
     });
 
   },

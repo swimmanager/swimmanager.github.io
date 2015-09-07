@@ -13,7 +13,7 @@
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
     <link href="../../css/styles.css" rel="stylesheet">
-
+    <link href="../../css/sweetalert.css" rel="stylesheet">
     <link href="../../css/swim.css" rel="stylesheet">
     <link href="../../css/swim2.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -101,11 +101,8 @@
                 </div>
                 <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
                     <label>Carrera*</label>
-                    <select class="form-control" required ng-model="atletaOne.Nombre.Carrera">
-                        <option value="Ing. en Computacion" selected>Ing. en Computacion</option>
-                        <option value="Administracion de empresas">Administracion de empresas</option>
-                        <option value="Ing. en Computadores">Ing. en Computadores</option>
-                        <option value="Administración en tecnologías de Información">Administración en tecnologías de Información</option>
+                    <select class="form-control" required ng-model="atletaOne.Carrera._id">
+                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}" selected>{{carrera.Nombre}}</option>
                     </select>
                 </div>
 
@@ -171,7 +168,7 @@
                         <span class="input-group-addon">
                             <input class=" confirmacion" type="checkbox" name="confirmacion" id="confirmacion" value="1">
                         </span>
-                        <input class="form-control" type="file" ng-model="atletaOne.Nombre.Imagen" id="image">
+                        <input class="form-control" type="file" ng-model="UrlImag" id="image">
                     </div>
                     <span class="label label-primary"><label>Agregar nueva Imagen</label></span>
 
@@ -179,7 +176,7 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Modificar</button>
+                <button type="submit" class="btn btn-primary">Modificar</button>
 
             </form>
         </div>

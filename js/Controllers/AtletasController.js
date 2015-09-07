@@ -1,28 +1,32 @@
 app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
-    $scope.loading=true;
+    $scope.loading = true;
     $scope.getallnombre = function () {
-        Conector.atletas.getNombre($http)
+        Conector.atletas.getBasic($http)
             .then(function (response) {
+                console.log(response);
                 $scope.atletas = response.data._items;
-                $scope.loading=false;
+                $scope.loading = false;
             }, function (response) {
                 console.error(response);
             });
     };
 
-    $scope.atleta = {
-        "Nombre": "",
-        "Apellido1": "",
-        "Apellido2": "",
-        "Imagen": "",
-        "Carrera": ""
+    $scope.init = function () {
+        Conector.carreras.getAll($http).then(function (response) {
+            $scope.carreras = response.data._items;
+            $scope.loading = false;
+        }, function (resp) {
+            console.error(resp);
+        });
+
+
     };
-
-
 
     var auth = "Nata2015:__Swim__2015";
 
     $scope.post = function (img) {
+        //console.log($scope);
+        $scope.loading = true;
 
         var iurl = img.substr(img.indexOf(",") + 1, img.length); //esto le limpia unas basuras a la imagen
         //console.log(iurl); //esto esra para probar que sio agarro el base64 de la imagen
@@ -46,29 +50,32 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
                 console.log(response);
             },
             complete: function () {
-                Conector.atletas.addNombre($http, $scope.atleta, Base64.encode(auth)).then(function (rep2) {
-
-                    $scope.atletaB.Nombre = rep2.data._id;
-                    $scope.atletaB.FechaNacimiento = $scope.atletaB.FechaNacimiento.valueOf();
-
-                    Conector.atletas.addAll($http, $scope.atletaB, Base64.encode(auth)).then(function () {
-                      $scope.loading=false;
-                        sweetAlert("Registrado con exito");
-                        window.location.href = "atletas.html";
-
-                    }, function (rrw) {
-                        console.log(rrw);
+                $scope.atleta.FechaNacimiento = $scope.atleta.FechaNacimiento.valueOf();
+                Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
+                    $scope.loading = false;
+                    swal({
+                        title: "Exito",
+                        text: "Atleta Modificado",
+                        type: "success",
+                        showConfirmButton: true,
+                        closeOnConfirm: true
+                    }, function () {
+                        window.location.replace("atletas.html");
                     });
+                }, function (err) {
+                    $scope.loading = false;
+                    console.error(err);
                 });
-                //$("#wait").css("display", "none"); // ya aca se quitaba el gif de loading
+
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
             }
         });
     };
+
     $scope.addAthleteFull = function () {
-        $scope.loading=true;
+        $scope.loading = true;
         var reader = new FileReader();
         var archivo = $('#image')[0].files[0];
         reader.readAsDataURL(archivo); //esto convierte la imagen al formato que acepta imgur

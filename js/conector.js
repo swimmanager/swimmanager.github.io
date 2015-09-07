@@ -136,11 +136,12 @@ var Conector = {
     atletas: {
         base: "/atletas",
         get: function ($http) {
-            var uri = Conector.url + Conector.atletas.base;
+            var uri = Conector.url + Conector.atletas.base + "?" + Conector.embeddedM("Carrera");
             return $http.get(uri);
         },
         getBasic: function ($http) {
-            var uri = Conector.url + Conector.atletas.base + "projection={\"Nombre\":1,\"Foto\":1,\"Carrera\":1}";
+            var uri = Conector.url + Conector.atletas.base + "?" + Conector.embeddedM("Carrera") +
+                "&projection={\"Nombre\":1,\"Imagen\":1,\"Carrera\":1}";
             return $http.get(uri);
         },
 
@@ -155,7 +156,7 @@ var Conector = {
             return $http.get(uri);
         },
         getOne: function ($http, id) {
-            var uri = Conector.url + Conector.atletas.base + "/" + id;
+            var uri = Conector.url + Conector.atletas.base + "/" + id + "?" + Conector.embeddedM("Carrera");
             return $http.get(uri);
         },
         add: function ($http, data, auth) {
@@ -189,6 +190,48 @@ var Conector = {
             return $http.delete(uri, config);
         }
 
+
+    },
+    carreras: {
+        base: "/carreras",
+        getAll: function ($http) {
+            var uri = Conector.url + Conector.carreras.base;
+            return $http.get(uri);
+        },
+        getOne: function ($http, id) {
+            var uri = Conector.url + Conector.carreras.base + "/" + id;
+            return $http.get(uri);
+        },
+        add: function ($http, data, auth) {
+            var uri = Conector.url + Conector.carreras.base;
+            var confg = {
+                headers: {
+                    "Authorization": "Basic " + auth
+                }
+            };
+            return $http.post(uri, data, confg);
+        },
+        update: function ($http, data, auth, id, etag) {
+            var uri = Conector.url + Conector.carreras.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.patch(uri, data, config);
+        },
+        delete: function ($http, auth, id, etag) {
+            console.log(auth);
+            var uri = Conector.url + Conector.carreras.base + "/" + id;
+            var config = {
+                headers: {
+                    "Authorization": "Basic " + auth,
+                    "If-Match": etag
+                }
+            };
+            return $http.delete(uri, config);
+        }
 
     },
     torneos: {
@@ -282,11 +325,11 @@ var Conector = {
     eventos: {
         base: "/eventos",
         getAll: function ($http) {
-            var uri = Conector.url + Conector.eventos.base;
+            var uri = Conector.url + Conector.eventos.base + "?" + Conector.embeddedM("Tipo");
             return $http.get(uri);
         },
         getOne: function ($http, id) {
-            var uri = Conector.url + Conector.eventos.base + "/" + id;
+            var uri = Conector.url + Conector.eventos.base + "/" + id + "?" + Conector.embeddedM("Tipo");
             return $http.get(uri);
         },
         add: function ($http, data, auth) {
@@ -499,5 +542,8 @@ var Conector = {
             console.error(response);
             $scope.auth = false;
         });
+    },
+    embeddedM: function (T) {
+        return "embedded={\"" + T + "\":1}";
     }
 };
