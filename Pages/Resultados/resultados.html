@@ -56,7 +56,7 @@
                     </select>
                     <label>Prueba</label>
                     <select id="idPrueba" name="PruebasSelect" ng-model="PruebasSelect" class="form-control" ng-change="getAtletas()">
-                        <option ng-repeat="evento in eventos" value="{{evento._id}}">{{evento.Nombre}}, Genero: {{evento.Genero}}</option>
+                        <option ng-repeat="evento in eventos" value="{{evento._id}}">{{evento.Tipo.Nombre}}: {{evento.Nombre}}, Genero: {{evento.Genero}}</option>
                     </select>
                     <div class="input-group">
                         <h2 class="InverseForm">Atletas</h2>
