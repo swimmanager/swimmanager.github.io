@@ -62,7 +62,7 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
     $scope.getAtletas = function () {
         var index = document.getElementById("idPrueba").selectedIndex;
         var genero = $scope.eventos[index].Genero;
-        var req = genero === "Mixto" ? Conector.atletas.getAllonlyName($http) : Conector.atletas.getAllbyGeneroonlyName($http, genero);
+        var req = genero === "Mixto" ? Conector.atletas.getonlyName($http) : Conector.atletas.getbyGeneroonlyName($http, genero);
         req.then(function (response) {
             $scope.atletas = response.data._items;
             console.log($scope.atletas);
@@ -72,7 +72,7 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
     };
 
     $scope.tohidden = function (elem, id) {
-        document.getElementById(id).value = elem.Nombre._id;
+        document.getElementById(id).value = elem._id;
     };
 
     $scope.guardar = function () {

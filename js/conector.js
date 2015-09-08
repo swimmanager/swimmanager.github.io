@@ -146,8 +146,9 @@ var Conector = {
         },
 
         getbyGeneroonlyName: function ($http, genero) {
-            var uri = Conector.url + Conector.atletas.all +
-                "&projection={\"Nombre\":1}&where={\"Genero\":\"" + genero + "\"}";
+            var uri = Conector.url + Conector.atletas.base +
+                "?projection={\"Nombre\":1}&where={\"Genero\":\"" + genero + "\"}";
+            console.log(uri);
             return $http.get(uri);
         },
         getonlyName: function ($http) {
