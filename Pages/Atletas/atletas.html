@@ -59,7 +59,7 @@
 
             <!-- Three columns of text below the carousel -->
             <div class="row">
-                <div class="col-md-3 col-sm-6 text-center" ng-repeat="atleta in atletas|filter:searchBar">
+                <div class="col-md-2 col-sm-6 text-center" ng-repeat="atleta in atletas|filter:searchBar">
                     <img class="img-rounded fitImage center-block" check-image ng-src="{{atleta.Imagen}}">
                     <h5>{{atleta.Nombre.Nombre+ " "+atleta.Nombre.Apellido1+ " "+atleta.Nombre.Apellido2}}</h5>
                     <p>{{atleta.Carrera.Nombre}}</p>
