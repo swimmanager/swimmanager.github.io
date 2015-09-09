@@ -21,6 +21,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
         Conector.atletas.getOne($http, id)
             .then(function (response) {
+              console.log(response.data);
                 $scope.atletaOne = response.data;
                 $scope.atletaOne.FechaNacimiento = new Date($scope.atletaOne.FechaNacimiento);
                 console.log(response);
@@ -33,6 +34,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
 
     $scope.updateKey = function (imag, value) {
+      console.log($scope.atletaOne);
         var atletafull = {
             "Nombre": {
                 "Nombre": $scope.atletaOne.Nombre.Nombre,
@@ -62,6 +64,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
         Conector.atletas.update($http, atletafull, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
+              $scope.loading = false;
                 swal({
                     title: "Exito",
                     text: "Atleta Modificado",
@@ -78,6 +81,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
 
     $scope.updateAthlete = function () {
+        $scope.loading = true;
         if ($('#image').val() === "") {
             $scope.updateKey(false);
         } else {
@@ -115,34 +119,20 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
     };
 
-
-
     $scope.deleteAthlete = function () {
-        swal({
-            title: "¿Quiere Borrar este Atleta?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Aceptar",
-            closeOnConfirm: false
-        }, function () {
-            console.log($scope.atletaOne);
-            Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
-                .then(function (response) {
-                    swal({
-                        title: "Exito",
-                        text: "Atleta Modificado",
-                        type: "success",
-                        showConfirmButton: true,
-                        closeOnConfirm: true
-                    }, function () {
-                        window.location.replace("atletas.html");
-                    });
-                }, function (response) {
-                    console.error(response); // Deberia haber un mejor manejo aqui
-                });
-
-        });
+        PopUp.deleteConfirmation(function(response) {
+            if (response === 1) {
+              $scope.loading = true;
+              Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
+              .then(function(response) {
+                $scope.loading = false;
+                PopUp.successChangePage("Atleta Borrado","atletas.html");
+                console.log(response);
+              }, function(response) {
+                console.error(response);
+              })
+            }
+          })
 
     };
 

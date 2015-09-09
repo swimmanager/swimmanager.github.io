@@ -51,18 +51,9 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
                 console.log(response);
             },
             complete: function () {
-                $scope.atleta.FechaNacimiento = $scope.atleta.FechaNacimiento.valueOf();
                 Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
                     $scope.loading = false;
-                    swal({
-                        title: "Exito",
-                        text: "Atleta Modificado",
-                        type: "success",
-                        showConfirmButton: true,
-                        closeOnConfirm: true
-                    }, function () {
-                        window.location.replace("atletas.html");
-                    });
+                    PopUp.successChangePage("Atleta Creado","atletas.html");
                 }, function (err) {
                     $scope.loading = false;
                     console.error(err);
@@ -79,10 +70,31 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
         $scope.loading = true;
         var reader = new FileReader();
         var archivo = $('#image')[0].files[0];
-        reader.readAsDataURL(archivo); //esto convierte la imagen al formato que acepta imgur
-        reader.onload = function (e) {
-            $scope.post(e.target.result);
-        };
+        //Para poder crear atleta sin fecha de nacimiento
+        if($scope.atleta.FechaNacimiento){
+          $scope.atleta.FechaNacimiento = $scope.atleta.FechaNacimiento.valueOf();
+        }
+        else{
+          $scope.atleta.FechaNacimiento = 0;
+        }
+        if(archivo){
+          reader.readAsDataURL(archivo); //esto convierte la imagen al formato que acepta imgur
+          reader.onload = function (e) {
+              $scope.post(e.target.result);
+          };
+        }
+        else{
+          Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
+              $scope.loading = false;
+              PopUp.successChangePage("Atleta Creado","atletas.html");
+
+          }, function (err) {
+              $scope.loading = false;
+              console.error(err);
+          });
+
+        }
+
 
 
     };

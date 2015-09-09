@@ -16,11 +16,13 @@
     <link href="../../css/sweetalert.css" rel="stylesheet">
     <link href="../../css/swim.css" rel="stylesheet">
     <link href="../../css/swim2.css" rel="stylesheet">
+    <link href="../../css/spinner.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/angular.min.js"></script>
     <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
     <script src="../../js/app.js"></script>
+    <script src="../../js/ExtraFunctions/PopUp.js"></script>
     <script src="../../js/conector.js"></script>
     <script src="../../js/sweetalert.min.js"></script>
     <script src="../../js/Controllers/AtletasBController.js"></script>
@@ -34,11 +36,13 @@
         if ((host == window.location.host) && (window.location.protocol != "https:"))
             window.location.protocol = "https";
     </script>
-    <div class="spinner-wrap loading" ng-show="loading">
-        <div class="sprite-spinner">
-            <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
-        </div>
+    <!--Loading Gif-->
+    <div class="loading" ng-show="loading">
+      <div class="sprite-spinner">
+        <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
+      </div>
     </div>
+    <!---->
     <navbarswim current-tab="Atletas"></navbarswim>
     <br>
     <div class="container">
@@ -190,6 +194,7 @@
 
 
     </div>
+    <script src="../../js/spinner.js"></script>
 </body>
 
 </html>

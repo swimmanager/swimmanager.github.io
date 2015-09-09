@@ -18,6 +18,7 @@
   <script src="../../js/bootstrap.min.js"></script>
   <script src="../../js/angular.min.js"></script>
   <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+  <link href="../../css/spinner.css" rel="stylesheet">
 
 </head>
 
@@ -27,6 +28,13 @@
     if ((host == window.location.host) && (window.location.protocol != "https:"))
       window.location.protocol = "https";
   </script>
+  <!--Loading Gif-->
+  <div class="loading" ng-show="loading">
+    <div class="sprite-spinner">
+      <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
+    </div>
+  </div>
+  <!---->
   <navbarswim current-tab="Eventos"></navbarswim>
   <br>
   <div class="container">
@@ -160,6 +168,8 @@
     <script src="../../js/Controllers/EdicionesController.js"></script>
     <script src="../../js/Controllers/EventosController.js"></script>
     <script src="../../js/Controllers/TorneosController.js"></script>
+
+    <script src="../../js/spinner.js"></script>
 
 </body>
 

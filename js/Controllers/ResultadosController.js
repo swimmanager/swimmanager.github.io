@@ -103,15 +103,12 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
         Conector.resultados.add($http, data, Base64.encode(auth))
             .then(function (response) {
                 //PopUp.showSuccess('Usuario Agregado Exitosamente');
-                swal({
-                    title: "Exito",
-                    text: "Resultado Agregado",
-                    type: "success",
-                    showConfirmButton: true,
-                    closeOnConfirm: true
-                }, function () {
-                    window.location.replace("./resultados.html");
-                });
+                PopUp.successSamePageNoReload("Resultado Agregado");
+                $scope.idList = [{
+                    id: "inp0",
+                    idt: "int0"
+                }];
+                $scope.count = 1;
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
             });

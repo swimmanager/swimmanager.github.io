@@ -1,4 +1,5 @@
-app.controller('EventosCtrl', function($scope, $http) { // ejemplo
+app.controller('EventosCtrl', function($scope, $http) {
+      $scope.loading = true;
       $scope.eventos = {
         'Nombre': '',
         'Genero': 'Masculino',
@@ -32,6 +33,7 @@ app.controller('EventosCtrl', function($scope, $http) { // ejemplo
         Conector.eventos.getAll($http).
         then(function(response) {
           $scope.eventosAll = response.data._items;
+          $scope.loading = false;
           console.log(response);
         }, function(response) {
           console.error(response);
@@ -39,10 +41,12 @@ app.controller('EventosCtrl', function($scope, $http) { // ejemplo
       }
 
       $scope.addEvento = function() {
+        $scope.loading = true;
         var auth = "Nata2015:__Swim__2015"; //login data
         console.log($scope.eventos);
         Conector.eventos.add($http, $scope.eventos, Base64.encode(auth)).
         then(function(response) {
+          $scope.loading = false;
           //$scope.eventosAll.push($scope.eventos);
           PopUp.successSamePage("Evento Agregado");
           console.log(response);
@@ -58,9 +62,11 @@ app.controller('EventosCtrl', function($scope, $http) { // ejemplo
         console.log(eventoBorrar);
         PopUp.deleteConfirmation(function(response) {
             if (response === 1) {
+              $scope.loading = true;
               Conector.eventos.delete($http, Base64.encode(auth), eventoBorrar._id, eventoBorrar._etag).
               then(function(response) {
                 $scope.eventosAll.splice(index, 1);
+                $scope.loading = false;
                 PopUp.successSamePageNoReload("Evento Borrado");
                 console.log(response);
               }, function(response) {

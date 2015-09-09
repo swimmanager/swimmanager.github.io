@@ -5,13 +5,14 @@
     text-align: left;
 }
 
-.spinner-wrap {
-    text-align: center;
-    margin: 100px auto;
+.loading{
+  position:fixed;
+    width:  100px;
+    height: 100px;
+    left: 50%;
+    top:  50%;
+    margin-left: -50px;
+    margin-top:  -50px;
     z-index: 10000;
-}
-
-.spinner-wrap-img {
-    height: auto;
-    width: auto;
+    text-align: center;
 }
