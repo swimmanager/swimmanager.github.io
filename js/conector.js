@@ -153,7 +153,7 @@ var Conector = {
         },
         getonlyName: function ($http) {
             var uri = Conector.url + Conector.atletas.base +
-                "&projection={\"Nombre\":1}";
+                "?projection={\"Nombre\":1}";
             return $http.get(uri);
         },
         getOne: function ($http, id) {
@@ -420,6 +420,16 @@ var Conector = {
         getbyIds: function ($http, idE, idP) {
             var uri = Conector.url + Conector.resultados.base +
                 "?embedded={\"Atleta\":1}&where={\"Edicion\":\"" + idE + "\",\"Evento\":\"" + idP + "\"}";
+            return $http.get(uri);
+        },
+        getbyEd: function ($http, idE) {
+            var uri = Conector.url + Conector.resultados.base +
+                "?embedded={\"Atleta\":1}&where={\"Edicion\":\"" + idE + "\"}";
+            return $http.get(uri);
+        },
+        getPru: function ($http, idE) {
+            var uri = Conector.url + Conector.resultados.base +
+                "?projection={\"Evento\":1}&" + Conector.embeddedM("Evento") + "&where={\"Edicion\":\"" + idE + "\"}";
             return $http.get(uri);
         },
         add: function ($http, data, auth) {

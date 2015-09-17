@@ -57,7 +57,7 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <label>Edición</label>
-                    <select id="idEdiciones" name="EdicionesSelect" ng-model="EdicionesSelect" class="form-control" ng-change="getallnombre()">
+                    <select id="idEdiciones" name="EdicionesSelect" ng-model="EdicionesSelect" class="form-control">
 
                         <option ng-repeat="edicion in ediciones" value="{{edicion._id}}">
                             {{edicion.Nombre}}, Fecha: {{edicion.fecha|date:"mediumDate"}}</option>
@@ -70,7 +70,7 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <label>Atleta</label>
-                    <select id="idAtleta" name="EdicionesSelect" ng-model="AtletasSelect" class="form-control" ng-change="getAtletas()">
+                    <select id="idAtleta" name="EdicionesSelect" ng-model="AtletasSelect" class="form-control">
 
                         <option ng-repeat="atleta in atletas" value="{{atleta._id}}">
                             {{atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2}}</option>
@@ -84,15 +84,27 @@
 
             <div class="row clearfix">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div ng-repeat="torneo in torneos" ng-model="torneos">
+                    <div ng-repeat="torneo in torneos|filter: TorneosSelect" ng-model="torneos">
                         <h2>{{torneo.Nombre}}</h2>
+                        <div ng-repeat="edicion in torneo.ediciones|filter: EdicionesSelect">
+                            <h3>{{edicion.Nombre}} Fecha {{edicion.fecha|date:"mediumDate"}} </h3>
+                            <!--
+                            <div class="panel panel-default" ng-repeat="atleta in edicion.atletas">
+                                <div class="panel-body">
+                                    {{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}
+                                    <button class="btn btn-danger " type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+                                    <button class="btn btn-warning " type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+                                </div>
+                            </div>
+-->
 
-                        <div ng-repeat="edicion in torneo.ediciones ">
-                            <h3>{{edicion.Nombre}} Fecha{{edicion.Fecha|date:"mediumDate "}} </h3>
-                            <div ng-repeat="prueba in edicion.eventos ">
-                                <h4>{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Genero {{prueba.Genero}} </h4>
 
+                            <div class="panel panel-default Normal" ng-repeat="prueba in edicion.eventos" ng-hide="(prueba.atletas.length==0)">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Genero {{prueba.Genero}} </h3>
+                                </div>
 
+                                <!--
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -120,6 +132,26 @@
                                 </table>
 
 
+-->
+
+                                <div ng-repeat="atleta in prueba.atletas| filter: AtletasSelect ">
+                                    <br>
+                                    <div class="input-group ">
+                                        <span class="input-group-addon spamEvent">Nombre</span>
+                                        <input type="text" class="form-control " value='{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}' readonly/>
+                                        <span class="input-group-btn ">
+        <button class="btn btn-danger spamEventB" type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+      </span>
+                                    </div>
+
+                                    <div class="input-group ">
+                                        <span class="input-group-addon spamEvent">Tiempo</span>
+                                        <input type="text " class="form-control " ng-model="atleta.TiempoRealizado ">
+                                        <span class="input-group-btn ">
+        <button class="btn btn-warning spamEventB" type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+      </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
