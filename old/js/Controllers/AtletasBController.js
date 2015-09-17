@@ -21,41 +21,10 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
         Conector.atletas.getOne($http, id)
             .then(function (response) {
-                console.log(response.data);
+              console.log(response.data);
                 $scope.atletaOne = response.data;
                 $scope.atletaOne.FechaNacimiento = new Date($scope.atletaOne.FechaNacimiento);
-                if ($scope.atletaOne.Beneficiario === undefined) {
-
-                    $scope.atletaUpdate = {
-                        "Nombre": {
-                            "Nombre": $scope.atletaOne.Nombre.Nombre,
-                            "Apellido1": $scope.atletaOne.Nombre.Apellido1,
-                            "Apellido2": $scope.atletaOne.Nombre.Apellido2
-                        },
-                        "Carrera": $scope.atletaOne.Carrera,
-                        "Cedula": $scope.atletaOne.Cedula,
-                        "Telefonos": $scope.atletaOne.Telefonos,
-                        "Genero": $scope.atletaOne.Genero,
-                        "Lateralidad": $scope.atletaOne.Lateralidad,
-                        "TipoSangre": $scope.atletaOne.TipoSangre,
-                        "Peso": $scope.atletaOne.Peso,
-                        "Estatura": $scope.atletaOne.Estatura,
-                        "Carne": $scope.atletaOne.Carne,
-                        "Correo": $scope.atletaOne.Correo,
-                        "FechaNacimiento": $scope.atletaOne.FechaNacimiento,
-                        "Beneficiario": {
-                            "Nombre": "",
-                            "Cedula": ""
-                        }
-                    };
-
-                } else {
-                    $scope.atletaUpdate = $scope.atletaOne;
-
-
-                }
-                console.log($scope.atletaUpdate);
-
+                console.log(response);
 
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
@@ -65,33 +34,29 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
 
     $scope.updateKey = function (imag, value) {
-        console.log($scope.atletaOne);
-
-
+      console.log($scope.atletaOne);
         var atletafull = {
             "Nombre": {
-                "Nombre": $scope.atletaUpdate.Nombre.Nombre,
-                "Apellido1": $scope.atletaUpdate.Nombre.Apellido1,
-                "Apellido2": $scope.atletaUpdate.Nombre.Apellido2
+                "Nombre": $scope.atletaOne.Nombre.Nombre,
+                "Apellido1": $scope.atletaOne.Nombre.Apellido1,
+                "Apellido2": $scope.atletaOne.Nombre.Apellido2
             },
-            "Carrera": $scope.atletaUpdate.Carrera._id,
-            "Cedula": $scope.atletaUpdate.Cedula,
-            "Telefonos": $scope.atletaUpdate.Telefonos,
-            "Genero": $scope.atletaUpdate.Genero,
-            "Lateralidad": $scope.atletaUpdate.Lateralidad,
-            "TipoSangre": $scope.atletaUpdate.TipoSangre,
-            "Peso": $scope.atletaUpdate.Peso,
-            "Estatura": $scope.atletaUpdate.Estatura,
-            "Carne": $scope.atletaUpdate.Carne,
-            "Correo": $scope.atletaUpdate.Correo,
-            "FechaNacimiento": $scope.atletaUpdate.FechaNacimiento.valueOf(),
+            "Carrera": $scope.atletaOne.Carrera._id,
+            "Cedula": $scope.atletaOne.Cedula,
+            "Telefonos": $scope.atletaOne.Telefonos,
+            "Genero": $scope.atletaOne.Genero,
+            "Lateralidad": $scope.atletaOne.Lateralidad,
+            "TipoSangre": $scope.atletaOne.TipoSangre,
+            "Peso": $scope.atletaOne.Peso,
+            "Estatura": $scope.atletaOne.Estatura,
+            "Carne": $scope.atletaOne.Carne,
+            "Correo": $scope.atletaOne.Correo,
+            "FechaNacimiento": $scope.atletaOne.FechaNacimiento.valueOf(),
             "Beneficiario": {
-                "Nombre": $scope.atletaUpdate.Beneficiario.Nombre,
-                "Cedula": $scope.atletaUpdate.Beneficiario.Cedula
+                "Nombre": $scope.atletaOne.Beneficiario.Nombre,
+                "Cedula": $scope.atletaOne.Beneficiario.Cedula
             }
         };
-
-
 
         if (imag) {
             atletafull.Imagen = value;
@@ -99,7 +64,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
 
         Conector.atletas.update($http, atletafull, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
-                $scope.loading = false;
+              $scope.loading = false;
                 swal({
                     title: "Exito",
                     text: "Atleta Modificado",
@@ -109,7 +74,6 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
                 }, function () {
                     window.location.replace("AtletaOne.html?id=" + $scope.atletaOne._id);
                 });
-
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
             });
@@ -156,19 +120,19 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
     };
 
     $scope.deleteAthlete = function () {
-        PopUp.deleteConfirmation(function (response) {
+        PopUp.deleteConfirmation(function(response) {
             if (response === 1) {
-                $scope.loading = true;
-                Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
-                    .then(function (response) {
-                        $scope.loading = false;
-                        PopUp.successChangePage("Atleta Borrado", "atletas.html");
-                        console.log(response);
-                    }, function (response) {
-                        console.error(response);
-                    })
+              $scope.loading = true;
+              Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
+              .then(function(response) {
+                $scope.loading = false;
+                PopUp.successChangePage("Atleta Borrado","atletas.html");
+                console.log(response);
+              }, function(response) {
+                console.error(response);
+              })
             }
-        })
+          })
 
     };
 

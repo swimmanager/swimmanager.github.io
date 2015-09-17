@@ -1,0 +1,74 @@
+.InverseForm {
+    color: rgb(245, 245, 220);
+}
+
+.Space {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.Inverse {
+    color: rgb(6, 109, 139);
+    font-weight: 500
+}
+
+.Inverse h5 {
+    font-weight: 700;
+    font-size: 2em
+}
+
+.fit {
+    width: 650%;
+}
+
+.caja {
+    border: 1px;
+    border-style: dotted;
+    border-color: dodgerblue;
+    padding: 5px;
+    margin: 5px;
+}
+
+input {
+    color: black
+}
+
+.spamEvent {
+    width: 80px;
+}
+
+.spamEventB {
+    width: 100px;
+}
+
+.nom {
+    background-color: #066d8b;
+}
+
+.h1grande {
+    font-size: 3.5em;
+}
+
+.deco {
+    background-color: darkcyan;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.Inverse a:hover {
+    color: rgb(0, 0, 0);
+}
+
+.Inverse a {
+    color: rgb(245, 245, 220);
+}
+
+.fitImage { /*imagen de los atleas en atleas.html*/
+  width: 100%;
+  height: 220px;
+}
+.buttomCol{
+  position: absolute;
+      bottom: 27px;
+      left: 25%;
+}

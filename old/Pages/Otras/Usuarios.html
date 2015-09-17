@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="SwimManager">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Swim Manager</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/sweetalert.css">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <link href="../../css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/swim.css">
+    <link rel="stylesheet" type="text/css" href="../../css/swim2.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/angular.min.js"></script>
+    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+</head>
+
+<body ng-controller="UsuariosCtrl" ng-init="loadUsuarios()">
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
+    <navbarswim current-tab="Usuarios"></navbarswim>
+    <br>
+    <div class="container">
+        <div class="page-header">
+            <h1>Usuarios</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
+                <form class="InverseForm" name="userForm" ng-controller="UsuariosCtrl">
+                    <label>Usuario</label>
+                    <div class="input-group">
+                        <select id="idselector" name="userSelect" ng-model="userSelect" class="form-control">
+                            <option ng-repeat="user in users" value="{{user._id}}">{{user.anvandarnamn}}, Rol: {{user.roll}}</option>
+                        </select>
+                        <span class="input-group-btn">
+        <button class="btn btn-danger" type="button" ng-click="deleteUsuario()">Eliminar</button>
+      </span>
+                    </div>
+                    <label>Nuevo Nombre de Usuario</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="userMod.anvandarnamn" name="Username">
+                        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="patchUsername()">Cambiar</button>
+      </span>
+                    </div>
+                    <!-- /input-group -->
+                    <label>Nueva Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" ng-model="userMod.losenord" name="losenord">
+                        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="patchPass()">Cambiar</button>
+      </span>
+                    </div>
+                    <!-- /input-group -->
+                    <label>Nuevo Rol</label>
+                    <div class="input-group">
+                        <select name="userSelectRol" ng-model="userMod.roll" class="form-control">
+                            <option value="User">Usuario</option>
+                            <option value="Super">Asistente</option>
+                            <option value="Master">Administrador</option>
+                        </select>
+                        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="patchRol()">Cambiar</button>
+      </span>
+                    </div>
+                    <button class="btn btn-primary" ng-click="addUsuario()" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Modules-Connectors-->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/sweetalert.min.js"></script>
+    <script src="../../js/conector.js"></script>
+    <!--Controllers-->
+    <script src="../../js/Controllers/UsuarioController.js"></script>
+
+</body>
+
+</html>

@@ -5,7 +5,6 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
             .then(function (response) {
                 console.log(response);
                 $scope.atletas = response.data._items;
-                console.log("hola");
                 $scope.loading = false;
             }, function (response) {
                 console.error(response);
@@ -52,13 +51,9 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
                 console.log(response);
             },
             complete: function () {
-                if ($('#beneficiario').val() === "") {
-                    $scope.atleta.Beneficiario.Nombre = "";
-                    console.log("nombre");
-                };
                 Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
                     $scope.loading = false;
-                    PopUp.successChangePage("Atleta Creado", "atletas.html");
+                    PopUp.successChangePage("Atleta Creado","atletas.html");
                 }, function (err) {
                     $scope.loading = false;
                     console.error(err);
@@ -76,25 +71,27 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
         var reader = new FileReader();
         var archivo = $('#image')[0].files[0];
         //Para poder crear atleta sin fecha de nacimiento
-        if ($scope.atleta.FechaNacimiento) {
-            $scope.atleta.FechaNacimiento = $scope.atleta.FechaNacimiento.valueOf();
-        } else {
-            $scope.atleta.FechaNacimiento = 0;
+        if($scope.atleta.FechaNacimiento){
+          $scope.atleta.FechaNacimiento = $scope.atleta.FechaNacimiento.valueOf();
         }
-        if (archivo) {
-            reader.readAsDataURL(archivo); //esto convierte la imagen al formato que acepta imgur
-            reader.onload = function (e) {
-                $scope.post(e.target.result);
-            };
-        } else {
-            Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
-                $scope.loading = false;
-                PopUp.successChangePage("Atleta Creado", "atletas.html");
+        else{
+          $scope.atleta.FechaNacimiento = 0;
+        }
+        if(archivo){
+          reader.readAsDataURL(archivo); //esto convierte la imagen al formato que acepta imgur
+          reader.onload = function (e) {
+              $scope.post(e.target.result);
+          };
+        }
+        else{
+          Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
+              $scope.loading = false;
+              PopUp.successChangePage("Atleta Creado","atletas.html");
 
-            }, function (err) {
-                $scope.loading = false;
-                console.error(err);
-            });
+          }, function (err) {
+              $scope.loading = false;
+              console.error(err);
+          });
 
         }
 

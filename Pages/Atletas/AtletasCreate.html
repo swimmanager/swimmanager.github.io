@@ -56,33 +56,34 @@
             <form class="InverseForm" name="userForm" ng-submit="addAthleteFull()" enctype="multipart/form-data" novalidate>
 
                 <h3>Informacion del Atleta</h3>
-                <h5>Todos los campos son Requeridos*****</h5>
+                <h5>Campos Requeridos*</h5>
 
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Carrera</label>
-                    <select class="form-control" required ng-model="atleta.Carrera">
-                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}" selected>{{carrera.Nombre}}</option>
+
+                <!-- NAME -->
+                <div class="form-group">
+                    <label>Nombre*</label>
+                    <input class="form-control" type="text" name="name" ng-model="atleta.Nombre.Nombre" placeholder="nombre" required>
+
+
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <label>Primer Apellido*</label>
+                    <input class="form-control" type="text" name="Apellido1" ng-model="atleta.Nombre.Apellido1" placeholder="Primer apellido" required>
+
+
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <label>Segundo Apellido*</label>
+                    <input class="form-control" type="text" name="Apellido2" ng-model="atleta.Nombre.Apellido2" placeholder="Segundo apellido" required>
+                </div>
+                <div class="form-group">
+                    <label>Carrera*</label>
+                    <select class="form-control" ng-model="atleta.Carrera" required>
+                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}">{{carrera.Nombre}}</option>
                     </select>
                     <a href="../Otras/Carreras.html" class="btn btn-success" role="button">Nueva</a>
-                </div>
-                <!-- NAME -->
-                <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-                    <label>Nombre</label>
-                    <input class="form-control" type="text" name="name" ng-model="atleta.Nombre.Nombre" required placeholder="nombre">
-
-
-                </div>
-                <p></p>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-                    <label>Primer Apellido*</label>
-                    <input class="form-control" type="text" name="Apellido1" ng-model="atleta.Nombre.Apellido1" required placeholder="Primer apellido">
-
-
-                </div>
-                <p></p>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-                    <label>Segundo Apellido*</label>
-                    <input class="form-control" type="text" name="Apellido2" ng-model="atleta.Nombre.Apellido2" required placeholder="Segundo apellido">
                 </div>
                 <p></p>
 
@@ -101,7 +102,7 @@
 
 
 
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Tipo de Sangre</label>
 
                     <select class="form-control" ng-model="atleta.TipoSangre">
@@ -117,7 +118,7 @@
                 </div>
 
 
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Lateralidad</label>
                     <select class="form-control" ng-model="atleta.Lateralidad">
                         <option value="Izquierda" selected>Izquierda</option>
@@ -125,23 +126,23 @@
 
                     </select>
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Peso</label>
-                    <input class="form-control" size="8" name="peso" type="number" ng-model="atleta.Peso">
+                    <input class="form-control" name="peso" type="number" ng-model="atleta.Peso">
                     <span class="label label-primary"><label>Kg</label></span>
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Carné</label>
                     <input class="form-control" type="text" name="carne" ng-model="atleta.Carne" placeholder="Carné">
 
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Cédula</label>
                     <input class="form-control" type="text" name="cedula" ng-model="atleta.Cedula" placeholder="Cedula">
 
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Género</label>
                     <select class="form-control" ng-model="atleta.Genero">
                         <option value="Masculino" selected>Masculino</option>
@@ -149,12 +150,12 @@
 
                     </select>
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Teléfono</label>
                     <input class="form-control" type="text" name="telefono" ng-model="atleta.Telefonos" placeholder="Telefono">
 
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
                     <label>Estatura</label>
                     <input class="form-control" type="number" name="estatura" ng-model="atleta.Estatura" placeholder="Estatura">
                     <span class="label label-primary"><label>metros</label></span>
@@ -165,22 +166,22 @@
                     <input class="form-control" type="date" name="fecha" datepicker-popup ng-model="atleta.FechaNacimiento">
 
                 </div>
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Beneficiario</label>
-                    <input class="form-control" type="text" name="beneficiaro" ng-model="atleta.Beneficiario.Nombre" placeholder="Nombre" size="40">
+                <div class="form-group">
+                    <label>Beneficiario*</label>
+                    <input class="form-control" type="text" id="beneficiario" name="beneficiaro" ng-model="atleta.Beneficiario.Nombre" placeholder="Nombre" size="40">
                     <input class="form-control" type="text" name="beneficiaro" ng-model="atleta.Beneficiario.Cedula" placeholder="Cedula" size="40">
 
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <div class="form-group">
 
-                    <label>Foto*(Obligatoria)</label>
-                    <input class="form-control" type="file" ng-model="atleta.Imagen" id="image" required>
+                    <label>Foto</label>
+                    <input class="form-control" type="file" ng-model="atleta.Imagen" id="image">
 
                 </div>
 
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
 
             </form>
         </div>
