@@ -2,162 +2,163 @@
 <html ng-app="SwimManager">
 
 <head>
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  <meta charset="utf-8">
-  <title>Swim Manager</title>
-  <meta content="Bootply" name="generator" />
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-  <link href="../../css/bootstrap.min.css" rel="stylesheet">
-  <link href="../../css/sweetalert.css" rel="stylesheet" type="text/css">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta charset="utf-8">
+    <title>Swim Manager</title>
+    <meta content="Bootply" name="generator" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/sweetalert.css" rel="stylesheet" type="text/css">
 
-  <!--[if lt IE 9]> <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
-  <link href="../../css/styles.css" rel="stylesheet">
-  <link href="../../css/swim.css" rel="stylesheet" type="text/css">
-  <link href="../../css/swim2.css" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-  <script src="../../js/bootstrap.min.js"></script>
-  <script src="../../js/angular.min.js"></script>
-  <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
-  <link href="../../css/spinner.css" rel="stylesheet">
+    <!--[if lt IE 9]> <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+    <link href="../../css/styles.css" rel="stylesheet">
+    <link href="../../css/swim.css" rel="stylesheet" type="text/css">
+    <link href="../../css/swim2.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/angular.min.js"></script>
+    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <link href="../../css/spinner.css" rel="stylesheet">
 
 </head>
 
 <body ng-controller="EventosCtrl" ng-init="loadData()">
-  <script>
-    var host = "swimmanager.github.io";
-    if ((host == window.location.host) && (window.location.protocol != "https:"))
-      window.location.protocol = "https";
-  </script>
-  <!--Loading Gif-->
-  <div class="loading" ng-show="loading">
-    <div class="sprite-spinner">
-      <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
+    <!--Loading Gif-->
+    <div class="loading" ng-show="loading">
+        <div class="sprite-spinner">
+            <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
+        </div>
     </div>
-  </div>
-  <!---->
-  <navbarswim current-tab="Eventos"></navbarswim>
-  <br>
-  <div class="container">
-    <div class="page-header">
-      <h1>Eventos</h1>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="nav nav-tabs nav-justified Inverse">
-          <li class="active"><a data-toggle="tab" href="#Agregar">Agregar Evento</a></li>
-          <li><a data-toggle="tab" href="#Editar">Editar Eventos</a></li>
-          <li><a data-toggle="tab" href="#Estilos">Estilos</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="tab-content">
-      <div id="Agregar" class="tab-pane fade in active">
-        <div class="col-md-6 col-md-offset-3">
-          <!--Form de Edicion-->
-          <h2>Agregar Evento</h2>
-          <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEvento()">
-            <div class="form-group">
-              <label>Nombre Evento *</label>
-              <input class="form-control" name="eventos" ng-model="eventos.Nombre" placeholder="Ej:3000" required type="text">
-
-              <label>Genero</label>
-              <br>
-              <div class="btn-group">
-                <label btn-radio="'Masculino'" class="btn btn-primary" ng-model="eventos.Genero">Masculino</label>
-                <label btn-radio="'Mixto'" class="btn btn-success" ng-model="eventos.Genero">Mixto</label>
-                <label btn-radio="'Femenino'" class="btn btn-danger" ng-model="eventos.Genero">Femenino</label>
-              </div>
-              <br>
-              <label>Estilo*</label>
-              <select class="form-control" ng-model="eventos.Tipo" required>
-                <option value="{{tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
+    <!---->
+    <navbarswim current-tab="Eventos"></navbarswim>
+    <br>
+    <div class="container">
+        <div class="page-header">
+            <h1>Eventos</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs nav-justified Inverse">
+                    <li class="active"><a data-toggle="tab" href="#Agregar">Agregar Evento</a></li>
+                    <li><a data-toggle="tab" href="#Editar">Editar Eventos</a></li>
+                    <li><a data-toggle="tab" href="#Estilos">Estilos</a></li>
+                </ul>
             </div>
-            </select>
-
-
-            <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
         </div>
-        </form>
-      </div>
-      <!---->
-    </div>
-    <div id="Editar" class="tab-pane fade">
-      <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
-        <h2>Editar Eventos</h2>
-        <table class="table">
-          <tr>
-            <td>Nombre</td>
-            <td>Genero</td>
-            <td>Estilo</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr ng-repeat="evento in eventosAll|orderBy:'Tipo.Nombre'">
+        <div class="tab-content">
+            <div id="Agregar" class="tab-pane fade in active">
+                <div class="col-md-8 col-md-offset-2">
+                    <!--Form de Edicion-->
+                    <h2>Agregar Evento</h2>
+                    <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEvento()">
+                        <div class="form-group">
+                            <label>Nombre Evento *</label>
+                            <input class="form-control" name="eventos" ng-model="eventos.Nombre" placeholder="Ej:3000" required type="text">
 
-                <td>
-                  <input type="text" class="form-control" placeholder="Nombre" ng-model="evento.Nombre">
-                </td>
-
-                <td>
-                  <select class="form-control" ng-model="evento.Genero">
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Mixto">Mixto</option>
-                  </select>
-                </td>
-
-                <td>
-                  <select class="form-control" ng-model="evento.Tipo._id">
-                    <option value="{{tipo._id}}" ng-selected="{{tipo._id == evento.Tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
-                  </select>
-                </td>
-
-                <td>
-                  <button class="btn btn-warning spamEventB " ng-click="updateEvento(evento)" type="submit">Modificar</button>
-                </td>
-
-                <td>
-                  <button class="btn btn-danger spamEventB " ng-click="deleteEvento(evento)" type="submit">Borrar</button>
-                </td>
-          </tr>
-        </table>
-
-      </div>
-    </div>
+                            <label>Genero</label>
+                            <br>
+                            <div class="btn-group">
+                                <label btn-radio="'Masculino'" class="btn btn-primary" ng-model="eventos.Genero">Masculino</label>
+                                <label btn-radio="'Mixto'" class="btn btn-success" ng-model="eventos.Genero">Mixto</label>
+                                <label btn-radio="'Femenino'" class="btn btn-danger" ng-model="eventos.Genero">Femenino</label>
+                            </div>
+                            <br>
+                            <label>Estilo*</label>
+                            <select class="form-control" ng-model="eventos.Tipo" required>
+                                <option value="{{tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
+                            </select>
+                        </div>
 
 
-    <div id="Estilos" class="tab-pane fade">
-      <div class="col-md-4">
-        <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-submit="addEstilo()">
-          <h3>Agregar</h3>
-          <h5>* Datos requeridos</h5>
-
-          <!-- NAME -->
-          <div class="form-group">
-            <label>Nombre*</label>
-            <input class="form-control" ng-model="estilo.Nombre" placeholder="Ej:Mariposa" required type="text">
-            <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
-        </form>
+                        <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
+                    </form>
+                </div>
+            </div>
+            <!---->
         </div>
-      </div>
+        <div id="Editar" class="tab-pane fade">
+            <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
+                <h2>Editar Eventos</h2>
+                <table class="table">
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Genero</td>
+                        <td>Estilo</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr ng-repeat="evento in eventosAll|orderBy:'Tipo.Nombre'">
 
-      <div class="col-md-6 col-md-offset-2">
-        <h3>Editar</h3>
-        <div ng-repeat="estilo in tiposAll">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Nombre" ng-model="estilo.Nombre">
-              <span class="input-group-btn">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Nombre" ng-model="evento.Nombre">
+                        </td>
+
+                        <td>
+                            <select class="form-control" ng-model="evento.Genero">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Mixto">Mixto</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <select class="form-control" ng-model="evento.Tipo._id">
+                                <option value="{{tipo._id}}" ng-selected="{{tipo._id == evento.Tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-warning spamEventB " ng-click="updateEvento(evento)" type="submit">Modificar</button>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-danger spamEventB " ng-click="deleteEvento(evento)" type="submit">Borrar</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+
+        <div id="Estilos" class="tab-pane fade">
+            <div class="col-md-4">
+                <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-submit="addEstilo()">
+                    <h3>Agregar</h3>
+                    <h5>* Datos requeridos</h5>
+
+                    <!-- NAME -->
+                    <div class="form-group">
+                        <label>Nombre*</label>
+                        <input class="form-control" ng-model="estilo.Nombre" placeholder="Ej:Mariposa" required type="text">
+                        <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6 col-md-offset-2">
+                <h3>Editar</h3>
+                <div ng-repeat="estilo in tiposAll">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Nombre" ng-model="estilo.Nombre">
+                            <span class="input-group-btn">
                 <button class="btn btn-warning spamEventB " ng-click="updateEstilo($index)" type="submit">Modificar</button>
               </span>
-              <span class="input-group-btn">
+                            <span class="input-group-btn">
                 <button class="btn btn-danger spamEventB " ng-click="deleteEstilo($index)" type="submit">Borrar</button>
               </span>
-            </div>
-          </div>
-        </div>
+                        </div>
+                    </div>
+                </div>
 
-      </div>
+            </div>
+        </div>
     </div>
     <!--Modules-Connectors-->
     <script src="../../js/app.js"></script>
