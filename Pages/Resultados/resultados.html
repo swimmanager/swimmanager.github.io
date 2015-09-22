@@ -58,12 +58,10 @@
                     <select id="idPrueba" name="PruebasSelect" ng-model="PruebasSelect" class="form-control" ng-change="getAtletas()">
                         <option ng-repeat="evento in eventos" value="{{evento._id}}">{{evento.Tipo.Nombre}}: {{evento.Nombre}}, Genero: {{evento.Genero}}</option>
                     </select>
-                    <div class="input-group">
-                        <h2 class="InverseForm">Atletas</h2>
-                        <span class="input-group-btn">
-        <button class="btn btn-success" type="button" ng-click="agregar()">Agregar</button>
-      </span>
-                    </div>
+                    <h2 class="InverseForm">Atletas</h2>
+
+
+
                     <div id="atletasGroup">
                         <div class="Space" ng-repeat="idx in idList">
                             <input type="text" class="form-control" placeholder="Atleta" ng-model="atletaData" iid="{{atleta.Nombre._id}}" typeahead="(atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2) for atleta in atletas | filter:$viewValue | limitTo:10" typeahead-on-select="tohidden($item, idx.id)">
@@ -78,6 +76,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary" ng-click="addUsuario()" type="submit">Submit</button>
+                    <button class="btn btn-success" type="button" ng-click="agregar()">Agregar</button>
                 </form>
             </div>
         </div>
