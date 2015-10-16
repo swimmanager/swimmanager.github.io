@@ -1,13 +1,14 @@
 app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif) {
-    $scope.loading = true;
+    LoadingGif.deactivate();
+    LoadingGif.activate();
     $scope.eventos = {
         'Nombre': '',
         'Genero': 'Masculino',
         'Tipo': ''
-    }
+    };
     $scope.estilo = {
         'Nombre': ''
-    }
+    };
 
     //este array creo q se puede borrar
     $scope.listaEventos = ['Masculino', 'Femenino', 'Mixto'];
@@ -31,8 +32,8 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif) {
             console.log(response);
         }, function (response) {
             console.error(response);
-        })
-    }
+        });
+    };
 
     $scope.addEvento = function () {
         LoadingGif.activate();
@@ -46,14 +47,14 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif) {
             console.log(response);
         }, function (response) {
             console.error(response);
-        })
-    }
+        });
+    };
 
     $scope.deleteEvento = function (pEvent) {
         var auth = "Nata2015:__Swim__2015"; //login data
+        LoadingGif.activate();
         var index = $scope.eventosAll.indexOf(pEvent);
         var eventoBorrar = $scope.eventosAll[index];
-        console.log(eventoBorrar);
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
                 LoadingGif.activate();

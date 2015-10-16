@@ -102,7 +102,7 @@
                                     <br>
                                     <div class="input-group ">
                                         <span class="input-group-addon spamEvent">Nombre</span>
-                                        <input type="text" class="form-control " value='{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}' readonly/>
+                                        <input type="text" class="form-control" value='{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}' readonly/>
                                         <span class="input-group-btn ">
         <button class="btn btn-danger spamEventB" type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
       </span>
@@ -110,9 +110,9 @@
 
                                     <div class="input-group ">
                                         <span class="input-group-addon spamEvent">Tiempo</span>
-                                        <input type="text " class="form-control " ng-model="atleta.TiempoRealizado ">
+                                        <input type="text " class="form-control " ng-model="atleta.TiempoRealizado" readonly>
                                         <span class="input-group-btn ">
-        <button class="btn btn-warning spamEventB" type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+        <button class="btn btn-warning spamEventB" type="button " ng-click="patchTime(atleta._id, atleta._etag,atleta.TiempoRealizado) ">Cambiar</button>
       </span>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </div>
 
 <div ui-view></div>

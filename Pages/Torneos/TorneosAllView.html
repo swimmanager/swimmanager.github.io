@@ -1,36 +1,31 @@
 <div ng-init="loadTorneos()" ng-show="$state.current.name === 'TorneosView'">
-  <!--Loading Gif-->
-  <div class="loading" ng-show="loading">
-    <div class="sprite-spinner">
-      <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
-    </div>
-  </div>
-  <!---->
-  <br>
-  <div class="container">
-    <div class="page-header">
-      <h1>Torneos</h1>
-    </div>
-    <nav class="navbar navbar-default navbar-static-top">
-      <form class="navbar-form navbar-left" role="buscar">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="buscar" ng-model="searchText">
-        </div>
-        <a ui-sref=".Add" class="btn btn-primary" role="button">Agregar Nuevo</a>
-      </form>
-    </nav>
-    <div class="container marketing">
-      <div class="row" style="margin-botton:500px">
-        <div class="col-md-3 col-sm-6 text-center" ng-repeat="torneo in torneos|filter:searchText | orderBy:'Nombre'">
-          <div class="deco">
-            <p class="h1grande">{{torneo.Nombre}}</p>
-            <a ui-sref=".One.Add({idTorneo:torneo._id})" class="btn btn-default" role="button">Ver mas..</a>
-          </div>
-        </div>
-      </div>
-      <!-- /.row -->
-    </div>
 
-  </div>
+    <!---->
+    <br>
+    <div class="container">
+        <div class="page-header">
+            <h1>Torneos</h1>
+        </div>
+        <nav class="navbar navbar-default navbar-static-top">
+            <form class="navbar-form navbar-left" role="buscar">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="buscar" ng-model="searchText">
+                </div>
+                <a ui-sref=".Add" class="btn btn-primary" role="button">Agregar Nuevo</a>
+            </form>
+        </nav>
+        <div class="container marketing">
+            <div class="row" style="margin-botton:500px">
+                <div class="col-md-3 col-sm-6 text-center" ng-repeat="torneo in torneos|filter:searchText | orderBy:'Nombre'">
+                    <div class="deco">
+                        <p class="h1grande">{{torneo.Nombre}}</p>
+                        <a ui-sref=".One.Add({idTorneo:torneo._id})" class="btn btn-default" role="button">Ver mas..</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+
+    </div>
 </div>
 <div ui-view></div>

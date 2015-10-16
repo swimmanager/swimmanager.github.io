@@ -1,5 +1,7 @@
-app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
+app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { // ejemplo
     //Schema
+    LoadingGif.deactivate();
+    LoadingGif.activate();
     $scope.userSelect = {
         "anvandarnamn": "",
         "losenord": "",
@@ -16,8 +18,7 @@ app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
                 Conector.usuarios.getAll($http, $scope.auth_p)
                     .then(function (response) {
                         $scope.users = response.data._items;
-                        console.log($scope.users);
-                        //Loading.hide();
+                        LoadingGif.deactivate();
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });
@@ -34,7 +35,7 @@ app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
         var auth = "Nata2015:__Swim__2015"; //login data
         Conector.usuarios.add($http, $scope.userMod, Base64.encode(auth)).
         then(function (response) {
-            PopUp.successSamePage("Usuario Agregado",$state);
+            PopUp.successSamePage("Usuario Agregado", $state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -52,7 +53,7 @@ app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
 
         Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
         then(function (response) {
-                PopUp.successSamePage("Nombre de Usuario Cambiado",$state);
+            PopUp.successSamePage("Nombre de Usuario Cambiado", $state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -70,7 +71,7 @@ app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
 
         Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
         then(function (response) {
-            PopUp.successSamePage("Contraseña Cambiada",$state);
+            PopUp.successSamePage("Contraseña Cambiada", $state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -88,7 +89,7 @@ app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
 
         Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
         then(function (response) {
-            PopUp.successSamePage("Rol Cambiado",$state);
+            PopUp.successSamePage("Rol Cambiado", $state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -103,7 +104,7 @@ app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
                 var currnt = $scope.users[id];
                 Conector.usuarios.delete($http, Base64.encode(auth), currnt._id, currnt._etag)
                     .then(function (response) {
-                        PopUp.successSamePage("Usuario Borrado",$state);
+                        PopUp.successSamePage("Usuario Borrado", $state);
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });

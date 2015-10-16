@@ -1,4 +1,6 @@
-app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
+app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) { // ejemplo
+    LoadingGif.deactivate();
+    LoadingGif.activate();
     $scope.$state = $state;
     $scope.torneos = [];
 
@@ -15,6 +17,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
                             edicion.eventos.forEach(function (evento) {
                                 Conector.resultados.getbyIds($http, edicion._id, evento._id).then(function (response) {
                                     evento.atletas = response.data._items;
+                                    LoadingGif.deactivate();
                                 }, function (response) {
                                     console.error(response);
                                 });
@@ -57,15 +60,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
             if (isConfirm) {
                 Conector.resultados.delete($http, Base64.encode(auth), id, etag)
                     .then(function (response) {
-                        swal({
-                            title: "Exito",
-                            text: "Usuario Borrado",
-                            type: "success",
-                            showConfirmButton: true,
-                            closeOnConfirm: true
-                        }, function () {
-                            window.location.replace("./resultadosV.html");
-                        });
+                        PopUp.successChangePage("Resultado Borrado", "Resultados", $state);
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });
@@ -73,12 +68,13 @@ app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
         });
     };
 
-    $scope.patchTime = function (id, etag) {
+    $scope.patchTime = function (id, etag, time) {
         var auth = "Nata2015:__Swim__2015";
         swal({
             title: "Nuevo Valor!",
             text: "Nuevo tiempo:",
             type: "input",
+            inputValue: time,
             showCancelButton: true,
             closeOnConfirm: false,
             animation: "slide-from-top",
@@ -87,21 +83,14 @@ app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
             if (inputValue === false) return false;
             if (inputValue === "") {
                 swal.showInputError("Debe Escribir algo");
-                return false
+                return false;
             }
             Conector.resultados.update($http, {
                     TiempoRealizado: inputValue
                 }, Base64.encode(auth), id, etag)
                 .then(function (response) {
-                    swal({
-                        title: "Exito",
-                        text: "Tiempo Actualizado",
-                        type: "success",
-                        showConfirmButton: true,
-                        closeOnConfirm: true
-                    }, function () {
-                        window.location.replace("./resultadosV.html");
-                    });
+                    PopUp.successChangePage("Tiempo Actualizado", "Resultados", $state);
+
                 }, function (response) {
                     console.error(response); // Deberia haber un mejor manejo aqui
                 });
@@ -110,7 +99,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
 
     };
     $scope.getEdiciones = function () {
-        var index = document.getElementById("idTorneos").selectedIndex-1;
+        var index = document.getElementById("idTorneos").selectedIndex - 1;
         Conector.ediciones.getAllbyTorneo($http, $scope.torneos[index]._id).then(function (response) {
             $scope.ediciones = response.data._items;
         }, function (response) {

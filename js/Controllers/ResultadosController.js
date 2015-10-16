@@ -1,5 +1,7 @@
-app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
+app.controller('ResultadosCtrl', function ($scope, $http, LoadingGif) { // ejemplo
     //Schema
+    LoadingGif.deactivate();
+    LoadingGif.activate();
     $scope.userSelect = {
         "anvandarnamn": "",
         "losenord": "",
@@ -25,6 +27,7 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
         $scope.count = 1;
         Conector.torneos.getAll($http).then(function (response) {
             $scope.torneos = response.data._items;
+            LoadingGif.deactivate();
         }, function (response) {
             console.error(response);
         });
@@ -37,8 +40,10 @@ app.controller('ResultadosCtrl', function ($scope, $http) { // ejemplo
 
     $scope.getEdiciones = function () {
         var index = document.getElementById("idTorneos").selectedIndex;
+        LoadingGif.activate();
         Conector.ediciones.getAllbyTorneo($http, $scope.torneos[index]._id).then(function (response) {
             $scope.ediciones = response.data._items;
+            LoadingGif.deactivate();
         }, function (response) {
             console.error(response);
         });

@@ -1,6 +1,8 @@
-app.controller('TorneosCtrl', function ($scope, $http,$stateParams,$state) { // ejemplo
-$scope.loading=true;
-  $scope.$state = $state;
+app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, LoadingGif) { // ejemplo
+    LoadingGif.deactivate();
+    LoadingGif.activate();
+    $scope.loading = true;
+    $scope.$state = $state;
 
     //Schema
     $scope.torneo = {
@@ -15,7 +17,7 @@ $scope.loading=true;
         Conector.torneos.getAll($http)
             .then(function (response) {
                 $scope.torneos = response.data._items;
-                $scope.loading=false;
+                LoadingGif.deactivate();
                 console.log($scope.torneos);
             }, function (response) {
                 console.error(response);
@@ -76,7 +78,7 @@ $scope.loading=true;
         then(function (response) {
             console.log(response);
             $scope.edicion.Torneo = response.data._id;
-            Ediciones.addEdicion($http, $scope.edicion, auth,$state);
+            Ediciones.addEdicion($http, $scope.edicion, auth, $state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -104,7 +106,7 @@ $scope.loading=true;
 
         Conector.torneos.update($http, $scope.torneo, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
             .then(function (response) {
-                PopUp.successChangePage("Torneo Modificado", "TorneosView",$state);
+                PopUp.successChangePage("Torneo Modificado", "TorneosView", $state);
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
             });
@@ -117,7 +119,7 @@ $scope.loading=true;
             if (response === 1) {
                 Conector.torneos.delete($http, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
                     .then(function (response) {
-                        PopUp.successChangePage("Torneo Borrado", "TorneosView",$state);
+                        PopUp.successChangePage("Torneo Borrado", "TorneosView", $state);
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });

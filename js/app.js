@@ -149,9 +149,6 @@ app.factory("LoadingGif", function () {
 });
 app.controller('Base', function ($scope, LoadingGif) { // ejemplo
     $scope.loading = LoadingGif;
-    //LoadingGif.deactivate();
+    LoadingGif.deactivate();
     console.log($scope.loading.state);
-    $scope.load = function () {
-        console.log($scope.loading);
-    };
 });
