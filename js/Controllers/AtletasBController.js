@@ -1,6 +1,6 @@
 /*global app, Conector, Base64, $,getUrlVars, swal */
 /*jslint browser: true*/
-app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state) {
+app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state, LoadingGif) {
     //Schema
 
     var auth = "Nata2015:__Swim__2015";
@@ -8,12 +8,12 @@ app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state) {
 
 
     $scope.loadOneAtleta = function () {
-        $scope.loading = true;
+        LoadingGif.activate();
 
         var id =$stateParams.idAtleta;
         Conector.carreras.getAll($http).then(function (response) {
             $scope.carreras = response.data._items;
-            $scope.loading = false;
+            LoadingGif.deactivate();
         }, function (resp) {
             console.error(resp);
         });
@@ -98,7 +98,7 @@ app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state) {
 
         Conector.atletas.update($http, atletafull, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
-                $scope.loading = false;
+                LoadingGif.deactivate();
                 PopUp.successChangePageParam("Atleta Modificado",function(response){
                   $state.go("AtletasView.One",{idAtleta:$scope.atletaOne._id},{reload:true});
                 });
@@ -111,7 +111,7 @@ app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state) {
 
 
     $scope.updateAthlete = function () {
-        $scope.loading = true;
+        LoadingGif.activate();
         if ($('#image').val() === "") {
             $scope.updateKey(false);
         } else {
@@ -152,10 +152,10 @@ app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state) {
     $scope.deleteAthlete = function () {
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
-                $scope.loading = true;
+                LoadingGif.activate();
                 Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
                     .then(function (response) {
-                        $scope.loading = false;
+                        LoadingGif.deactivate();
                         PopUp.successChangePage("Atleta Borrado", "AtletasView",$state);
                         console.log(response);
                     }, function (response) {

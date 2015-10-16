@@ -28,67 +28,73 @@
 </head>
 
 <body ng-app="SwimManager">
-  <script>
-      var host = "swimmanager.github.io";
-      if ((host == window.location.host) && (window.location.protocol != "https:"))
-          window.location.protocol = "https";
-  </script>
-  <div class="navbar navbar-default navbar-fixed-top">
+    <script>
+        var host = "swimmanager.github.io";
+        if ((host == window.location.host) && (window.location.protocol != "https:"))
+            window.location.protocol = "https";
+    </script>
+    <div class="navbar navbar-default navbar-fixed-top">
 
-      <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" ui-sref="Home">Swim Manager</a>
-      </div>
-      <center>
-          <div class="navbar-collapse collapse" id="navbar-main">
-              <ul class="nav navbar-nav" id="navigation-tabs">
-                  <li ui-sref-active="active"><a ui-sref="AtletasView">Atletas</a></li>
-                  <li ui-sref-active="active"><a ui-sref="TorneosView">Torneos</a></li>
-                  <li ui-sref-active="active"><a ui-sref="EventosTab">Eventos</a></li>
-                  <li ui-sref-active="active"><a ui-sref="Resultados">Resultados</a></li>
-                  <li ui-sref-active="active"><a ui-sref="Usuarios">Usuarios</a></li>
-                  <li ui-sref-active="active"><a href="#">Historicos</a></li>
-              </ul>
-              <form class="navbar-form navbar-right" role="search">
-                  <div class="form-group">
-                      <input type="text" class="form-control" name="username" placeholder="Usuario">
-                  </div>
-                  <div class="form-group">
-                      <input type="text" class="form-control" name="password" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-default">Ingresar</button>
-              </form>
-          </div>
-      </center>
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="Home">Swim Manager</a>
+        </div>
+        <center>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav" id="navigation-tabs">
+                    <li ui-sref-active="active"><a ui-sref="AtletasView">Atletas</a></li>
+                    <li ui-sref-active="active"><a ui-sref="TorneosView">Torneos</a></li>
+                    <li ui-sref-active="active"><a ui-sref="EventosTab">Eventos</a></li>
+                    <li ui-sref-active="active"><a ui-sref="Resultados">Resultados</a></li>
+                    <li ui-sref-active="active"><a ui-sref="Usuarios">Usuarios</a></li>
+                    <li ui-sref-active="active"><a href="#">Historicos</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Ingresar</button>
+                </form>
+            </div>
+        </center>
 
-  </div>
+    </div>
 
-  <!--Contenido de la pagina-->
-  <div ui-view></div>
+    <!--Contenido de la pagina-->
+    <div ng-controller="Base" class="loading">
+        <!-- ng-show="loading.state">-->
+        <div class="sprite-spinner">
+            <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
+        </div>
+    </div>
+    <div ui-view></div>
 
 
-      <!--Module-->
-      <script src="js/app.js"></script>
-      <script src="js/sweetalert.min.js"></script>
-      <script src="js/conector.js"></script>
+    <!--Module-->
+    <script src="js/app.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/conector.js"></script>
 
-      <!--Controllers-->
-      <script src="js/Controllers/AtletasController.js"></script>
-      <script src="js/Controllers/AtletasBController.js"></script>
-      <script src="js/Controllers/TorneosController.js"></script>
-      <script src="js/Controllers/EventosController.js"></script>
-      <script src="js/Controllers/ResultadosController.js"></script>
-      <script src="js/Controllers/ResultadosBController.js"></script>
-      <script src="js/Controllers/EdicionesController.js"></script>
-      <script src="js/Controllers/UsuarioController.js"></script>
-      <script src="js/Controllers/CarrerasController.js"></script>
-      <!--Directives-->
-      <script src="js/Directives/DefaultImageDirective.js"></script>
-      <script src="js/ExtraFunctions/PopUp.js"></script>
+    <!--Controllers-->
+    <script src="js/Controllers/AtletasController.js"></script>
+    <script src="js/Controllers/AtletasBController.js"></script>
+    <script src="js/Controllers/TorneosController.js"></script>
+    <script src="js/Controllers/EventosController.js"></script>
+    <script src="js/Controllers/ResultadosController.js"></script>
+    <script src="js/Controllers/ResultadosBController.js"></script>
+    <script src="js/Controllers/EdicionesController.js"></script>
+    <script src="js/Controllers/UsuarioController.js"></script>
+    <script src="js/Controllers/CarrerasController.js"></script>
+    <!--Directives-->
+    <script src="js/Directives/DefaultImageDirective.js"></script>
+    <script src="js/ExtraFunctions/PopUp.js"></script>
 
 
 </body>

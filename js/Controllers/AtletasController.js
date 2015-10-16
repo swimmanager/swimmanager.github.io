@@ -1,23 +1,28 @@
-app.controller('AtletasCtrl', function ($scope, $http,$state) { // ejemplo
-    $scope.loading = true;
+app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif) { // ejemplo
+    //LoadingGif.activate();
+    LoadingGif.activate();
+    console.log($scope);
     $scope.$state = $state;
+    //console.log($scope);
 
     $scope.getallnombre = function () {
         Conector.atletas.getBasic($http)
             .then(function (response) {
                 console.log(response);
                 $scope.atletas = response.data._items;
-                $scope.loading = false;
+                //LoadingGif.deactivate();
+                LoadingGif.deactivate();
             }, function (response) {
                 console.error(response);
             });
     };
 
     $scope.init = function () {
-        $scope.loading = true;
+        LoadingGif.activate();
         Conector.carreras.getAll($http).then(function (response) {
             $scope.carreras = response.data._items;
-            $scope.loading = false;
+            //LoadingGif.deactivate();
+            LoadingGif.deactivate();
         }, function (resp) {
             console.error(resp);
         });
@@ -29,7 +34,7 @@ app.controller('AtletasCtrl', function ($scope, $http,$state) { // ejemplo
 
     $scope.post = function (img) {
         //console.log($scope);
-        $scope.loading = true;
+        LoadingGif.activate();
 
         var iurl = img.substr(img.indexOf(",") + 1, img.length); //esto le limpia unas basuras a la imagen
         //console.log(iurl); //esto esra para probar que sio agarro el base64 de la imagen
@@ -58,10 +63,10 @@ app.controller('AtletasCtrl', function ($scope, $http,$state) { // ejemplo
                     console.log("nombre");
                 };
                 Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
-                    $scope.loading = false;
+                    LoadingGif.deactivate();
                     PopUp.successChangePage("Atleta Creado", "atletas.html");
                 }, function (err) {
-                    $scope.loading = false;
+                    LoadingGif.deactivate();
                     console.error(err);
                 });
 
@@ -73,7 +78,7 @@ app.controller('AtletasCtrl', function ($scope, $http,$state) { // ejemplo
     };
 
     $scope.addAthleteFull = function () {
-        $scope.loading = true;
+        LoadingGif.activate();
         var reader = new FileReader();
         var archivo = $('#image')[0].files[0];
         //Para poder crear atleta sin fecha de nacimiento
@@ -89,11 +94,11 @@ app.controller('AtletasCtrl', function ($scope, $http,$state) { // ejemplo
             };
         } else {
             Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
-                $scope.loading = false;
-                PopUp.successChangePage("Atleta Creado", "AtletasView",$state);
+                LoadingGif.deactivate();
+                PopUp.successChangePage("Atleta Creado", "AtletasView", $state);
 
             }, function (err) {
-                $scope.loading = false;
+                LoadingGif.deactivate();
                 console.error(err);
             });
 

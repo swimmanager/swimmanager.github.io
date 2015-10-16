@@ -5,14 +5,14 @@
     text-align: left;
 }
 
-.loading{
-  position:fixed;
-    width:  100px;
+.loading {
+    position: fixed;
+    width: 100px;
     height: 100px;
     left: 50%;
-    top:  50%;
+    top: 50%;
     margin-left: -50px;
-    margin-top:  -50px;
-    z-index: 10000;
+    margin-top: -50px;
+    z-index: 9999999;
     text-align: center;
 }

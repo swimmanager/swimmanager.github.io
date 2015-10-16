@@ -15,7 +15,9 @@
         var self = this,
             count = 0,
             img = this.el.children[0];
-        this.el.display = "block";
+        this.el.style.display = "block";
+        console.log("this come here");
+        console.log(this);
         self.loop = setInterval(function () {
             if (count == 19) {
                 count = 0;
@@ -30,12 +32,3 @@
     };
     document.SpriteSpinner = SpriteSpinner;
 })();
-
-$(document).ready(function () {
-    $(".sprite-spinner").each(function (i) {
-        var s = new SpriteSpinner(this, {
-            interval: 50
-        });
-        s.start();
-    });
-});
