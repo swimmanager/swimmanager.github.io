@@ -55,10 +55,11 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             .then(function (response) {
                 $scope.torneoOne = response.data;
                 console.log(response);
+                LoadingGif.deactivate();
             }, function (response) {
                 console.error(response);
             });
-        //Carga las ediciones del torneo
+        //Carga las ediciones del torneo 
         Conector.ediciones.getAllbyTorneo($http, id)
             .then(function (response) {
                 $scope.EdicionesTorneo = response.data._items;
