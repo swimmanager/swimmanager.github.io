@@ -1,4 +1,4 @@
-app.controller('UsuariosCtrl', function ($scope, $http) { // ejemplo
+app.controller('UsuariosCtrl', function ($scope, $http,$state) { // ejemplo
     //Schema
     $scope.userSelect = {
         "anvandarnamn": "",
@@ -34,16 +34,7 @@ app.controller('UsuariosCtrl', function ($scope, $http) { // ejemplo
         var auth = "Nata2015:__Swim__2015"; //login data
         Conector.usuarios.add($http, $scope.userMod, Base64.encode(auth)).
         then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Usuario Agregado",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
-            });
+            PopUp.successSamePage("Usuario Agregado",$state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -61,16 +52,7 @@ app.controller('UsuariosCtrl', function ($scope, $http) { // ejemplo
 
         Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
         then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Nombre de Usuario Cambiado",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
-            });
+                PopUp.successSamePage("Nombre de Usuario Cambiado",$state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -88,16 +70,7 @@ app.controller('UsuariosCtrl', function ($scope, $http) { // ejemplo
 
         Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
         then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Contraseña Cambiada",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
-            });
+            PopUp.successSamePage("Contraseña Cambiada",$state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -115,49 +88,22 @@ app.controller('UsuariosCtrl', function ($scope, $http) { // ejemplo
 
         Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
         then(function (response) {
-            //PopUp.showSuccess('Usuario Agregado Exitosamente');
-            swal({
-                title: "Exito",
-                text: "Rol Cambiado",
-                type: "success",
-                showConfirmButton: true,
-                closeOnConfirm: true
-            }, function () {
-                window.location.replace("Usuarios.html");
-            });
+            PopUp.successSamePage("Rol Cambiado",$state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
     };
 
 
-    //funcion que borra el torneo de la base
     $scope.deleteUsuario = function () {
         var auth = "Nata2015:__Swim__2015";
-        swal({
-            title: "Seguro desea borrarlo?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Si, Borrar!",
-            cancelButtonText: "No",
-            closeOnConfirm: false,
-            closeOnCancel: true
-        }, function (isConfirm) {
-            if (isConfirm) {
+        PopUp.deleteConfirmation(function (response) {
+            if (response === 1) {
                 var id = document.getElementById("idselector").selectedIndex;
                 var currnt = $scope.users[id];
                 Conector.usuarios.delete($http, Base64.encode(auth), currnt._id, currnt._etag)
                     .then(function (response) {
-                        swal({
-                            title: "Exito",
-                            text: "Usuario Borrado",
-                            type: "success",
-                            showConfirmButton: true,
-                            closeOnConfirm: true
-                        }, function () {
-                            window.location.replace("Usuarios.html");
-                        });
+                        PopUp.successSamePage("Usuario Borrado",$state);
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });

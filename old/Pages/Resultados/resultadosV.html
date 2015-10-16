@@ -36,34 +36,121 @@
     </script>
     <navbarswim current-tab="Resultados"></navbarswim>
     <br>
-    <div class="container" ng-init="loadT()">
+    <div class="container" ng-init="loadT()" ng-controller="ResultadosCtrl">
         <div class="page-header">
             <h1>Resultados</h1>
+            <a href="resultados.html" class="btn btn-primary" role="button">Agregar Nuevo Resultado</a>
         </div>
 
-        <p><a href="resultados.html" class="btn btn-default" role="button">Agregar</a></p>
-        <div class="row clearfix">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="caja" ng-repeat="torneo in torneos" ng-model="torneos">
-                    <h2>{{torneo.Nombre}}</h2>
-                    <div class="caja" ng-repeat="edicion in torneo.ediciones ">
-                        <h3>{{edicion.Nombre}} Fecha{{edicion.Fecha|date:"mediumDate "}} </h3>
-                        <div class="caja" ng-repeat="prueba in edicion.eventos ">
-                            <h4>{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Genero {{prueba.Genero}} </h4>
-                            <div class="caja" ng-repeat="atleta in prueba.atletas ">
-                                <label>Nombre</label>
-                                <div class="input-group ">
-                                    <label>{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}</label>
-                                    <span class="input-group-btn ">
-        <button class="btn btn-danger " type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
-      </span>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Torneo</label>
+                    <select id="idTorneos" name="TorneosSelect" ng-model="TorneosSelect" class="form-control" ng-change="getEdiciones()">
+                        <option ng-repeat="torneo in torneos" value="{{torneo._id}}">{{torneo.Nombre}}</option>
+                    </select>
+                </div>
+                <!-- /input-group -->
+            </div>
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Edición</label>
+                    <select id="idEdiciones" name="EdicionesSelect" ng-model="EdicionesSelect" class="form-control">
+
+                        <option ng-repeat="edicion in ediciones" value="{{edicion._id}}">
+                            {{edicion.Nombre}}, Fecha: {{edicion.fecha|date:"mediumDate"}}</option>
+                    </select>
+
+
+                </div>
+                <!-- /input-group -->
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Atleta</label>
+                    <select id="idAtleta" name="EdicionesSelect" ng-model="AtletasSelect" class="form-control">
+
+                        <option ng-repeat="atleta in atletas" value="{{atleta._id}}">
+                            {{atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2}}</option>
+                    </select>
+
+                    <!-- /input-group -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row clearfix">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div ng-repeat="torneo in torneos|filter: TorneosSelect" ng-model="torneos">
+                        <h2>{{torneo.Nombre}}</h2>
+                        <div ng-repeat="edicion in torneo.ediciones|filter: EdicionesSelect">
+                            <h3>{{edicion.Nombre}} Fecha {{edicion.fecha|date:"mediumDate"}} </h3>
+                            <!--
+                            <div class="panel panel-default" ng-repeat="atleta in edicion.atletas">
+                                <div class="panel-body">
+                                    {{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}
+                                    <button class="btn btn-danger " type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+                                    <button class="btn btn-warning " type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
                                 </div>
-                                <label>Tiempo</label>
-                                <div class="input-group ">
-                                    <input type="text " class="form-control " ng-model="atleta.TiempoRealizado " readonly>
-                                    <span class="input-group-btn ">
-        <button class="btn btn-default " type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+                            </div>
+-->
+
+
+                            <div class="panel panel-default Normal" ng-repeat="prueba in edicion.eventos" ng-hide="(prueba.atletas.length==0)">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Genero {{prueba.Genero}} </h3>
+                                </div>
+
+                                <!--
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre del Atleta</th>
+                                            <th>Tiempo</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="atleta in prueba.atletas ">
+                                            <td>{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}</td>
+                                            <td>
+                                                <input type="text " class="form-control" ng-model="atleta.TiempoRealizado " readonly>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger " type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-default " type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+-->
+
+                                <div ng-repeat="atleta in prueba.atletas| filter: AtletasSelect ">
+                                    <br>
+                                    <div class="input-group ">
+                                        <span class="input-group-addon spamEvent">Nombre</span>
+                                        <input type="text" class="form-control " value='{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}' readonly/>
+                                        <span class="input-group-btn ">
+        <button class="btn btn-danger spamEventB" type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
       </span>
+                                    </div>
+
+                                    <div class="input-group ">
+                                        <span class="input-group-addon spamEvent">Tiempo</span>
+                                        <input type="text " class="form-control " ng-model="atleta.TiempoRealizado ">
+                                        <span class="input-group-btn ">
+        <button class="btn btn-warning spamEventB" type="button " ng-click="patchTime(atleta._id, atleta._etag) ">Cambiar</button>
+      </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,14 +158,14 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="../../js/app.js "></script>
-    <script src="../../js/sweetalert.min.js "></script>
-    <script src="../../js/conector.js "></script>
-    <!--Controllers-->
-    <script src="../../js/Controllers/ResultadosBController.js "></script>
-
+        <script src="../../js/app.js "></script>
+        <script src="../../js/sweetalert.min.js "></script>
+        <script src="../../js/conector.js "></script>
+        <!--Controllers-->
+        <script src="../../js/Controllers/ResultadosBController.js "></script>
+        <script src="../../js/Controllers/ResultadosController.js "></script>
+        <script src="../../js/Controllers/AtletasController.js"></script>
 </body>
 
 </html>

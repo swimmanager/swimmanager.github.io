@@ -7,24 +7,124 @@ function getUrlVars() {
 }
 
 
-var app = angular.module('SwimManager', ["ui.bootstrap"]);
+var app = angular.module('SwimManager', ["ui.bootstrap","ui.router"])
 
+.config(function($stateProvider, $urlRouterProvider) {
+  //Pagina por defecto
+  $urlRouterProvider.otherwise('/Home');
 
-app.directive("navbarswim", function () {
-    return {
-        restrict: "E",
-        replace: true,
-        transclude: true,
-        templateUrl: "../Otras/navbar.html",
-        compile: function (element, attrs) {
-            var li, liElements, links, index, length;
+  $stateProvider
+    .state('Home', {
+      url: '/Home',
+          templateUrl: 'pages/Home.html'
+          //controller: "HomeCtrl"
+      })
 
-            liElements = $(element).find("#navigation-tabs li");
-            for (index = 0, length = liElements.length; index < length; index++) {
-                li = liElements[index];
-                links = $(li).find("a"); // (3)
-                if (links[0].textContent === attrs.currentTab) $(li).addClass("active");
-            }
-        }
-    };
+      //////////atletas/////////////////////
+      .state('AtletasView', {
+        url: '/AtletasView',
+            templateUrl: 'pages/Atletas/atletas.html',
+            controller: "AtletasCtrl"
+        })
+      .state('AtletasView.One', {
+        url: '/One/:idAtleta',
+            templateUrl: 'pages/Atletas/AtletaOne.html',
+            controller: "AtletasBCtrl"
+      })
+      .state('AtletasView.Add', {
+        url: '/Add',
+            templateUrl: 'pages/Atletas/AtletaCreate.html',
+            controller: "AtletasCtrl"
+      })
+
+      .state('AtletasView.Edit', {
+        url: '/Edit/:idAtleta',
+            templateUrl: 'pages/Atletas/AtletaUpdate.html',
+            controller: "AtletasBCtrl"
+      })
+      /////carreras//////////
+      .state('AtletasView.Carreras', {
+        url: '/Carreras',
+            templateUrl: 'pages/Otras/Carreras.html',
+            controller: "CarrerasCtrl"
+      })
+      ////////torneos//////////////////////////
+      .state('TorneosView', {
+          url: '/TorneosView',
+              templateUrl: 'pages/Torneos/TorneosAllView.html',
+              controller: "TorneosCtrl"
+      })
+
+      .state('TorneosView.Add', {
+          url: '/Add',
+              templateUrl: 'pages/Torneos/TorneosCreate.html',
+              controller: "TorneosCtrl"
+      })
+
+      .state('TorneosView.Update', {
+          url: '/Update/:idTorneo',
+              templateUrl: 'pages/Torneos/TorneosUpdate.html',
+              controller: "TorneosCtrl"
+      })
+      ///////ediciones////////////////
+      .state('TorneosView.One', {
+          url: '/One/:idTorneo',
+              templateUrl: 'pages/Torneos/TorneosOneView.html',
+              controller: "TorneosCtrl"
+      })
+      .state('TorneosView.One.Add', {
+          url: '/Add',
+              templateUrl: 'pages/Torneos/EdicionAdd.html',
+              controller: "TorneosCtrl"
+      })
+      .state('TorneosView.One.Edit', {
+          url: '/Edit',
+              templateUrl: 'pages/Torneos/EdicionEdit.html',
+              controller: "TorneosCtrl"
+      })
+
+      //////////////eventos//////////////////////////
+      .state('EventosTab', {
+          url: '/EventosTab',
+              templateUrl: 'pages/Eventos/EventosTab.html'
+      })
+
+      .state('EventosTab.Add', {
+          url: '/Add',
+              templateUrl: 'pages/Eventos/EventosAdd.html',
+              controller: "EventosCtrl"
+      })
+
+      .state('EventosTab.Edit', {
+          url: '/Edit',
+              templateUrl: 'pages/Eventos/EventosEdit.html',
+              controller: "EventosCtrl"
+      })
+
+      .state('EventosTab.Estilos', {
+          url: '/Estilos',
+              templateUrl: 'pages/Eventos/Estilos.html',
+              controller: "EventosCtrl"
+      })
+      ///////////////////////////////////////////////
+
+      /////Resultados/////
+      .state('Resultados', {
+          url: '/Resultados',
+              templateUrl: 'pages/Resultados/resultadosV.html',
+              controller: "ResultadosBCtrl"
+      })
+
+      .state('Resultados.Add', {
+          url: '/Add',
+              templateUrl: 'pages/Resultados/resultados.html',
+              controller: "ResultadosCtrl"
+      })
+      ////////////////////
+
+      .state('Usuarios', {
+          url: '/Usuarios',
+              templateUrl: 'pages/Otras/Usuarios.html',
+              controller: "UsuariosCtrl"
+      })
 });

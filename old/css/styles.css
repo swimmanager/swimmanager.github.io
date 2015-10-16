@@ -30,7 +30,7 @@ body {
 /* Carousel base class */
 
 .carousel {
-    margin-bottom: 60px;
+    margin-bottom: 10px;
 }
 
 
@@ -44,16 +44,15 @@ body {
 /* Declare heights because of positioning of img element */
 
 .carousel .item {
-    height: 600px;
     background-color: #066d8b;
-    ;
+    min-height: 900px
 }
 
 .carousel img {
     position: absolute;
     top: 0;
     left: 0;
-    min-height: 400px;
+    min-height: 900px;
 }
 
 

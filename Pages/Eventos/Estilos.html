@@ -1,0 +1,40 @@
+<div class="tab-pane fade in active" ng-init="loadEstilos();loading = true;">
+  <!--Loading Gif-->
+  <div class="loading" ng-show="loading">
+      <div class="sprite-spinner">
+          <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
+      </div>
+  </div>
+  <!---->
+    <div class="col-md-4">
+        <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-submit="addEstilo()">
+            <h3>Agregar</h3>
+            <h5>* Datos requeridos</h5>
+
+            <!-- NAME -->
+            <div class="form-group">
+                <label>Nombre*</label>
+                <input class="form-control" ng-model="estilo.Nombre" placeholder="Ej:Mariposa" required type="text">
+                <button class="btn btn-primary" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6 col-md-offset-2">
+        <h3>Editar</h3>
+        <div ng-repeat="estilo in tiposAll">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nombre" ng-model="estilo.Nombre">
+                    <span class="input-group-btn">
+    <button class="btn btn-warning spamEventB " ng-click="updateEstilo($index)" type="submit">Modificar</button>
+  </span>
+                    <span class="input-group-btn">
+    <button class="btn btn-danger spamEventB " ng-click="deleteEstilo($index)" type="submit">Borrar</button>
+  </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

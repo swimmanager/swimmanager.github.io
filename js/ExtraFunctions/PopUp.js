@@ -1,5 +1,5 @@
 var PopUp = {
-  successChangePage: function(action, page) {
+  successChangePage: function(action, page, $state) {
     swal({
       title: "Exito",
       text: action,
@@ -7,7 +7,24 @@ var PopUp = {
       showConfirmButton: true,
       closeOnConfirm: true
     }, function() {
-        window.location.replace(page);
+      $state.go(page, null, {
+      reload: true
+    });
+    });
+  },
+
+  successChangePageParam: function(action,callback) {
+    swal({
+      title: "Exito",
+      text: action,
+      type: "success",
+      showConfirmButton: true,
+      closeOnConfirm: true
+    },function(isConfirm) {
+      if (isConfirm) {
+        var response=1;
+        callback(response);
+      }
     });
   },
 
@@ -21,7 +38,7 @@ var PopUp = {
     });
   },
 
-  successSamePage:function(action){
+  successSamePage:function(action,$state){
     swal({
       title: "Exito",
       text: action,
@@ -29,7 +46,9 @@ var PopUp = {
       showConfirmButton: true,
       closeOnConfirm: true
     },function() {
-        window.location.reload();
+      $state.go($state.current, null, {
+        reload: true
+      });
     });
 
   },

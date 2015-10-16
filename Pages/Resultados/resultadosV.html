@@ -1,53 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Swim Manager</title>
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-    <link href="../../css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../css/sweetalert.css">
-    <link rel="stylesheet" type="text/css" href="../../css/swim.css">
-    <link rel="stylesheet" type="text/css" href="../../css/swim2.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../css/swim.css">
-    <link rel="stylesheet" type="text/css" href="../../css/swim2.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/angular.min.js"></script>
-    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
-</head>
-
-
-
-<body ng-app="SwimManager" ng-controller="ResultadosBCtrl">
-    <script>
-        var host = "swimmanager.github.io";
-        if ((host == window.location.host) && (window.location.protocol != "https:"))
-            window.location.protocol = "https";
-    </script>
-    <navbarswim current-tab="Resultados"></navbarswim>
+<div ng-init="loadT()" ng-show="$state.current.name === 'Resultados'">
     <br>
-    <div class="container" ng-init="loadT()" ng-controller="ResultadosCtrl">
+    <div class="container">
         <div class="page-header">
             <h1>Resultados</h1>
-            <a href="resultados.html" class="btn btn-primary" role="button">Agregar Nuevo Resultado</a>
+            <a ui-sref=".Add" class="btn btn-primary" role="button">Agregar Nuevo Resultado</a>
         </div>
-
 
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
                     <label>Torneo</label>
                     <select id="idTorneos" name="TorneosSelect" ng-model="TorneosSelect" class="form-control" ng-change="getEdiciones()">
+                        <option value="">Todos</option>
                         <option ng-repeat="torneo in torneos" value="{{torneo._id}}">{{torneo.Nombre}}</option>
                     </select>
                 </div>
@@ -58,7 +22,7 @@
                 <div class="form-group">
                     <label>Edición</label>
                     <select id="idEdiciones" name="EdicionesSelect" ng-model="EdicionesSelect" class="form-control">
-
+                        <option value="">Todos</option>
                         <option ng-repeat="edicion in ediciones" value="{{edicion._id}}">
                             {{edicion.Nombre}}, Fecha: {{edicion.fecha|date:"mediumDate"}}</option>
                     </select>
@@ -71,8 +35,8 @@
                 <div class="form-group">
                     <label>Atleta</label>
                     <select id="idAtleta" name="EdicionesSelect" ng-model="AtletasSelect" class="form-control">
-
-                        <option ng-repeat="atleta in atletas" value="{{atleta._id}}">
+                        <option value="">Todos</option>
+                        <option ng-repeat="atleta in atletas|orderBy:'Nombre.Apellido1'" value="{{atleta._id}}">
                             {{atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2}}</option>
                     </select>
 
@@ -84,9 +48,9 @@
 
             <div class="row clearfix">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div ng-repeat="torneo in torneos|filter: TorneosSelect" ng-model="torneos">
+                    <div ng-repeat="torneo in torneos|filter: TorneosSelect|filter:AtletasSelect" ng-model="torneos">
                         <h2>{{torneo.Nombre}}</h2>
-                        <div ng-repeat="edicion in torneo.ediciones|filter: EdicionesSelect">
+                        <div ng-repeat="edicion in torneo.ediciones|filter:EdicionesSelect|filter:AtletasSelect">
                             <h3>{{edicion.Nombre}} Fecha {{edicion.fecha|date:"mediumDate"}} </h3>
                             <!--
                             <div class="panel panel-default" ng-repeat="atleta in edicion.atletas">
@@ -99,9 +63,9 @@
 -->
 
 
-                            <div class="panel panel-default Normal" ng-repeat="prueba in edicion.eventos" ng-hide="(prueba.atletas.length==0)">
+                            <div class="panel panel-default Normal" ng-repeat="prueba in edicion.eventos|filter:AtletasSelect" ng-show="(prueba.atletas.length!==0)">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Genero {{prueba.Genero}} </h3>
+                                    <h3 class="panel-title">{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Género {{prueba.Genero}} </h3>
                                 </div>
 
                                 <!--
@@ -134,7 +98,7 @@
 
 -->
 
-                                <div ng-repeat="atleta in prueba.atletas| filter: AtletasSelect ">
+                                <div ng-repeat="atleta in prueba.atletas|filter: AtletasSelect">
                                     <br>
                                     <div class="input-group ">
                                         <span class="input-group-addon spamEvent">Nombre</span>
@@ -158,14 +122,7 @@
                 </div>
             </div>
         </div>
+</div>
+</div>
 
-        <script src="../../js/app.js "></script>
-        <script src="../../js/sweetalert.min.js "></script>
-        <script src="../../js/conector.js "></script>
-        <!--Controllers-->
-        <script src="../../js/Controllers/ResultadosBController.js "></script>
-        <script src="../../js/Controllers/ResultadosController.js "></script>
-        <script src="../../js/Controllers/AtletasController.js"></script>
-</body>
-
-</html>
+<div ui-view></div>

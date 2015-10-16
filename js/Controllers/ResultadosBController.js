@@ -1,5 +1,5 @@
-app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
-
+app.controller('ResultadosBCtrl', function ($scope, $http,$state) { // ejemplo
+    $scope.$state = $state;
     $scope.torneos = [];
 
     $scope.loadT = function () {
@@ -110,7 +110,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
 
     };
     $scope.getEdiciones = function () {
-        var index = document.getElementById("idTorneos").selectedIndex;
+        var index = document.getElementById("idTorneos").selectedIndex-1;
         Conector.ediciones.getAllbyTorneo($http, $scope.torneos[index]._id).then(function (response) {
             $scope.ediciones = response.data._items;
         }, function (response) {

@@ -1,41 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="SwimManager">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Swim Manager</title>
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-    <link href="../../css/styles.css" rel="stylesheet">
-    <link href="../../css/sweetalert.css" rel="stylesheet">
-    <link href="../../css/swim.css" rel="stylesheet">
-    <link href="../../css/swim2.css" rel="stylesheet">
-    <link href="../../css/spinner.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/angular.min.js"></script>
-    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
-    <script src="../../js/app.js"></script>
-    <script src="../../js/ExtraFunctions/PopUp.js"></script>
-    <script src="../../js/conector.js"></script>
-    <script src="../../js/sweetalert.min.js"></script>
-    <script src="../../js/Controllers/AtletasBController.js"></script>
-    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
-
-</head>
-
-<body ng-controller="AtletasBCtrl" ng-init="loadOneAtleta()">
-    <script>
-        var host = "swimmanager.github.io";
-        if ((host == window.location.host) && (window.location.protocol != "https:"))
-            window.location.protocol = "https";
-    </script>
+<div ng-init="loadOneAtleta()">
     <!--Loading Gif-->
     <div class="loading" ng-show="loading">
         <div class="sprite-spinner">
@@ -43,7 +6,6 @@
         </div>
     </div>
     <!---->
-    <navbarswim current-tab="Atletas"></navbarswim>
     <br>
     <div class="container">
         <div class="page-header">
@@ -58,13 +20,7 @@
                 <h3>Informacion del Atleta</h3>
                 <h5>* Datos requeridos</h5>
 
-                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-                    <label>Carrera*</label>
-                    <select class="form-control" ng-model="atletaUpdate.Carrera._id">
-                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}">{{carrera.Nombre}}</option>
-                    </select>
-                    <a href="../Otras/Carreras.html" class="btn btn-success" role="button">Nueva</a>
-                </div>
+
 
                 <!-- NAME -->
                 <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
@@ -89,6 +45,13 @@
                 </div>
                 <p></p>
 
+                <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                    <label>Carrera*</label>
+                    <select class="form-control" ng-model="atletaUpdate.Carrera._id">
+                        <option ng-repeat="carrera in carreras" value="{{carrera._id}}">{{carrera.Nombre}}</option>
+                    </select>
+                    <a ui-sref="AtletasView.Carreras"class="btn btn-success" role="button">Nueva</a>
+                </div>
                 <!-- EMAIL -->
 
 
@@ -192,7 +155,4 @@
 
 
     </div>
-    <script src="../../js/spinner.js"></script>
-</body>
-
-</html>
+</div>

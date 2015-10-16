@@ -1,5 +1,5 @@
-app.controller('EventosCtrl', function($scope, $http) {
-      $scope.loading = true;
+app.controller('EventosCtrl', function($scope, $http,$state) {
+      $scope.loading=true;
       $scope.eventos = {
         'Nombre': '',
         'Genero': 'Masculino',
@@ -12,17 +12,11 @@ app.controller('EventosCtrl', function($scope, $http) {
       //este array creo q se puede borrar
       $scope.listaEventos = ['Masculino','Femenino','Mixto'];
 
-
-
-      $scope.loadData=function(){
-          $scope.loadEstilos();
-          $scope.loadEventos();
-      }
-
       $scope.loadEstilos = function() {
         Conector.eventotipos.getAll($http).
         then(function(response) {
           $scope.tiposAll = response.data._items;
+          $scope.loading = false;
           console.log(response);
         }, function(response) {
           console.error(response);
@@ -48,7 +42,7 @@ app.controller('EventosCtrl', function($scope, $http) {
         then(function(response) {
           $scope.loading = false;
           //$scope.eventosAll.push($scope.eventos);
-          PopUp.successSamePage("Evento Agregado");
+          PopUp.successSamePage("Evento Agregado",$state);
           console.log(response);
         }, function(response) {
           console.error(response);
@@ -88,7 +82,7 @@ app.controller('EventosCtrl', function($scope, $http) {
           console.log(eventoUpdate);
           Conector.eventos.update($http, eventoUpdateSend,Base64.encode(auth), eventoUpdate._id, eventoUpdate._etag).
           then(function(response) {
-            PopUp.successSamePage("Evento Modificado");
+            PopUp.successSamePage("Evento Modificado",$state);
             console.log(response);
           }, function(response) {
             console.error(response);
@@ -98,8 +92,7 @@ app.controller('EventosCtrl', function($scope, $http) {
           var auth = "Nata2015:__Swim__2015"; //login data
           Conector.eventotipos.add($http, $scope.estilo, Base64.encode(auth)).
           then(function(response) {
-            //$scope.eventosAll.push($scope.eventos);
-            PopUp.successSamePage("Estilo Agregado");
+            PopUp.successSamePage("Estilo Agregado",$state);
             console.log(response);
           }, function(response) {
             console.error(response);
@@ -131,7 +124,7 @@ app.controller('EventosCtrl', function($scope, $http) {
             }
             Conector.eventotipos.update($http, estiloUpdateSend,Base64.encode(auth), estiloUpdate._id, estiloUpdate._etag).
             then(function(response) {
-              PopUp.successSamePage("Estilo Modificado");
+              PopUp.successSamePage("Estilo Modificado",$state);
               console.log(response);
             }, function(response) {
               console.error(response);

@@ -1,12 +1,12 @@
 //aunque no es un angular controller, mejor manejar las ediciones en un archivo aparte
 var Ediciones = {
-    addEdicion: function ($http, data, auth) {
+    addEdicion: function ($http, data, auth,$state) {
         var d = new Date(data.fecha);
         data.fecha = d.valueOf();
         Conector.ediciones.add($http, data, Base64.encode(auth)).
         then(function (response) {
             console.log(response);
-            PopUp.successChangePage("Torneo Agregado", "./TorneosAllView.html")
+            PopUp.successChangePage("Torneo Agregado", "TorneosView",$state)
         }, function (response) {
             console.log(response);
         });
@@ -18,7 +18,7 @@ var Ediciones = {
         then(function (response) {
             data.fecha = new Date(data.fecha);
             ediciones.push(data);
-            PopUp.successSamePage("Edicion Agregada");
+            PopUp.successSamePageNoReload("Edicion Agregada");
         }, function (response) {
             console.log(response);
         });
@@ -29,7 +29,7 @@ var Ediciones = {
         then(function (response) {
             console.log(response);
             ediciones.splice(index, 1);
-            PopUp.successSamePage("Torneo Borrado");
+            PopUp.successSamePageNoReload("Torneo Borrado");
         }, function (response) {
             console.log(response);
         });

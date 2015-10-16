@@ -1,5 +1,7 @@
-app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
-    $scope.loading=true;
+app.controller('TorneosCtrl', function ($scope, $http,$stateParams,$state) { // ejemplo
+$scope.loading=true;
+  $scope.$state = $state;
+
     //Schema
     $scope.torneo = {
         "Nombre": ""
@@ -44,7 +46,8 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
             });
     }
     $scope.loadOneTorneo = function () {
-        var id = getUrlVars()["id"];
+        console.log($state.current.name);
+        var id = $stateParams.idTorneo;
         //Carga el nombre del torneo
         Conector.torneos.getOne($http, id)
             .then(function (response) {
@@ -73,7 +76,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
         then(function (response) {
             console.log(response);
             $scope.edicion.Torneo = response.data._id;
-            Ediciones.addEdicion($http, $scope.edicion, auth);
+            Ediciones.addEdicion($http, $scope.edicion, auth,$state);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -101,7 +104,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
 
         Conector.torneos.update($http, $scope.torneo, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
             .then(function (response) {
-                PopUp.successChangePage("Torneo Modificado", "./TorneosAllView.html");
+                PopUp.successChangePage("Torneo Modificado", "TorneosView",$state);
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
             });
@@ -114,7 +117,7 @@ app.controller('TorneosCtrl', function ($scope, $http) { // ejemplo
             if (response === 1) {
                 Conector.torneos.delete($http, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
                     .then(function (response) {
-                        PopUp.successChangePage("Torneo Borrado", "./TorneosAllView.html");
+                        PopUp.successChangePage("Torneo Borrado", "TorneosView",$state);
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });

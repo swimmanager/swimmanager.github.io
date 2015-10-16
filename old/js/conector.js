@@ -148,12 +148,11 @@ var Conector = {
         getbyGeneroonlyName: function ($http, genero) {
             var uri = Conector.url + Conector.atletas.base +
                 "?projection={\"Nombre\":1}&where={\"Genero\":\"" + genero + "\"}";
-            console.log(uri);
             return $http.get(uri);
         },
         getonlyName: function ($http) {
             var uri = Conector.url + Conector.atletas.base +
-                "&projection={\"Nombre\":1}";
+                "?projection={\"Nombre\":1}";
             return $http.get(uri);
         },
         getOne: function ($http, id) {
@@ -180,7 +179,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.atletas.base + "/" + id;
             var config = {
                 headers: {
@@ -223,7 +221,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.carreras.base + "/" + id;
             var config = {
                 headers: {
@@ -265,7 +262,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.torneos.base + "/" + id;
             var config = {
                 headers: {
@@ -311,7 +307,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.ediciones.base + "/" + id;
             var config = {
                 headers: {
@@ -353,7 +348,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.eventos.base + "/" + id;
             var config = {
                 headers: {
@@ -395,7 +389,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.eventotipos.base + "/" + id;
             var config = {
                 headers: {
@@ -422,6 +415,20 @@ var Conector = {
                 "?embedded={\"Atleta\":1}&where={\"Edicion\":\"" + idE + "\",\"Evento\":\"" + idP + "\"}";
             return $http.get(uri);
         },
+        getbyEd: function ($http, idE) {
+            var uri = Conector.url + Conector.resultados.base +
+                "?embedded={\"Atleta\":1}&where={\"Edicion\":\"" + idE + "\"}";
+            return $http.get(uri);
+        },
+        getPru: function ($http, idE) {
+            var uri = Conector.url + Conector.resultados.base +
+                "?projection={\"Evento\":1}&" + Conector.embeddedM("Evento") + "&where={\"Edicion\":\"" + idE + "\"}";
+            return $http.get(uri);
+        },
+        getbyAtleta: function ($http, id) {
+            var uri = Conector.url + Conector.resultados.base + "?where={\"Atleta\":\"" + id + "\"}&" + Conector.embeddedM("Edicion");
+            return $http.get(uri);
+        },
         add: function ($http, data, auth) {
             var uri = Conector.url + Conector.resultados.base;
             var confg = {
@@ -442,7 +449,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.resultados.base + "/" + id;
             var config = {
                 headers: {
@@ -495,7 +501,6 @@ var Conector = {
             return $http.patch(uri, data, config);
         },
         delete: function ($http, auth, id, etag) {
-            console.log(auth);
             var uri = Conector.url + Conector.usuarios.base + "/" + id;
             var config = {
                 headers: {
@@ -519,11 +524,10 @@ var Conector = {
             }
         };
         return $http.post(uri, data, confg).then(function (response) {
-            console.log(response);
             $scope.auth = response.status == 201;
             $scope.auth_p = auth;
         }, function (response) {
-            console.error(response);
+            //console.error(response);
             $scope.auth = false;
         });
     },
@@ -536,11 +540,10 @@ var Conector = {
             }
         };
         return $http.get(uri, confg).then(function (response) {
-            console.log(response);
             $scope.auth = response.status == 200;
             $scope.auth_p = auth;
         }, function (response) {
-            console.error(response);
+            //console.error(response);
             $scope.auth = false;
         });
     },

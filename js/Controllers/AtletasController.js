@@ -1,11 +1,12 @@
-app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
+app.controller('AtletasCtrl', function ($scope, $http,$state) { // ejemplo
     $scope.loading = true;
+    $scope.$state = $state;
+
     $scope.getallnombre = function () {
         Conector.atletas.getBasic($http)
             .then(function (response) {
                 console.log(response);
                 $scope.atletas = response.data._items;
-                console.log("hola");
                 $scope.loading = false;
             }, function (response) {
                 console.error(response);
@@ -89,7 +90,7 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
         } else {
             Conector.atletas.add($http, $scope.atleta, Base64.encode(auth)).then(function (response) {
                 $scope.loading = false;
-                PopUp.successChangePage("Atleta Creado", "atletas.html");
+                PopUp.successChangePage("Atleta Creado", "AtletasView",$state);
 
             }, function (err) {
                 $scope.loading = false;
@@ -101,17 +102,7 @@ app.controller('AtletasCtrl', function ($scope, $http) { // ejemplo
 
 
     };
-    $scope.deleteAthlete = function (id, etag) {
-        var auth = "Nata2015:__Swim__2015";
-        Conector.atletas.deleteNombre($http, Base64.encode(auth), id, etag)
-            .then(function (response) {
-                //$scope.atletas = response.data._items;
-                console.log(response);
-            }, function (response) {
-                console.error(response); // Deberia haber un mejor manejo aqui
-            });
-        console.log($scope.athlete);
-    };
+
 
 
 });

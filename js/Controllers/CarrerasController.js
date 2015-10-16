@@ -1,4 +1,4 @@
-app.controller('CarrerasCtrl', function($scope, $http) { // ejemplo
+app.controller('CarrerasCtrl', function($scope, $http,$state) { // ejemplo
       $scope.carrera = {
         'Nombre': ''
       }
@@ -19,7 +19,7 @@ app.controller('CarrerasCtrl', function($scope, $http) { // ejemplo
         Conector.carreras.add($http, $scope.carrera, Base64.encode(auth)).
         then(function(response) {
           //$scope.eventosAll.push($scope.eventos);
-          PopUp.successSamePage("Carrera Agregada");
+          PopUp.successSamePage("Carrera Agregada",$state);
           console.log(response);
         }, function(response) {
           console.error(response);
@@ -51,7 +51,7 @@ app.controller('CarrerasCtrl', function($scope, $http) { // ejemplo
           }
           Conector.carreras.update($http, carreraUpdateSend,Base64.encode(auth), carreraUpdate._id, carreraUpdate._etag).
           then(function(response) {
-            PopUp.successSamePage("Carrera Modificada");
+            PopUp.successSamePage("Carrera Modificada",$state);
             console.log(response);
           }, function(response) {
             console.error(response);

@@ -1,105 +1,21 @@
-<!DOCTYPE html>
-<html ng-app="SwimManager">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Swim Manager</title>
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../css/sweetalert.css">
-
-    <!--[if lt IE 9]>
-  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-    <link href="../../css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../css/swim.css">
-    <link rel="stylesheet" type="text/css" href="../../css/swim2.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/angular.min.js"></script>
-    <script src="../../js/ui-bootstrap-tpls-0.13.3.min.js"></script>
-
-</head>
-
-<body ng-controller="TorneosCtrl" ng-init="loadOneTorneo()">
-    <script>
-        var host = "swimmanager.github.io";
-        if ((host == window.location.host) && (window.location.protocol != "https:"))
-            window.location.protocol = "https";
-    </script>
-    <navbarswim current-tab="Torneos"></navbarswim>
-    <br>
-    <div class="container">
-        <div class="page-header">
-            <h1>{{torneoOne.Nombre}}</h1>
-            <p><a href="TorneosUpdate.html?id={{torneoOne._id}}" class="btn btn-warning" role="button">Modificar</a>
-                <a ng-click="deleteTorneo()" class="btn btn-danger" role="button">Eliminar</a>
-            </p>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-tabs nav-justified Inverse">
-                    <li class="active"><a data-toggle="tab" href="#Agregar">Agregar Edición</a></li>
-                    <li><a data-toggle="tab" href="#Editar">Editar Ediciones</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="tab-content">
-            <div id="Agregar" class="tab-pane fade in active">
-                <div class="col-md-6 col-md-offset-3">
-                    <br>
-                    <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEdicion()">
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.edicion.$invalid && !userForm.edicion.$pristine }">
-                            <label>Nombre Edicion *</label>
-                            <input class="form-control" name="edicion" ng-model="edicion.Nombre" placeholder="Ej:UNED 2015" required type="text">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Fecha</label>
-                            <input name="fecha" type="date" class="form-control" datepicker-popup ng-model="edicion.fecha" close-text="Close" />
-                        </div>
-                        <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
-                    </form>
-                </div>
-            </div>
-            <div id="Editar" class="tab-pane fade">
-                <div class="col-md-6 col-md-offset-3">
-                    <br>
-                    <div ng-repeat="edicion in EdicionesTorneo">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon spamEvent">Nombre</span>
-                                <input type="text" class="form-control" placeholder="Nombre" ng-model="edicion.Nombre">
-                                <span class="input-group-btn">
-                                <button class="btn btn-warning spamEventB" ng-click="updateEdicion($index)" type="submit">Modificar</button>
-                            </span>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon spamEvent">Fecha</span>
-                                <input name="fecha" type="date" class="form-control" datepicker-popup ng-model="edicion.fecha" close-text="Close" />
-                                <span class="input-group-btn">
-                                <button class="btn btn-danger spamEventB" ng-click="deleteEdicion($index)" type="submit">Borrar</button>
-                            </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="container" ng-init="loadOneTorneo()" ng-show="$state.current.name === 'TorneosView.One.Add' || $state.current.name === 'TorneosView.One.Edit'">
+  <br>
+    <div class="page-header">
+        <h1>{{torneoOne.Nombre}}</h1>
+        <!--<p><a href="TorneosUpdate.html?id={{torneoOne._id}}" class="btn btn-warning" role="button">Modificar</a>-->
+          <p><a ui-sref="TorneosView.Update({idTorneo:torneoOne._id})" class="btn btn-warning" role="button">Modificar</a>
+            <a ng-click="deleteTorneo()" class="btn btn-danger" role="button">Eliminar</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs nav-justified Inverse">
+                <li ui-sref-active="active"><a ui-sref=".Add">Agregar Edición</a></li>
+                <li ui-sref-active="active"><a ui-sref=".Edit">Editar Ediciones</a></li>
+            </ul>
         </div>
     </div>
-
-    <!--Modules-Connectors-->
-    <script src="../../js/app.js"></script>
-    <script src="../../js/conector.js"></script>
-    <script src="../../js/sweetalert.min.js"></script>
-    <script src="../../js/ExtraFunctions/PopUp.js"></script>
-    <!--Controllers-->
-    <script src="../../js/Controllers/EdicionesController.js"></script>
-    <script src="../../js/Controllers/EventosController.js"></script>
-    <script src="../../js/Controllers/TorneosController.js"></script>
-
-</body>
-
-</html>
+    <div class="tab-content">
+        <div ui-view></div>
+    </div>
+</div>

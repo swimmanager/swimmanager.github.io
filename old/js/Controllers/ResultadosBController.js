@@ -9,6 +9,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
                 Conector.ediciones.getAllbyTorneo($http, [torneo._id]).then(function (response) {
                     torneo.ediciones = response.data._items;
                     torneo.ediciones.forEach(function (edicion) {
+
                         Conector.eventos.getAll($http).then(function (response) {
                             edicion.eventos = response.data._items;
                             edicion.eventos.forEach(function (evento) {
@@ -21,6 +22,13 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
                         }, function (response) {
                             console.error(response);
                         });
+                        /*
+                        Conector.resultados.getbyEd($http,edicion._id).then(function (response) {
+                                    edicion.atletas = response.data._items;
+                                }, function (response) {
+                                    console.error(response);
+                                });*/
+
                     });
                 }, function (response) {
                     console.error(response);
@@ -31,6 +39,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
             console.error(response);
         });
         console.log($scope.torneos);
+        $scope.getAllAtletas();
     };
 
     $scope.deleteR = function (id, etag) {
@@ -99,6 +108,25 @@ app.controller('ResultadosBCtrl', function ($scope, $http) { // ejemplo
 
         });
 
+    };
+    $scope.getEdiciones = function () {
+        var index = document.getElementById("idTorneos").selectedIndex;
+        Conector.ediciones.getAllbyTorneo($http, $scope.torneos[index]._id).then(function (response) {
+            $scope.ediciones = response.data._items;
+        }, function (response) {
+            console.error(response);
+        });
+
+    };
+
+    $scope.getAllAtletas = function () {
+        Conector.atletas.getonlyName($http).then(function (response) {
+            console.log(response);
+            $scope.atletas = response.data._items;
+            console.log($scope.atletas);
+        }, function (response) {
+            console.error(response);
+        });
     };
 
 

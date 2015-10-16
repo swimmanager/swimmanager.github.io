@@ -1,6 +1,6 @@
 /*global app, Conector, Base64, $,getUrlVars, swal */
 /*jslint browser: true*/
-app.controller('AtletasBCtrl', function ($scope, $http) {
+app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state) {
     //Schema
 
     var auth = "Nata2015:__Swim__2015";
@@ -10,8 +10,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
     $scope.loadOneAtleta = function () {
         $scope.loading = true;
 
-        var id = getUrlVars().id;
-
+        var id =$stateParams.idAtleta;
         Conector.carreras.getAll($http).then(function (response) {
             $scope.carreras = response.data._items;
             $scope.loading = false;
@@ -100,15 +99,10 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
         Conector.atletas.update($http, atletafull, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
                 $scope.loading = false;
-                swal({
-                    title: "Exito",
-                    text: "Atleta Modificado",
-                    type: "success",
-                    showConfirmButton: true,
-                    closeOnConfirm: true
-                }, function () {
-                    window.location.replace("AtletaOne.html?id=" + $scope.atletaOne._id);
+                PopUp.successChangePageParam("Atleta Modificado",function(response){
+                  $state.go("AtletasView.One",{idAtleta:$scope.atletaOne._id},{reload:true});
                 });
+
 
             }, function (response) {
                 console.error(response); // Deberia haber un mejor manejo aqui
@@ -162,7 +156,7 @@ app.controller('AtletasBCtrl', function ($scope, $http) {
                 Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
                     .then(function (response) {
                         $scope.loading = false;
-                        PopUp.successChangePage("Atleta Borrado", "atletas.html");
+                        PopUp.successChangePage("Atleta Borrado", "AtletasView",$state);
                         console.log(response);
                     }, function (response) {
                         console.error(response);
