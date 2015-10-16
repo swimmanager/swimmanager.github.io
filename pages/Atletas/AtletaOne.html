@@ -1,0 +1,49 @@
+<div ng-init="loadOneAtleta()">
+    <!---->
+    <br>
+    <div class="container">
+        <div class="page-header">
+            <h1>{{atletaOne.Nombre.Nombre +" " + atletaOne.Nombre.Apellido1 +" " + atletaOne.Nombre.Apellido2 }}</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-6 text-center ">
+                <img class="img-responsive center-block" check-image ng-src="{{atletaOne.Imagen}}">
+                <h4>Cédula</h4>
+                <h6>{{atletaOne.Cedula}}</h6>
+                <p>
+                    <button class="btn btn-danger" ng-click="deleteAthlete()">Borrar</button>
+                    <a ui-sref="AtletasView.Edit({idAtleta:atletaOne._id})" class="btn btn-warning" role="button">Modificar</a>
+                </p>
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6 text-center ">
+                <h4>Carné</h4>
+                <h6>{{atletaOne.Carne}}</h6>
+                <h4>Teléfono</h4>
+                <h6>{{atletaOne.Telefonos}}</h6>
+                <h4>Fecha Nacimiento</h4>
+                <h6>{{atletaOne.FechaNacimiento|date:'mediumDate'}}</h6>
+                <h4>Peso</h4>
+                <h6>{{atletaOne.Peso}} Kg</h6>
+                <h4>Carrera</h4>
+                <h6>{{atletaOne.Carrera.Nombre}}</h6>
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6 text-center">
+                <h4>Tipo de Sangre</h4>
+                <h6>{{atletaOne.TipoSangre}}</h6>
+                <h4>Beneficiaro</h4>
+                <h6>{{atletaOne.Beneficiario.Nombre}} Ced.: {{atletaOne.Beneficiario.Cedula}}</h6>
+                <h4>Correo</h4>
+                <h6>{{atletaOne.Correo}}</h6>
+                <h4>Estatura</h4>
+                <h6>{{atletaOne.Estatura}} m</h6>
+                <h4>Lateralidad</h4>
+                <h6>{{atletaOne.Lateralidad}}</h6>
+
+            </div>
+
+        </div>
+    </div>
+</div>
