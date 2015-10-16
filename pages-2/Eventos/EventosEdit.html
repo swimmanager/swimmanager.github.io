@@ -1,0 +1,46 @@
+<div class="tab-pane fade in active" ng-init="loadEventos();loadEstilos();loading = true;">
+
+    <!---->
+
+    <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
+        <h2>Editar Eventos</h2>
+        <table class="table">
+            <tr>
+                <td>Nombre</td>
+                <td>Genero</td>
+                <td>Estilo</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="evento in eventosAll|orderBy:'Tipo.Nombre'">
+
+                <td>
+                    <input type="text" class="form-control" placeholder="Nombre" ng-model="evento.Nombre">
+                </td>
+
+                <td>
+                    <select class="form-control" ng-model="evento.Genero">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Mixto">Mixto</option>
+                    </select>
+                </td>
+
+                <td>
+                    <select class="form-control" ng-model="evento.Tipo._id">
+                        <option value="{{tipo._id}}" ng-selected="{{tipo._id == evento.Tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
+                    </select>
+                </td>
+
+                <td>
+                    <button class="btn btn-warning spamEventB " ng-click="updateEvento(evento)" type="submit">Modificar</button>
+                </td>
+
+                <td>
+                    <button class="btn btn-danger spamEventB " ng-click="deleteEvento(evento)" type="submit">Borrar</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>

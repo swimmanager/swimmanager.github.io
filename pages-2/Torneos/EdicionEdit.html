@@ -1,0 +1,23 @@
+<div class="tab-pane fade in active">
+    <div class="col-md-6 col-md-offset-3">
+        <br>
+        <div ng-repeat="edicion in EdicionesTorneo">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon spamEvent">Nombre</span>
+                    <input type="text" class="form-control" placeholder="Nombre" ng-model="edicion.Nombre">
+                    <span class="input-group-btn">
+                    <button class="btn btn-warning spamEventB" ng-click="updateEdicion($index)" type="submit">Modificar</button>
+                </span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon spamEvent">Fecha</span>
+                    <input name="fecha" type="date" class="form-control" datepicker-popup ng-model="edicion.fecha" close-text="Close" />
+                    <span class="input-group-btn">
+                    <button class="btn btn-danger spamEventB" ng-click="deleteEdicion($index)" type="submit">Borrar</button>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
