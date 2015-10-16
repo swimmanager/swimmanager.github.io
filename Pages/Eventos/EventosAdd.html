@@ -1,33 +1,33 @@
-<div  class="tab-pane fade in active" ng-init="loadEstilos();">
-  <!--Loading Gif-->
-  <div class="loading" ng-show="loading">
-      <div class="sprite-spinner">
-          <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
-      </div>
-  </div>
-  <!---->
-        <div class="col-md-8 col-md-offset-2">
-            <!--Form de Edicion-->
-            <h2>Agregar Eventos</h2>
-            <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEvento()">
-                <div class="form-group">
-                    <label>Nombre Evento *</label>
-                    <input class="form-control" name="eventos" ng-model="eventos.Nombre" placeholder="Ej:3000" required type="text">
-
-                    <label>Genero</label>
-                    <br>
-                    <div class="btn-group">
-                        <label btn-radio="'Masculino'" class="btn btn-primary" ng-model="eventos.Genero">Masculino</label>
-                        <label btn-radio="'Mixto'" class="btn btn-success" ng-model="eventos.Genero">Mixto</label>
-                        <label btn-radio="'Femenino'" class="btn btn-danger" ng-model="eventos.Genero">Femenino</label>
-                    </div>
-                    <br>
-                    <label>Estilo*</label>
-                    <select class="form-control" ng-model="eventos.Tipo" required>
-                        <option value="{{tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
-                    </select>
-                </div>
-                <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
-            </form>
+<div class="tab-pane fade in active" ng-init="loadEstilos();">
+    <!--Loading Gif-->
+    <div class="loading" ng-show="loading">
+        <div class="sprite-spinner">
+            <img src="https://i.imgur.com/sJfQZdC.png?1" alt="" />
         </div>
+    </div>
+    <!---->
+    <div class="col-md-8 col-md-offset-2">
+        <!--Form de Edicion-->
+        <h2>Agregar Eventos</h2>
+        <form class="InverseForm" enctype="multipart/form-data" name="userForm" ng-controller="TorneosCtrl" ng-submit="addEvento()">
+            <div class="form-group">
+                <label>Nombre Evento *</label>
+                <input class="form-control" name="eventos" ng-model="eventos.Nombre" placeholder="Ej:3000" required type="text">
+
+                <label>Genero</label>
+                <br>
+                <div class="btn-group">
+                    <label btn-radio="'Masculino'" class="btn btn-primary" ng-model="eventos.Genero">Masculino</label>
+                    <label btn-radio="'Mixto'" class="btn btn-success" ng-model="eventos.Genero">Mixto</label>
+                    <label btn-radio="'Femenino'" class="btn btn-danger" ng-model="eventos.Genero">Femenino</label>
+                </div>
+                <br>
+                <label>Estilo*</label>
+                <select class="form-control" ng-model="eventos.Tipo" required>
+                    <option value="{{tipo._id}}" ng-repeat="tipo in tiposAll">{{tipo.Nombre}}</option>
+                </select>
+            </div>
+            <button class="btn btn-success" ng-disabled="userForm.$invalid" type="submit">Agregar</button>
+        </form>
+    </div>
 </div>
