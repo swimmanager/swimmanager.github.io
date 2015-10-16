@@ -10,95 +10,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>                             
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/swim.css" rel="stylesheet">
+    <link href="css/swim2.css" rel="stylesheet">
+    <link href="css/spinner.css" rel="stylesheet">
+    <link href="css/sweetalert.css" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
-    <script src="./js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="js/spinner.js"></script>
+
 </head>
 
-<body>
+<body ng-app="SwimManager">
+  <script>
+      var host = "swimmanager.github.io";
+      if ((host == window.location.host) && (window.location.protocol != "https:"))
+          window.location.protocol = "https";
+  </script>
+  <div class="navbar navbar-default navbar-fixed-top">
 
-    <script>
-        var host = "swimmanager.github.io";
-        if ((host == window.location.host) && (window.location.protocol != "https:"))
-            window.location.protocol = "https";
-    </script>
+      <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ui-sref="Home">Swim Manager</a>
+      </div>
+      <center>
+          <div class="navbar-collapse collapse" id="navbar-main">
+              <ul class="nav navbar-nav" id="navigation-tabs">
+                  <li ui-sref-active="active"><a ui-sref="AtletasView">Atletas</a></li>
+                  <li ui-sref-active="active"><a ui-sref="TorneosView">Torneos</a></li>
+                  <li ui-sref-active="active"><a ui-sref="EventosTab">Eventos</a></li>
+                  <li ui-sref-active="active"><a ui-sref="Resultados">Resultados</a></li>
+                  <li ui-sref-active="active"><a ui-sref="Usuarios">Usuarios</a></li>
+                  <li ui-sref-active="active"><a href="#">Historicos</a></li>
+              </ul>
+              <form class="navbar-form navbar-right" role="search">
+                  <div class="form-group">
+                      <input type="text" class="form-control" name="username" placeholder="Usuario">
+                  </div>
+                  <div class="form-group">
+                      <input type="text" class="form-control" name="password" placeholder="Password">
+                  </div>
+                  <button type="submit" class="btn btn-default">Ingresar</button>
+              </form>
+          </div>
+      </center>
 
-    <!-- Login
+  </div>
 
-    ================================================== -->
-    <div class="navbar navbar-default navbar-fixed-top">
-
-        <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Swim Manager</a>
-        </div>
-        <center>
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav" id="navigation-tabs">
-                    <li><a href="Pages/Atletas/atletas.html">Atletas</a></li>
-                    <li><a href="Pages/Torneos/TorneosAllView.html">Torneos</a></li>
-                    <li><a href="Pages/Otras/EventosView.html">Eventos</a></li>
-                    <li><a href="Pages/Resultados/resultadosV.html">Resultados</a></li>
-                    <li><a href="Pages/Otras/Usuarios.html">Usuarios</a></li>
-                    <li><a href="#">Historicos</a></li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Usuario">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default">Ingresar</button>
-                </form>
-            </div>
-        </center>
-
-    </div>
+  <!--Contenido de la pagina-->
+  <div ui-view></div>
 
 
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
+      <!--Module-->
+      <script src="js/app.js"></script>
+      <script src="js/sweetalert.min.js"></script>
+      <script src="js/conector.js"></script>
 
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="Img/image1.jpg" style="width:100%">
-            </div>
+      <!--Controllers-->
+      <script src="js/Controllers/AtletasController.js"></script>
+      <script src="js/Controllers/AtletasBController.js"></script>
+      <script src="js/Controllers/TorneosController.js"></script>
+      <script src="js/Controllers/EventosController.js"></script>
+      <script src="js/Controllers/ResultadosController.js"></script>
+      <script src="js/Controllers/ResultadosBController.js"></script>
+      <script src="js/Controllers/EdicionesController.js"></script>
+      <script src="js/Controllers/UsuarioController.js"></script>
+      <script src="js/Controllers/CarrerasController.js"></script>
+      <!--Directives-->
+      <script src="js/Directives/DefaultImageDirective.js"></script>
+      <script src="js/ExtraFunctions/PopUp.js"></script>
 
-            <div class="item">
-                <img src="Img/image2.jpg" style="width:100%">
-            </div>
 
-            <div class="item">
-                <img src="Img/images.jpg" style="width:100%">
-            </div>
-
-            <div class="item">
-                <img src="Img/image3.jpg" style="width:100%">
-            </div>
-
-        </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-    </div>
-    <!-- /.carousel -->
 </body>
 
 </html>
