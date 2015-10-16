@@ -2,7 +2,8 @@
 /*jslint browser: true*/
 app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state, LoadingGif) {
     //Schema
-
+    LoadingGif.deactivate();
+    LoadingGif.activate();
     var auth = "Nata2015:__Swim__2015";
 
 

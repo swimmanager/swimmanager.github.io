@@ -12,7 +12,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         'Nombre': "",
         'Torneo': "",
         'fecha': ""
-    }
+    };
     $scope.loadTorneos = function () {
         Conector.torneos.getAll($http)
             .then(function (response) {
@@ -22,7 +22,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             }, function (response) {
                 console.error(response);
             });
-    }
+    };
 
     $scope.updateEdicion = function (index) {
         var edicionModificar = $scope.EdicionesTorneo[index];
@@ -31,7 +31,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             'Nombre': edicionModificar.Nombre,
             'Torneo': edicionModificar.Torneo,
             'fecha': edicionModificar.fecha.valueOf()
-        }
+        };
         var auth = "Nata2015:__Swim__2015"; //login data
 
         console.log(edicionModificarSend);
@@ -46,7 +46,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             }, function (response) {
                 console.error(response);
             });
-    }
+    };
     $scope.loadOneTorneo = function () {
         console.log($state.current.name);
         var id = $stateParams.idTorneo;
@@ -62,14 +62,16 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         Conector.ediciones.getAllbyTorneo($http, id)
             .then(function (response) {
                 $scope.EdicionesTorneo = response.data._items;
-                for (i = 0; i < $scope.EdicionesTorneo.length; i++) {
+                for (var i = 0; i < $scope.EdicionesTorneo.length; i++) {
                     $scope.EdicionesTorneo[i].fecha = new Date($scope.EdicionesTorneo[i].fecha);
                 }
+                LoadingGif.deactivate();
                 console.log($scope.EdicionesTorneo);
+
             }, function (response) {
                 console.error(response);
             });
-    }
+    };
 
     $scope.addTorneo = function () {
         var auth = "Nata2015:__Swim__2015"; //login data
@@ -82,24 +84,24 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
-    }
+    };
 
     $scope.addEdicion = function () {
         var auth = "Nata2015:__Swim__2015"; //login data
         $scope.edicion.Torneo = $scope.torneoOne._id;
         Ediciones.addOtherEdicion($http, $scope.edicion, auth, $scope.EdicionesTorneo);
-    }
+    };
 
     $scope.deleteEdicion = function (index) {
-            var auth = "Nata2015:__Swim__2015"; //login data
-            var edicionBorrar = $scope.EdicionesTorneo[index];
-            PopUp.deleteConfirmation(function (response) {
-                if (response === 1) {
-                    Ediciones.deleteEdicion($http, auth, edicionBorrar._id, edicionBorrar._etag, $scope.EdicionesTorneo, index);
-                }
-            });
-        }
-        //funcion que actualiza el torneo de la base
+        var auth = "Nata2015:__Swim__2015"; //login data
+        var edicionBorrar = $scope.EdicionesTorneo[index];
+        PopUp.deleteConfirmation(function (response) {
+            if (response === 1) {
+                Ediciones.deleteEdicion($http, auth, edicionBorrar._id, edicionBorrar._etag, $scope.EdicionesTorneo, index);
+            }
+        });
+    };
+    //funcion que actualiza el torneo de la base
     $scope.updateTorneo = function () {
         var auth = "Nata2015:__Swim__2015";
         $scope.torneo.Nombre = $scope.torneoOne.Nombre;

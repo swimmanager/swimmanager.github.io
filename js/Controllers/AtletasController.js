@@ -1,5 +1,5 @@
 app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif) { // ejemplo
-    //LoadingGif.activate();
+    LoadingGif.deactivate();
     LoadingGif.activate();
     console.log($scope);
     $scope.$state = $state;
