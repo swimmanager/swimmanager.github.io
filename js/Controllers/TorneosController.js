@@ -1,6 +1,6 @@
 app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, LoadingGif) { // ejemplo
     LoadingGif.deactivate();
-    LoadingGif.activate();
+    //LoadingGif.activate();
     $scope.loading = true;
     $scope.$state = $state;
 
