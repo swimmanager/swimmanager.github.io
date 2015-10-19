@@ -15,6 +15,14 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         'Torneo': "",
         'fecha': ""
     };
+    $scope.gifinit = function () {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        };
+    }
+
     $scope.loadTorneos = function () {
         Conector.torneos.getAll($http)
             .then(function (response) {
