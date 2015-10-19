@@ -1,17 +1,21 @@
-/*global app, Conector, Base64, $,getUrlVars, swal */
+/*global app, Conector, Base64, $ */
 /*jslint browser: true*/
-app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state, LoadingGif) {
+app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, LoadingGif) {
     //Schema
     LoadingGif.deactivate();
     LoadingGif.activate();
     var auth = "Nata2015:__Swim__2015";
 
-
+    $scope.edad = function (nac) {
+        var hoy = new Date();
+        var ini = new Date(nac);
+        return hoy.getFullYear() - ini.getFullYear();
+    };
 
     $scope.loadOneAtleta = function () {
         LoadingGif.activate();
 
-        var id =$stateParams.idAtleta;
+        var id = $stateParams.idAtleta;
         Conector.carreras.getAll($http).then(function (response) {
             $scope.carreras = response.data._items;
             LoadingGif.deactivate();
@@ -100,8 +104,12 @@ app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state, Load
         Conector.atletas.update($http, atletafull, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
                 LoadingGif.deactivate();
-                PopUp.successChangePageParam("Atleta Modificado",function(response){
-                  $state.go("AtletasView.One",{idAtleta:$scope.atletaOne._id},{reload:true});
+                PopUp.successChangePageParam("Atleta Modificado", function (response) {
+                    $state.go("AtletasView.One", {
+                        idAtleta: $scope.atletaOne._id
+                    }, {
+                        reload: true
+                    });
                 });
 
 
@@ -157,7 +165,7 @@ app.controller('AtletasBCtrl', function ($scope, $http,$stateParams,$state, Load
                 Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
                     .then(function (response) {
                         LoadingGif.deactivate();
-                        PopUp.successChangePage("Atleta Borrado", "AtletasView",$state);
+                        PopUp.successChangePage("Atleta Borrado", "AtletasView", $state);
                         console.log(response);
                     }, function (response) {
                         console.error(response);
