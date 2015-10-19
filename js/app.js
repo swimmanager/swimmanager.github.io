@@ -136,19 +136,16 @@ app.factory("LoadingGif", function () {
         }),
         state: false,
         activate: function () {
-            console.log(this);
             this.state = true;
             this.s.start();
         },
         deactivate: function () {
             this.s.stop();
             this.state = false;
-            console.error("apagar");
         }
     };
 });
 app.controller('Base', function ($scope, LoadingGif) { // ejemplo
     $scope.loading = LoadingGif;
     LoadingGif.deactivate();
-    console.log($scope.loading.state);
 });

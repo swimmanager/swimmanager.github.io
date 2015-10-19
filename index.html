@@ -53,15 +53,18 @@
                     <li ui-sref-active="active"><a ui-sref="Usuarios">Usuarios</a></li>
                     <li ui-sref-active="active"><a href="#">Historicos</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Usuario">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default">Ingresar</button>
-                </form>
+                <div ng-controller="authbar">
+                    <form class="navbar-form navbar-right" role="search" ng-hide="authstate">
+                        <div class="form-group">
+                            <input type="text" ng-model="user" class="form-control" name="username" placeholder="Usuario">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" ng-model="pass" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <button class="btn btn-default" ng-click="logIn()">Ingresar</button>
+                    </form>
+                    <button class="navbar-right btn btn-default" ng-show="authstate" ng-click="logOut()">Salir</button>
+                </div>
             </div>
         </center>
 
@@ -83,6 +86,7 @@
     <script src="js/conector.js"></script>
 
     <!--Controllers-->
+    <script src="js/Controllers/auth.js"></script>
     <script src="js/Controllers/AtletasController.js"></script>
     <script src="js/Controllers/AtletasBController.js"></script>
     <script src="js/Controllers/TorneosController.js"></script>

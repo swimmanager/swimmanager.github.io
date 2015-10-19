@@ -1,4 +1,6 @@
-app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { // ejemplo
+/*global app, Conector, PopUp */
+/*jslint browser: true*/
+app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif, Auth) { // ejemplo
     //Schema
     LoadingGif.deactivate();
     LoadingGif.activate();
@@ -9,13 +11,11 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
     };
     $scope.loadUsuarios = function () {
         //Loading.show();
-        var user = "Nata2015";
-        var pass = "__Swim__2015";
 
-        Conector.logInAdmin($http, $scope, user, pass).then(function () {
-            if ($scope.auth) {
-                console.log($scope.auth);
-                Conector.usuarios.getAll($http, $scope.auth_p)
+
+        Conector.logInAdminB($http, $scope, Auth.auth()).then(function () {
+            if ($scope.Auth.auth()) {
+                Conector.usuarios.getAll($http, $scope.Auth.auth())
                     .then(function (response) {
                         $scope.users = response.data._items;
                         LoadingGif.deactivate();
@@ -23,17 +23,18 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
                         console.error(response); // Deberia haber un mejor manejo aqui
                     });
             } else {
-                console.log($scope.auth);
+                console.log($scope.Auth.auth());
             }
         }, function (err) {
             console.error(err);
-            window.location.replace("../index.html");
+            LoadingGif.deactivate();
+            PopUp.InvalidLogin();
         });
     };
 
     $scope.addUsuario = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
-        Conector.usuarios.add($http, $scope.userMod, Base64.encode(auth)).
+        //login data
+        Conector.usuarios.add($http, $scope.userMod, Auth.auth()).
         then(function (response) {
             PopUp.successSamePage("Usuario Agregado", $state);
         }, function (response) {
@@ -42,7 +43,7 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
     };
 
     $scope.patchUsername = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+        //login data
 
         var data = {
             anvandarnamn: $scope.userMod.anvandarnamn
@@ -51,7 +52,7 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
         var id = document.getElementById("idselector").selectedIndex;
         var currnt = $scope.users[id];
 
-        Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
+        Conector.usuarios.update($http, data, Auth.auth(), currnt._id, currnt._etag).
         then(function (response) {
             PopUp.successSamePage("Nombre de Usuario Cambiado", $state);
         }, function (response) {
@@ -60,7 +61,7 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
     };
 
     $scope.patchPass = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+        //login data
 
         var data = {
             losenord: $scope.userMod.losenord
@@ -69,7 +70,7 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
         var id = document.getElementById("idselector").selectedIndex;
         var currnt = $scope.users[id];
 
-        Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
+        Conector.usuarios.update($http, data, Auth.auth(), currnt._id, currnt._etag).
         then(function (response) {
             PopUp.successSamePage("Contraseña Cambiada", $state);
         }, function (response) {
@@ -78,7 +79,7 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
     };
 
     $scope.patchRol = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+        //login data
 
         var data = {
             roll: $scope.userMod.roll
@@ -87,7 +88,7 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
         var id = document.getElementById("idselector").selectedIndex;
         var currnt = $scope.users[id];
 
-        Conector.usuarios.update($http, data, Base64.encode(auth), currnt._id, currnt._etag).
+        Conector.usuarios.update($http, data, Auth.auth(), currnt._id, currnt._etag).
         then(function (response) {
             PopUp.successSamePage("Rol Cambiado", $state);
         }, function (response) {
@@ -97,12 +98,12 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif) { //
 
 
     $scope.deleteUsuario = function () {
-        var auth = "Nata2015:__Swim__2015";
+
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
                 var id = document.getElementById("idselector").selectedIndex;
                 var currnt = $scope.users[id];
-                Conector.usuarios.delete($http, Base64.encode(auth), currnt._id, currnt._etag)
+                Conector.usuarios.delete($http, Auth.auth(), currnt._id, currnt._etag)
                     .then(function (response) {
                         PopUp.successSamePage("Usuario Borrado", $state);
                     }, function (response) {

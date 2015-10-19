@@ -163,7 +163,7 @@ var Conector = {
             var uri = Conector.url + Conector.atletas.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -172,7 +172,7 @@ var Conector = {
             var uri = Conector.url + Conector.atletas.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -182,7 +182,7 @@ var Conector = {
             var uri = Conector.url + Conector.atletas.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -205,7 +205,7 @@ var Conector = {
             var uri = Conector.url + Conector.carreras.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -214,7 +214,7 @@ var Conector = {
             var uri = Conector.url + Conector.carreras.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -224,7 +224,7 @@ var Conector = {
             var uri = Conector.url + Conector.carreras.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -246,7 +246,7 @@ var Conector = {
             var uri = Conector.url + Conector.torneos.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -255,7 +255,7 @@ var Conector = {
             var uri = Conector.url + Conector.torneos.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -265,7 +265,7 @@ var Conector = {
             var uri = Conector.url + Conector.torneos.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -291,7 +291,7 @@ var Conector = {
             var uri = Conector.url + Conector.ediciones.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -300,7 +300,7 @@ var Conector = {
             var uri = Conector.url + Conector.ediciones.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -310,7 +310,7 @@ var Conector = {
             var uri = Conector.url + Conector.ediciones.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -332,7 +332,7 @@ var Conector = {
             var uri = Conector.url + Conector.eventos.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -341,7 +341,7 @@ var Conector = {
             var uri = Conector.url + Conector.eventos.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -351,7 +351,7 @@ var Conector = {
             var uri = Conector.url + Conector.eventos.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -373,7 +373,7 @@ var Conector = {
             var uri = Conector.url + Conector.eventotipos.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -382,7 +382,7 @@ var Conector = {
             var uri = Conector.url + Conector.eventotipos.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -392,7 +392,7 @@ var Conector = {
             var uri = Conector.url + Conector.eventotipos.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -433,7 +433,7 @@ var Conector = {
             var uri = Conector.url + Conector.resultados.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -442,7 +442,7 @@ var Conector = {
             var uri = Conector.url + Conector.resultados.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -452,7 +452,7 @@ var Conector = {
             var uri = Conector.url + Conector.resultados.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -466,7 +466,7 @@ var Conector = {
         getAll: function ($http, auth) {
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             var uri = Conector.url + Conector.usuarios.base + Conector.usuarios.no_pass;
@@ -475,7 +475,7 @@ var Conector = {
         getOne: function ($http, id, auth) {
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             var uri = Conector.url + Conector.usuarios.base + "/" + id + Conector.usuarios.no_pass;
@@ -485,7 +485,7 @@ var Conector = {
             var uri = Conector.url + Conector.usuarios.base;
             var confg = {
                 headers: {
-                    "Authorization": "Basic " + auth
+                    "authorization": "Basic " + auth
                 }
             };
             return $http.post(uri, data, confg);
@@ -494,7 +494,7 @@ var Conector = {
             var uri = Conector.url + Conector.usuarios.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -504,7 +504,7 @@ var Conector = {
             var uri = Conector.url + Conector.usuarios.base + "/" + id;
             var config = {
                 headers: {
-                    "Authorization": "Basic " + auth,
+                    "authorization": "Basic " + auth,
                     "If-Match": etag
                 }
             };
@@ -520,7 +520,7 @@ var Conector = {
         var auth = Base64.encode(user + ":" + pass);
         var confg = {
             headers: {
-                "Authorization": "Basic " + auth
+                "authorization": "Basic " + auth
             }
         };
         return $http.post(uri, data, confg).then(function (response) {
@@ -536,7 +536,22 @@ var Conector = {
         var auth = Base64.encode(user + ":" + pass);
         var confg = {
             headers: {
-                "Authorization": "Basic " + auth
+                "authorization": "Basic " + auth
+            }
+        };
+        return $http.get(uri, confg).then(function (response) {
+            $scope.auth = response.status == 200;
+            $scope.auth_p = auth;
+        }, function (response) {
+            //console.error(response);
+            $scope.auth = false;
+        });
+    },
+    logInAdminB: function ($http, $scope, auth) {
+        var uri = Conector.url + Conector.usuarios.base + Conector.usuarios.no_pass;
+        var confg = {
+            headers: {
+                "authorization": "Basic " + auth
             }
         };
         return $http.get(uri, confg).then(function (response) {

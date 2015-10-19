@@ -1,4 +1,6 @@
-app.controller('ResultadosCtrl', function ($scope, $http, LoadingGif) { // ejemplo
+/*global app, Conector,PopUp */
+/*jslint browser: true*/
+app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Auth) { // ejemplo
     //Schema
     LoadingGif.deactivate();
     LoadingGif.activate();
@@ -24,6 +26,11 @@ app.controller('ResultadosCtrl', function ($scope, $http, LoadingGif) { // ejemp
     $scope.count = 1;
 
     $scope.load = function () {
+        if (!Auth.auth().state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         $scope.count = 1;
         Conector.torneos.getAll($http).then(function (response) {
             $scope.torneos = response.data._items;
@@ -104,8 +111,8 @@ app.controller('ResultadosCtrl', function ($scope, $http, LoadingGif) { // ejemp
             });
         });
         console.log(data);
-        var auth = "Nata2015:__Swim__2015"; //login data
-        Conector.resultados.add($http, data, Base64.encode(auth))
+        //login data
+        Conector.resultados.add($http, data, Auth.auth())
             .then(function (response) {
                 //PopUp.showSuccess('Usuario Agregado Exitosamente');
                 PopUp.successSamePageNoReload("Resultado Agregado");

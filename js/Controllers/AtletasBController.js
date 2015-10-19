@@ -1,10 +1,9 @@
-/*global app, Conector, Base64, $ */
+/*global app, Conector, $, PopUp */
 /*jslint browser: true*/
-app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, LoadingGif) {
+app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, LoadingGif, Auth) {
     //Schema
     LoadingGif.deactivate();
     LoadingGif.activate();
-    var auth = "Nata2015:__Swim__2015";
 
     $scope.edad = function (nac) {
         var hoy = new Date();
@@ -13,6 +12,11 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
     };
 
     $scope.loadOneAtleta = function () {
+        if (!Auth.auth().state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         LoadingGif.activate();
 
         var id = $stateParams.idAtleta;
@@ -101,7 +105,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
             atletafull.Imagen = value;
         }
 
-        Conector.atletas.update($http, atletafull, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag)
+        Conector.atletas.update($http, atletafull, Auth.auth, $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
                 LoadingGif.deactivate();
                 PopUp.successChangePageParam("Atleta Modificado", function (response) {
@@ -146,7 +150,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
                     },
 
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
+                        xhr.setRequestHeader("authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
                     }
                 });
 
@@ -162,16 +166,16 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
                 LoadingGif.activate();
-                Conector.atletas.delete($http, Base64.encode(auth), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
+                Conector.atletas.delete($http, Auth.auth, $scope.atletaOne._id, $scope.atletaOne._etag, 0)
                     .then(function (response) {
                         LoadingGif.deactivate();
                         PopUp.successChangePage("Atleta Borrado", "AtletasView", $state);
                         console.log(response);
                     }, function (response) {
                         console.error(response);
-                    })
+                    });
             }
-        })
+        });
 
     };
 

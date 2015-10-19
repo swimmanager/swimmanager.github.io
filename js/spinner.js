@@ -16,8 +16,6 @@
             count = 0,
             img = this.el.children[0];
         this.el.style.display = "block";
-        console.log("this come here");
-        console.log(this);
         self.loop = setInterval(function () {
             if (count == 19) {
                 count = 0;

@@ -1,6 +1,8 @@
-app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, LoadingGif) { // ejemplo
+/*global app, Conector, PopUp, Ediciones */
+/*jslint browser: true*/
+app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, LoadingGif, Auth) { // ejemplo
     LoadingGif.deactivate();
-    //LoadingGif.activate();
+    LoadingGif.activate();
     $scope.loading = true;
     $scope.$state = $state;
 
@@ -32,12 +34,11 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             'Torneo': edicionModificar.Torneo,
             'fecha': edicionModificar.fecha.valueOf()
         };
-        var auth = "Nata2015:__Swim__2015"; //login data
 
         console.log(edicionModificarSend);
         Conector.ediciones.update($http,
                 edicionModificarSend,
-                Base64.encode(auth),
+                Auth.auth(),
                 edicionModificar._id,
                 edicionModificar._etag)
             .then(function (response) {
@@ -48,6 +49,12 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             });
     };
     $scope.loadOneTorneo = function () {
+        if (!Auth.auth().state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
+
         console.log($state.current.name);
         var id = $stateParams.idTorneo;
         //Carga el nombre del torneo
@@ -57,6 +64,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
                 console.log(response);
                 LoadingGif.deactivate();
             }, function (response) {
+                LoadingGif.deactivate();
                 console.error(response);
             });
         //Carga las ediciones del torneo 
@@ -75,39 +83,39 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
     };
 
     $scope.addTorneo = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+        //login data
         console.log($scope.torneo);
-        Conector.torneos.add($http, $scope.torneo, Base64.encode(auth)).
+        Conector.torneos.add($http, $scope.torneo, Auth.auth()).
         then(function (response) {
             console.log(response);
             $scope.edicion.Torneo = response.data._id;
-            Ediciones.addEdicion($http, $scope.edicion, auth, $state);
+            Ediciones.addEdicion($http, $scope.edicion, Auth.auth(), $state, LoadingGif, Auth);
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
     };
 
     $scope.addEdicion = function () {
-        var auth = "Nata2015:__Swim__2015"; //login data
+        //login data
         $scope.edicion.Torneo = $scope.torneoOne._id;
-        Ediciones.addOtherEdicion($http, $scope.edicion, auth, $scope.EdicionesTorneo);
+        Ediciones.addOtherEdicion($http, $scope.edicion, Auth.auth(), $scope.EdicionesTorneo, LoadingGif, Auth);
     };
 
     $scope.deleteEdicion = function (index) {
-        var auth = "Nata2015:__Swim__2015"; //login data
+        //login data
         var edicionBorrar = $scope.EdicionesTorneo[index];
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
-                Ediciones.deleteEdicion($http, auth, edicionBorrar._id, edicionBorrar._etag, $scope.EdicionesTorneo, index);
+                Ediciones.deleteEdicion($http, Auth.auth(), edicionBorrar._id, edicionBorrar._etag, $scope.EdicionesTorneo, index, LoadingGif, Auth);
             }
         });
     };
     //funcion que actualiza el torneo de la base
     $scope.updateTorneo = function () {
-        var auth = "Nata2015:__Swim__2015";
+
         $scope.torneo.Nombre = $scope.torneoOne.Nombre;
 
-        Conector.torneos.update($http, $scope.torneo, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
+        Conector.torneos.update($http, $scope.torneo, Auth.auth(), $scope.torneoOne._id, $scope.torneoOne._etag)
             .then(function (response) {
                 PopUp.successChangePage("Torneo Modificado", "TorneosView", $state);
             }, function (response) {
@@ -117,10 +125,10 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
 
     //funcion que borra el torneo de la base
     $scope.deleteTorneo = function () {
-        var auth = "Nata2015:__Swim__2015";
+
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
-                Conector.torneos.delete($http, Base64.encode(auth), $scope.torneoOne._id, $scope.torneoOne._etag)
+                Conector.torneos.delete($http, Auth.auth(), $scope.torneoOne._id, $scope.torneoOne._etag)
                     .then(function (response) {
                         PopUp.successChangePage("Torneo Borrado", "TorneosView", $state);
                     }, function (response) {

@@ -1,4 +1,6 @@
-app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) { // ejemplo
+/*global app, Conector,  PopUp, swal */
+/*jslint browser: true*/
+app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif, Auth) { // ejemplo
     LoadingGif.deactivate();
     LoadingGif.activate();
     $scope.$state = $state;
@@ -25,13 +27,6 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) {
                         }, function (response) {
                             console.error(response);
                         });
-                        /*
-                        Conector.resultados.getbyEd($http,edicion._id).then(function (response) {
-                                    edicion.atletas = response.data._items;
-                                }, function (response) {
-                                    console.error(response);
-                                });*/
-
                     });
                 }, function (response) {
                     console.error(response);
@@ -46,7 +41,11 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) {
     };
 
     $scope.deleteR = function (id, etag) {
-        var auth = "Nata2015:__Swim__2015";
+        if (!Auth.auth().state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         swal({
             title: "Seguro desea borrarlo?",
             type: "warning",
@@ -58,7 +57,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) {
             closeOnCancel: true
         }, function (isConfirm) {
             if (isConfirm) {
-                Conector.resultados.delete($http, Base64.encode(auth), id, etag)
+                Conector.resultados.delete($http, Auth.auth(), id, etag)
                     .then(function (response) {
                         PopUp.successChangePage("Resultado Borrado", "Resultados", $state);
                     }, function (response) {
@@ -69,7 +68,11 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) {
     };
 
     $scope.patchTime = function (id, etag, time) {
-        var auth = "Nata2015:__Swim__2015";
+        if (!Auth.auth().state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         swal({
             title: "Nuevo Valor!",
             text: "Nuevo tiempo:",
@@ -80,14 +83,16 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif) {
             animation: "slide-from-top",
             inputPlaceholder: "Tiempo"
         }, function (inputValue) {
-            if (inputValue === false) return false;
+            if (inputValue === false) {
+                return false;
+            }
             if (inputValue === "") {
                 swal.showInputError("Debe Escribir algo");
                 return false;
             }
             Conector.resultados.update($http, {
                     TiempoRealizado: inputValue
-                }, Base64.encode(auth), id, etag)
+                }, Auth.auth(), id, etag)
                 .then(function (response) {
                     PopUp.successChangePage("Tiempo Actualizado", "Resultados", $state);
 
