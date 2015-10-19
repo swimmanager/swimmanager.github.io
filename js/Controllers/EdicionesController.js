@@ -2,45 +2,45 @@
 /*jslint browser: true*/
 //aunque no es un angular controller, mejor manejar las ediciones en un archivo aparte
 var Ediciones = {
-    addEdicion: function ($http, data, $state, LoadingGif, Auth) {
-        LoadingGif.activate();
+    addEdicion: function ($http, data, $state, xLoadingGif, auth) {
+        xLoadingGif.activate();
         var d = new Date(data.fecha);
         data.fecha = d.valueOf();
-        Conector.ediciones.add($http, data, Auth.auth())
+        Conector.ediciones.add($http, data, auth)
             .then(function (response) {
-                LoadingGif.deactivate();
+                xLoadingGif.deactivate();
                 PopUp.successChangePage("Torneo Agregado", "TorneosView", $state);
             }, function (response) {
                 //console.log(response);
-                LoadingGif.deactivate();
+                xLoadingGif.deactivate();
             });
     },
-    addOtherEdicion: function ($http, data, ediciones, LoadingGif, Auth) {
-        LoadingGif.activate();
+    addOtherEdicion: function ($http, data, ediciones, xLoadingGif, auth) {
+        xLoadingGif.activate();
         var d = new Date(data.fecha);
         data.fecha = d.valueOf();
-        Conector.ediciones.add($http, data, Auth.auth())
+        Conector.ediciones.add($http, data, auth)
             .then(function (response) {
                 data.fecha = new Date(data.fecha);
                 ediciones.push(data);
-                LoadingGif.deactivate();
+                xLoadingGif.deactivate();
                 PopUp.successSamePageNoReload("Edicion Agregada");
             }, function (response) {
                 //console.log(response);
-                LoadingGif.deactivate();
+                xLoadingGif.deactivate();
             });
     },
 
-    deleteEdicion: function ($http, id, etag, ediciones, index, LoadingGif, Auth) {
-        LoadingGif.activate();
-        Conector.ediciones.delete($http, Auth.auth(), id, etag)
+    deleteEdicion: function ($http, id, etag, ediciones, index, xLoadingGif, auth) {
+        xLoadingGif.activate();
+        Conector.ediciones.delete($http, auth, id, etag)
             .then(function (response) {
                 ediciones.splice(index, 1);
-                LoadingGif.deactivate();
+                xLoadingGif.deactivate();
                 PopUp.successSamePageNoReload("Torneo Borrado");
             }, function (response) {
                 //console.log(response);
-                LoadingGif.deactivate();
+                xLoadingGif.deactivate();
             });
     }
 };

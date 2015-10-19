@@ -21,7 +21,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             LoadingGif.deactivate();
             return;
         };
-    }
+    };
 
     $scope.loadTorneos = function () {
         Conector.torneos.getAll($http)
@@ -102,7 +102,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         then(function (response) {
             //console.log(response);
             $scope.edicion.Torneo = response.data._id;
-            Ediciones.addEdicion($http, $scope.edicion, Auth.auth(), $state, LoadingGif, Auth);
+            Ediciones.addEdicion($http, $scope.edicion, $state, LoadingGif, Auth.auth());
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
         });
@@ -116,7 +116,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         }
         //login data
         $scope.edicion.Torneo = $scope.torneoOne._id;
-        Ediciones.addOtherEdicion($http, $scope.edicion, Auth.auth(), $scope.EdicionesTorneo, LoadingGif, Auth);
+        Ediciones.addOtherEdicion($http, $scope.edicion, $scope.EdicionesTorneo, LoadingGif, Auth.auth());
     };
 
     $scope.deleteEdicion = function (index) {
@@ -129,7 +129,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
         var edicionBorrar = $scope.EdicionesTorneo[index];
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
-                Ediciones.deleteEdicion($http, Auth.auth(), edicionBorrar._id, edicionBorrar._etag, $scope.EdicionesTorneo, index, LoadingGif, Auth);
+                Ediciones.deleteEdicion($http, edicionBorrar._id, edicionBorrar._etag, $scope.EdicionesTorneo, index, LoadingGif, Auth.auth());
             }
         });
     };
