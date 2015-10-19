@@ -27,7 +27,20 @@ var PopUp = {
             });
         });
     },
-
+    successChangePageParam: function (action, callback) {
+        swal({
+            title: "Exito",
+            text: action,
+            type: "success",
+            showConfirmButton: true,
+            closeOnConfirm: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var response = 1;
+                callback(response);
+            }
+        });
+    },
     successChangePageImage: function (action, page, $state, param) {
         swal({
             title: "Exito",
