@@ -2,7 +2,7 @@
 /*jslint browser: true*/
 app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, LoadingGif, Auth) { // ejemplo
     LoadingGif.deactivate();
-    LoadingGif.activate();
+    //LoadingGif.activate();
     $scope.loading = true;
     $scope.$state = $state;
 
@@ -24,6 +24,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
     };
 
     $scope.loadTorneos = function () {
+        LoadingGif.activate();
         Conector.torneos.getAll($http)
             .then(function (response) {
                 $scope.torneos = response.data._items;
@@ -51,9 +52,11 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
                 edicionModificar._etag)
             .then(function (response) {
                 PopUp.successSamePage("Edicion Modificada");
+            LoadingGif.deactivate();
                 //console.log(response);
             }, function (response) {
                 console.error(response);
+            LoadingGif.deactivate();
             });
     };
     $scope.loadOneTorneo = function () {
@@ -86,6 +89,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
                 //console.log($scope.EdicionesTorneo);
 
             }, function (response) {
+            LoadingGif.deactivate();
                 console.error(response);
             });
     };
@@ -103,8 +107,10 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             //console.log(response);
             $scope.edicion.Torneo = response.data._id;
             Ediciones.addEdicion($http, $scope.edicion, $state, LoadingGif, Auth.auth());
+            LoadingGif.deactivate();
         }, function (response) {
             console.error(response); // Deberia haber un mejor manejo aqui
+            LoadingGif.deactivate();
         });
     };
 
