@@ -48,6 +48,5 @@ app.controller('authbar', function ($scope, $http, $state, LoadingGif, Auth) { /
             reload: true
         });
     };
-    console.info(Auth.state());
     check();
 });
