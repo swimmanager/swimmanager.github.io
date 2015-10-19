@@ -151,5 +151,5 @@ app.controller('Base', function ($scope, LoadingGif) { // ejemplo
     $scope.ginit = function () {
         $scope.loading = LoadingGif;
         LoadingGif.deactivate();
-    }
+    };
 });
