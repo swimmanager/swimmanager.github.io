@@ -19,7 +19,7 @@
             <div ng-repeat="atleta in atletas|filter:searchBar|orderBy:'Nombre.Apellido1'">
                 <div ng-class="{row:($index % 6 == 5)}">
                     <div class="col-md-2 col-sm-6 text-center" style="height:400px;">
-                        <img class="img-rounded fitImage center-block" check-image ng-src="{{atleta.Imagen}}">
+                        <img class="img-rounded fitImage center-block" err-src="https://i.imgur.com/tC0skgp.png" ng-src="{{atleta.Imagen}}">
                         <h5>{{atleta.Nombre.Nombre+ " "+atleta.Nombre.Apellido1+ " "+atleta.Nombre.Apellido2}}</h5>
                         <p>{{atleta.Carrera.Nombre}}</p>
                         <div class="buttomCol">
