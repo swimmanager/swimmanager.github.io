@@ -105,7 +105,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
             atletafull.Imagen = value;
         }
 
-        Conector.atletas.update($http, atletafull, Auth.auth, $scope.atletaOne._id, $scope.atletaOne._etag)
+        Conector.atletas.update($http, atletafull, Auth.auth(), $scope.atletaOne._id, $scope.atletaOne._etag)
             .then(function (response) {
                 LoadingGif.deactivate();
                 PopUp.successChangePageParam("Atleta Modificado", function (response) {
@@ -166,7 +166,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
                 LoadingGif.activate();
-                Conector.atletas.delete($http, Auth.auth, $scope.atletaOne._id, $scope.atletaOne._etag, 0)
+                Conector.atletas.delete($http, Auth.auth(), $scope.atletaOne._id, $scope.atletaOne._etag, 0)
                     .then(function (response) {
                         LoadingGif.deactivate();
                         PopUp.successChangePage("Atleta Borrado", "AtletasView", $state);

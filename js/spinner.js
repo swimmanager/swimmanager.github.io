@@ -1,3 +1,4 @@
+/*jslint browser: true*/
 (function () {
     SpriteSpinner = function (el, options) {
         var self = this,

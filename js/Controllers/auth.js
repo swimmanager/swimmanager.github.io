@@ -31,6 +31,7 @@ app.controller('authbar', function ($scope, $http, $state, LoadingGif, Auth) { /
     };
     var validate = function () {
         check();
+        LoadingGif.deactivate();
         if ($scope.authstate) {
             PopUp.successSamePageNoReload("Autenticación Exitosa");
         } else {
@@ -40,6 +41,7 @@ app.controller('authbar', function ($scope, $http, $state, LoadingGif, Auth) { /
     $scope.user = undefined;
     $scope.pass = undefined;
     $scope.logIn = function () {
+        LoadingGif.activate();
         Auth.logIn($scope.user, $scope.pass, $http, validate);
     };
     $scope.logOut = function () {
