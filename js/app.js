@@ -9,7 +9,7 @@ function getUrlVars() {
 
 var app = angular.module('SwimManager', ["ui.bootstrap", "ui.router"])
 
-.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     //Pagina por defecto
     //$locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/Home');
@@ -148,4 +148,8 @@ app.factory("LoadingGif", function () {
 app.controller('Base', function ($scope, LoadingGif) { // ejemplo
     $scope.loading = LoadingGif;
     LoadingGif.deactivate();
+    $scope.ginit = function () {
+        $scope.loading = LoadingGif;
+        LoadingGif.deactivate();
+    }
 });
