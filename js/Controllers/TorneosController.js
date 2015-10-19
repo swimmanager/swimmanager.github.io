@@ -83,6 +83,11 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
     };
 
     $scope.addTorneo = function () {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         //login data
         //console.log($scope.torneo);
         Conector.torneos.add($http, $scope.torneo, Auth.auth()).
@@ -96,12 +101,22 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
     };
 
     $scope.addEdicion = function () {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         //login data
         $scope.edicion.Torneo = $scope.torneoOne._id;
         Ediciones.addOtherEdicion($http, $scope.edicion, Auth.auth(), $scope.EdicionesTorneo, LoadingGif, Auth);
     };
 
     $scope.deleteEdicion = function (index) {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
         //login data
         var edicionBorrar = $scope.EdicionesTorneo[index];
         PopUp.deleteConfirmation(function (response) {
@@ -112,6 +127,11 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
     };
     //funcion que actualiza el torneo de la base
     $scope.updateTorneo = function () {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
 
         $scope.torneo.Nombre = $scope.torneoOne.Nombre;
 
@@ -125,6 +145,11 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
 
     //funcion que borra el torneo de la base
     $scope.deleteTorneo = function () {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
 
         PopUp.deleteConfirmation(function (response) {
             if (response === 1) {
