@@ -8,7 +8,7 @@ app.controller('CarrerasCtrl', function ($scope, $http, $state, LoadingGif, Auth
     };
 
     $scope.loadCarreras = function () {
-        if (!Auth.auth().state()) {
+        if (!Auth.state()) {
             PopUp.InvalidLogin($state);
             LoadingGif.deactivate();
             return;
@@ -31,7 +31,7 @@ app.controller('CarrerasCtrl', function ($scope, $http, $state, LoadingGif, Auth
             //$scope.eventosAll.push($scope.eventos);
             LoadingGif.deactivate();
             PopUp.successSamePage("Carrera Agregada", $state);
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });
@@ -46,7 +46,7 @@ app.controller('CarrerasCtrl', function ($scope, $http, $state, LoadingGif, Auth
                 then(function (response) {
                     $scope.carrerasAll.splice(index, 1);
                     PopUp.successSamePageNoReload("Carrera Borrada");
-                    console.log(response);
+                    //console.log(response);
                 }, function (response) {
                     console.error(response);
                 });
@@ -65,7 +65,7 @@ app.controller('CarrerasCtrl', function ($scope, $http, $state, LoadingGif, Auth
         then(function (response) {
             LoadingGif.deactivate();
             PopUp.successSamePage("Carrera Modificada", $state);
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });

@@ -11,7 +11,7 @@ var Ediciones = {
                 LoadingGif.deactivate();
                 PopUp.successChangePage("Torneo Agregado", "TorneosView", $state);
             }, function (response) {
-                console.log(response);
+                //console.log(response);
                 LoadingGif.deactivate();
             });
     },
@@ -26,7 +26,7 @@ var Ediciones = {
                 LoadingGif.deactivate();
                 PopUp.successSamePageNoReload("Edicion Agregada");
             }, function (response) {
-                console.log(response);
+                //console.log(response);
                 LoadingGif.deactivate();
             });
     },
@@ -39,7 +39,7 @@ var Ediciones = {
                 LoadingGif.deactivate();
                 PopUp.successSamePageNoReload("Torneo Borrado");
             }, function (response) {
-                console.log(response);
+                //console.log(response);
                 LoadingGif.deactivate();
             });
     }

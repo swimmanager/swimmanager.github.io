@@ -11,24 +11,26 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif, Auth
     };
     $scope.loadUsuarios = function () {
         //Loading.show();
-
-
         Conector.logInAdminB($http, $scope, Auth.auth()).then(function () {
-            if ($scope.Auth.auth()) {
-                Conector.usuarios.getAll($http, $scope.Auth.auth())
+            if (Auth.state()) {
+                Conector.usuarios.getAll($http, Auth.auth())
                     .then(function (response) {
                         $scope.users = response.data._items;
                         LoadingGif.deactivate();
                     }, function (response) {
                         console.error(response); // Deberia haber un mejor manejo aqui
+                        LoadingGif.deactivate();
+                        PopUp.InvalidLogin($state);
                     });
             } else {
-                console.log($scope.Auth.auth());
+                console.error("No Autorizado");
+                LoadingGif.deactivate();
+                PopUp.InvalidLogin($state);
             }
         }, function (err) {
             console.error(err);
             LoadingGif.deactivate();
-            PopUp.InvalidLogin();
+            PopUp.InvalidLogin($state);
         });
     };
 

@@ -12,6 +12,14 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
         'Nombre': ''
     };
 
+    $scope.loadData = function () {
+        if (!Auth.state()) {
+            PopUp.InvalidLogin($state);
+            LoadingGif.deactivate();
+            return;
+        }
+    };
+
     //este array creo q se puede borrar
     $scope.listaEventos = ['Masculino', 'Femenino', 'Mixto'];
 
@@ -20,7 +28,7 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
         then(function (response) {
             $scope.tiposAll = response.data._items;
             LoadingGif.deactivate();
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });
@@ -31,7 +39,7 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
         then(function (response) {
             $scope.eventosAll = response.data._items;
             LoadingGif.deactivate();
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });
@@ -40,13 +48,13 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
     $scope.addEvento = function () {
         LoadingGif.activate();
         //login data
-        console.log($scope.eventos);
+        //console.log($scope.eventos);
         Conector.eventos.add($http, $scope.eventos, Auth.auth()).
         then(function (response) {
             LoadingGif.deactivate();
             //$scope.eventosAll.push($scope.eventos);
             PopUp.successSamePage("Evento Agregado", $state);
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });
@@ -65,7 +73,7 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
                     $scope.eventosAll.splice(index, 1);
                     LoadingGif.deactivate();
                     PopUp.successSamePageNoReload("Evento Borrado");
-                    console.log(response);
+                    //console.log(response);
                 }, function (response) {
                     console.error(response);
                 });
@@ -82,11 +90,11 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
             'Genero': eventoUpdate.Genero,
             'Tipo': eventoUpdate.Tipo._id
         };
-        console.log(eventoUpdate);
+        //console.log(eventoUpdate);
         Conector.eventos.update($http, eventoUpdateSend, Auth.auth(), eventoUpdate._id, eventoUpdate._etag).
         then(function (response) {
             PopUp.successSamePage("Evento Modificado", $state);
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });
@@ -96,7 +104,7 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
         Conector.eventotipos.add($http, $scope.estilo, Auth.auth()).
         then(function (response) {
             PopUp.successSamePage("Estilo Agregado", $state);
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });
@@ -111,7 +119,7 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
                 then(function (response) {
                     $scope.tiposAll.splice(index, 1);
                     PopUp.successSamePageNoReload("Estilo Borrado");
-                    console.log(response);
+                    //console.log(response);
                 }, function (response) {
                     console.error(response);
                 });
@@ -128,7 +136,7 @@ app.controller('EventosCtrl', function ($scope, $http, $state, LoadingGif, Auth)
         Conector.eventotipos.update($http, estiloUpdateSend, Auth.auth(), estiloUpdate._id, estiloUpdate._etag).
         then(function (response) {
             PopUp.successSamePage("Estilo Modificado", $state);
-            console.log(response);
+            //console.log(response);
         }, function (response) {
             console.error(response);
         });

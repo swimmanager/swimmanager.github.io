@@ -20,7 +20,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
             .then(function (response) {
                 $scope.torneos = response.data._items;
                 LoadingGif.deactivate();
-                console.log($scope.torneos);
+                //console.log($scope.torneos);
             }, function (response) {
                 console.error(response);
             });
@@ -28,14 +28,14 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
 
     $scope.updateEdicion = function (index) {
         var edicionModificar = $scope.EdicionesTorneo[index];
-        console.log(edicionModificar);
+        //console.log(edicionModificar);
         var edicionModificarSend = {
             'Nombre': edicionModificar.Nombre,
             'Torneo': edicionModificar.Torneo,
             'fecha': edicionModificar.fecha.valueOf()
         };
 
-        console.log(edicionModificarSend);
+        //console.log(edicionModificarSend);
         Conector.ediciones.update($http,
                 edicionModificarSend,
                 Auth.auth(),
@@ -43,25 +43,25 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
                 edicionModificar._etag)
             .then(function (response) {
                 PopUp.successSamePage("Edicion Modificada");
-                console.log(response);
+                //console.log(response);
             }, function (response) {
                 console.error(response);
             });
     };
     $scope.loadOneTorneo = function () {
-        if (!Auth.auth().state()) {
+        if (!Auth.state()) {
             PopUp.InvalidLogin($state);
             LoadingGif.deactivate();
             return;
         }
 
-        console.log($state.current.name);
+        //console.log($state.current.name);
         var id = $stateParams.idTorneo;
         //Carga el nombre del torneo
         Conector.torneos.getOne($http, id)
             .then(function (response) {
                 $scope.torneoOne = response.data;
-                console.log(response);
+                //console.log(response);
                 LoadingGif.deactivate();
             }, function (response) {
                 LoadingGif.deactivate();
@@ -75,7 +75,7 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
                     $scope.EdicionesTorneo[i].fecha = new Date($scope.EdicionesTorneo[i].fecha);
                 }
                 LoadingGif.deactivate();
-                console.log($scope.EdicionesTorneo);
+                //console.log($scope.EdicionesTorneo);
 
             }, function (response) {
                 console.error(response);
@@ -84,10 +84,10 @@ app.controller('TorneosCtrl', function ($scope, $http, $stateParams, $state, Loa
 
     $scope.addTorneo = function () {
         //login data
-        console.log($scope.torneo);
+        //console.log($scope.torneo);
         Conector.torneos.add($http, $scope.torneo, Auth.auth()).
         then(function (response) {
-            console.log(response);
+            //console.log(response);
             $scope.edicion.Torneo = response.data._id;
             Ediciones.addEdicion($http, $scope.edicion, Auth.auth(), $state, LoadingGif, Auth);
         }, function (response) {

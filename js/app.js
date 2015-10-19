@@ -9,9 +9,9 @@ function getUrlVars() {
 
 var app = angular.module('SwimManager', ["ui.bootstrap", "ui.router"])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
     //Pagina por defecto
-
+    //$locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/Home');
 
     $stateProvider

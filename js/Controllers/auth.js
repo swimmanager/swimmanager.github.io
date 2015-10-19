@@ -8,7 +8,7 @@ app.factory("Auth", function () {
         logIn: function (user, pass, $http, callback) {
             var scope = {};
             Conector.logIn($http, scope, user, pass).then(function () {
-                console.log("i");
+                //console.log("i");
                 if (scope.auth === true) {
                     localStorage.setItem("~ht~", scope.auth_p);
                 }
@@ -25,7 +25,7 @@ app.factory("Auth", function () {
     };
 });
 
-app.controller('authbar', function ($scope, $http, LoadingGif, Auth) { // ejemplo
+app.controller('authbar', function ($scope, $http, $state, LoadingGif, Auth) { // ejemplo
     var check = function () {
         $scope.authstate = Auth.state();
     };
@@ -44,6 +44,9 @@ app.controller('authbar', function ($scope, $http, LoadingGif, Auth) { // ejempl
     };
     $scope.logOut = function () {
         Auth.logOut(check);
+        $state.go("Home", null, {
+            reload: true
+        });
     };
     console.info(Auth.state());
     check();

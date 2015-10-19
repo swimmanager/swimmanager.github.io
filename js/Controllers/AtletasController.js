@@ -4,12 +4,12 @@ app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif, Auth)
     LoadingGif.deactivate();
     LoadingGif.activate();
     $scope.$state = $state;
-    //console.log($scope);
+    ////console.log($scope);
 
     $scope.getallnombre = function () {
         Conector.atletas.getBasic($http)
             .then(function (response) {
-                console.log(response);
+                //console.log(response);
                 $scope.atletas = response.data._items;
                 //LoadingGif.deactivate();
                 LoadingGif.deactivate();
@@ -19,7 +19,7 @@ app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif, Auth)
     };
 
     $scope.init = function () {
-        if (!Auth.auth().state()) {
+        if (!Auth.state()) {
             PopUp.InvalidLogin($state);
             LoadingGif.deactivate();
             return;
@@ -50,13 +50,13 @@ app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif, Auth)
                 'type': "base64",
             },
             success: function (response) {
-                //aca puede hacer console.log(response);
+                //aca puede hacer //console.log(response);
                 //para que vea lo q imgur responde
 
                 $scope.atleta.Imagen = response.data.link.replace("http", "https");
             },
             error: function (response) {
-                console.log(response);
+                //console.log(response);
             },
             complete: function () {
                 if ($('#beneficiario').val() === "") {

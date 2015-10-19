@@ -12,7 +12,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
     };
 
     $scope.loadOneAtleta = function () {
-        if (!Auth.auth().state()) {
+        if (!Auth.state()) {
             PopUp.InvalidLogin($state);
             LoadingGif.deactivate();
             return;
@@ -29,7 +29,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
 
         Conector.atletas.getOne($http, id)
             .then(function (response) {
-                console.log(response.data);
+                //console.log(response.data);
                 $scope.atletaOne = response.data;
                 $scope.atletaOne.FechaNacimiento = new Date($scope.atletaOne.FechaNacimiento);
                 if ($scope.atletaOne.Beneficiario === undefined) {
@@ -62,7 +62,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
 
 
                 }
-                console.log($scope.atletaUpdate);
+                //console.log($scope.atletaUpdate);
 
 
             }, function (response) {
@@ -73,7 +73,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
 
 
     $scope.updateKey = function (imag, value) {
-        console.log($scope.atletaOne);
+        //console.log($scope.atletaOne);
 
 
         var atletafull = {
@@ -146,7 +146,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
                         $scope.updateKey(true, response.data.link.replace("http", "https"));
                     },
                     error: function (response) {
-                        console.log(response);
+                        //console.log(response);
                     },
 
                     beforeSend: function (xhr) {
@@ -170,7 +170,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
                     .then(function (response) {
                         LoadingGif.deactivate();
                         PopUp.successChangePage("Atleta Borrado", "AtletasView", $state);
-                        console.log(response);
+                        //console.log(response);
                     }, function (response) {
                         console.error(response);
                     });

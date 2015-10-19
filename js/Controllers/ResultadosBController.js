@@ -32,16 +32,16 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif, A
                     console.error(response);
                 });
             });
-            console.log($scope.torneos);
+            //console.log($scope.torneos);
         }, function (response) {
             console.error(response);
         });
-        console.log($scope.torneos);
+        //console.log($scope.torneos);
         $scope.getAllAtletas();
     };
 
     $scope.deleteR = function (id, etag) {
-        if (!Auth.auth().state()) {
+        if (!Auth.state()) {
             PopUp.InvalidLogin($state);
             LoadingGif.deactivate();
             return;
@@ -68,7 +68,7 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif, A
     };
 
     $scope.patchTime = function (id, etag, time) {
-        if (!Auth.auth().state()) {
+        if (!Auth.state()) {
             PopUp.InvalidLogin($state);
             LoadingGif.deactivate();
             return;
@@ -115,9 +115,9 @@ app.controller('ResultadosBCtrl', function ($scope, $http, $state, LoadingGif, A
 
     $scope.getAllAtletas = function () {
         Conector.atletas.getonlyName($http).then(function (response) {
-            console.log(response);
+            //console.log(response);
             $scope.atletas = response.data._items;
-            console.log($scope.atletas);
+            //console.log($scope.atletas);
         }, function (response) {
             console.error(response);
         });

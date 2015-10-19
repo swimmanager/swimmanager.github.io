@@ -1,49 +1,84 @@
 <div ng-init="load()">
-    <br>
-    <div class="container">
-        <div class="page-header">
-            <h1>Resultados</h1>
-        </div>
-
-        <div class="row clearfix">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-
-                <form class="InverseForm" ng-submit="guardar()">
-                    <h2>Datos del Torneo</h2>
-                    <label>Torneo</label>
-                    <select id="idTorneos" name="TorneosSelect" ng-model="TorneosSelect" class="form-control" ng-change="getEdiciones()">
-                        <option ng-repeat="torneo in torneos" value="{{torneo._id}}">{{torneo.Nombre}}</option>
-                    </select>
-                    <label>Edición</label>
-                    <select id="idEdiciones" name="EdicionesSelect" ng-model="EdicionesSelect" class="form-control">
-                        <option ng-repeat="edicion in ediciones" value="{{edicion._id}}">
-                            {{edicion.Nombre}}, Fecha: {{edicion.fecha|date:"mediumDate"}}</option>
-                    </select>
-                    <label>Prueba</label>
-                    <select id="idPrueba" name="PruebasSelect" ng-model="PruebasSelect" class="form-control" ng-change="getAtletas()">
-                        <option ng-repeat="evento in eventos" value="{{evento._id}}">{{evento.Tipo.Nombre}}: {{evento.Nombre}}, Genero: {{evento.Genero}}</option>
-                    </select>
-                    <h2 class="InverseForm">Atletas</h2>
-
-
-
-                    <div id="atletasGroup">
-                        <div class="Space" ng-repeat="idx in idList">
-                            <input type="text" class="form-control" placeholder="Atleta" ng-model="atletaData" iid="{{atleta.Nombre._id}}" typeahead="(atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2) for atleta in atletas | filter:$viewValue | limitTo:10" typeahead-on-select="tohidden($item, idx.id)">
-                            <input id="{{idx.id}}" type="hidden">
-                            <div class="input-group">
-                                <input id="{{idx.idt}}" type="text" class="form-control" placeholder="Tiempo">
-                                <span class="input-group-btn">
-        <button class="btn btn-danger" type="button" ng-click="quitar(idx)">Eliminar</button>
-      </span>
-                            </div>
-                            <!-- /input-group -->
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" ng-click="addUsuario()" type="submit">Submit</button>
-                    <button class="btn btn-success" type="button" ng-click="agregar()">Agregar</button>
-                </form>
-            </div>
-        </div>
+  <br>
+  <div class="container">
+    <div class="page-header">
+      <h1>Resultados</h1>
     </div>
+
+    <div class="row clearfix">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <form class="InverseForm" ng-submit="guardar()">
+          <h2>Datos del Torneo</h2>
+          <label>Torneo</label>
+          <select class="form-control" id="idTorneo" name="TorneosSelect" ng-change="getEdiciones()" ng-model="TorneosSelect">
+            <option ng-repeat="torneo in torneos" value="{{torneo._id}}">{{torneo.Nombre}}</option>
+          </select>
+          <label>Edición</label>
+          <select class="form-control" id="idEdicion" name="EdicionesSelect" ng-model="EdicionesSelect">
+            <option ng-repeat="edicion in ediciones" value="{{edicion._id}}">
+              {{edicion.Nombre}}, Fecha:
+              {{edicion.fecha|date:"mediumDate"}}</option>
+          </select>
+          <label>Aguas Abiertas</label>
+          <input type="checkbox" ng-model="Aguasmodel" ><br>
+          <label>Prueba</label>
+          <select class="form-control" id="idPrueba" name="PruebasSelect" ng-change="getAtletas()" ng-model="PruebasSelect">
+            <option ng-repeat="evento in eventos|orderBy:'_created'|aguasFilter:Aguasmodel" value="{{evento}}">{{evento.Tipo.Nombre}}:
+              {{evento.Nombre}}, Genero:
+              {{evento.Genero}}</option>
+          </select>
+          <h2 class="InverseForm">Atletas</h2>
+
+          <div id="atletasGroup">
+            <div class="Space" ng-repeat="idx in idList">
+              <div class="input-group">
+                <input class="form-control" iid="{{atleta.Nombre._id}}" ng-model="atletaData" placeholder="Atleta" type="text" typeahead-on-select="tohidden($item, idx.id)" typeahead="(atleta.Nombre.Nombre+' ' +atleta.Nombre.Apellido1+' '+atleta.Nombre.Apellido2) for atleta in atletas | filter:$viewValue | limitTo:10">
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" ng-click="quitar(idx)" type="button">Eliminar</button>
+                </span>
+              </div>
+              <input id="{{idx.id}}" type="hidden">
+
+              <!--<input class="form-control" id="{{idx.idt}}" placeholder="Tiempo" type="text">-->
+
+              <div class="row">
+                <div class="col-md-3">
+                  <input class="form-control col-md-3"  readonly value="Horas" type="text">
+                </div>
+                <div class="col-md-3">
+                  <input class="form-control col-md-3"  readonly value="Minutos" type="text">
+                </div>
+                <div class="col-md-3">
+                  <input class="form-control col-md-3"  readonly value="Segundos" type="text">
+                </div>
+                <div class="col-md-3">
+                  <input class="form-control col-md-3"  readonly value="Milisegundos" type="text">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <input id="{{idx.idthou}}" class="form-control .col-md-4"  placeholder="horas" type="number" ng-model="idx.idthou">
+                </div>
+                <div class="col-md-3">
+                  <input id="{{idx.idtmin}}" class="form-control .col-md-4" placeholder="minutos" type="number" ng-model="idx.idtmin">
+                </div>
+                <div class="col-md-3">
+                  <input id="{{idx.idtsec}}" class="form-control .col-md-4" placeholder="segundos" type="number" ng-model="idx.idtsec">
+                </div>
+                <div class="col-md-3">
+                    <input id="{{idx.idtmil}}" class="form-control .col-md-4" placeholder="milisegundos" type="number" ng-model="idx.idtmil">
+                </div>
+                </div>
+
+<!-- /input-group -->
+            </div>
+          </div>
+          <button class="btn btn-primary"  type="submit">Submit</button>
+          <button class="btn btn-success" ng-click="agregar()" type="button">Agregar</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
