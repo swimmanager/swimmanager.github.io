@@ -150,7 +150,7 @@ app.controller('AtletasBCtrl', function ($scope, $http, $stateParams, $state, Lo
                     },
 
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader("authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
+                        xhr.setRequestHeader("Authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
                     }
                 });
 

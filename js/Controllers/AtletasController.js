@@ -64,7 +64,7 @@ app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif, Auth)
                 }
                 Conector.atletas.add($http, $scope.atleta, Auth.auth()).then(function (response) {
                     LoadingGif.deactivate();
-                    PopUp.successChangePage("Atleta Creado", "atletas.html");
+                    PopUp.successChangePage("Atleta Creado", "AtletasView", $state);
                 }, function (err) {
                     LoadingGif.deactivate();
                     console.error(err);
@@ -72,7 +72,7 @@ app.controller('AtletasCtrl', function ($scope, $http, $state, LoadingGif, Auth)
 
             },
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
+                xhr.setRequestHeader("Authorization", "Client-ID " + "b415538ff4bcf10"); //esto es q antes de enviar pide verificacion de que ud es usuario, puede hacerse una app en imgur y ya ellos le dan su ID
             }
         });
     };

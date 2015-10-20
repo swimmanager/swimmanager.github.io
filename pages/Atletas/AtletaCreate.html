@@ -45,6 +45,15 @@
                 </div>
                 <p></p>
 
+                <div class="form-group">
+                    <label>Género</label>
+                    <select class="form-control" ng-model="atleta.Genero" required>
+                        <option value="Masculino" selected>Masculino</option>
+                        <option value="Femenino">Femenino</option>
+
+                    </select>
+                </div>
+
                 <!-- EMAIL -->
 
 
@@ -100,14 +109,7 @@
                     <input class="form-control" type="text" name="cedula" ng-model="atleta.Cedula" placeholder="Cedula">
 
                 </div>
-                <div class="form-group">
-                    <label>Género</label>
-                    <select class="form-control" ng-model="atleta.Genero">
-                        <option value="Masculino" selected>Masculino</option>
-                        <option value="Femenino">Femenino</option>
 
-                    </select>
-                </div>
                 <div class="form-group">
                     <label>Teléfono</label>
                     <input class="form-control" type="text" name="telefono" ng-model="atleta.Telefonos" placeholder="Telefono">
