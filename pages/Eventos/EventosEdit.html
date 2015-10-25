@@ -12,7 +12,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr ng-repeat="evento in eventosAll|orderBy:'Tipo.Nombre'">
+            <tr ng-repeat="evento in eventosAll|orderBy:['Tipo.Nombre','_created','Genero']">
 
                 <td>
                     <input type="text" class="form-control" placeholder="Nombre" ng-model="evento.Nombre">

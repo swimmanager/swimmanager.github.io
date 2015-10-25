@@ -53,7 +53,6 @@ app.controller('UsuariosCtrl', function ($scope, $http, $state, LoadingGif, Auth
 
         var id = document.getElementById("idselector").selectedIndex;
         var currnt = $scope.users[id];
-
         Conector.usuarios.update($http, data, Auth.auth(), currnt._id, currnt._etag).
         then(function (response) {
             PopUp.successSamePage("Nombre de Usuario Cambiado", $state);

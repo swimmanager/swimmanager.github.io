@@ -15,7 +15,9 @@ app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Au
         idthou: 00,
         idtmin: 00,
         idtsec: 00,
-        idtmil: 00
+        idtmil: 00,
+        Result:'Tiempo',
+        show:true
     }];
 
     $scope.PruebasSelect = {
@@ -27,7 +29,14 @@ app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Au
 
 
     $scope.count = 1;
-
+    $scope.setResultado=function(pResult){
+      if(pResult.Result==='Tiempo'){
+        pResult.show=true;
+      }
+      else{
+        pResult.show=false;
+      }
+    }
     $scope.load = function () {
         if (!Auth.state()) {
             PopUp.InvalidLogin($state);
@@ -70,7 +79,9 @@ app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Au
             idthou: 0,
             idtmin: 00,
             idtsec: 00,
-            idtmil: 00
+            idtmil: 00,
+            Result:'Tiempo',
+            show:true
         });
         $scope.count += 1;
     };
@@ -99,24 +110,27 @@ app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Au
         document.getElementById(id).value = elem._id;
     };
 
-    $scope.getTimeFormat = function (hour, minute, second, mili) {
-        var time = hour;
-        if (minute.length < 2) {
-            time = time + ":0" + minute;
-        } else {
-            time = time + ":" + minute
+    $scope.getTimeFormat=function(hour,minute,second,mili,pResult){
+      if(pResult==='Tiempo'){
+        var time=hour;
+        if(minute.length<2){
+          time=time+":0"+minute;
         }
-        if (second.length < 2) {
-            time = time + ":0" + second;
-        } else {
-            time = time + ":" + second
+        else{time=time+":"+minute}
+        if(second.length<2){
+          time=time+":0"+second;
         }
-        if (mili.length < 2) {
-            time = time + ".0" + mili;
-        } else {
-            time = time + "." + mili
+        else{time=time+":"+second}
+        if(mili.length<2){
+          time=time+".0"+mili;
         }
+        else{time=time+"."+mili}
         return time;
+      }
+      else{//para los casos de DQ y NSP
+        return pResult
+      }
+
 
     }
     $scope.guardar = function () {
@@ -136,7 +150,8 @@ app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Au
                     document.getElementById(item.idthou).value,
                     document.getElementById(item.idtmin).value,
                     document.getElementById(item.idtsec).value,
-                    document.getElementById(item.idtmil).value)
+                    document.getElementById(item.idtmil).value,
+                    document.getElementById(item.Result).value)
             });
         });
         //console.log(data);
@@ -148,7 +163,9 @@ app.controller('ResultadosCtrl', function ($scope, $http, $state, LoadingGif, Au
                     idthou: 00,
                     idtmin: 00,
                     idtsec: 00,
-                    idtmil: 00
+                    idtmil: 00,
+                    Result:'Tiempo',
+                    show:true
               }];
                 $scope.loading = false;
                 $scope.count = 1;

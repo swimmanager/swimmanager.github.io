@@ -24,7 +24,7 @@
           <input type="checkbox" ng-model="Aguasmodel" ><br>
           <label>Prueba</label>
           <select class="form-control" id="idPrueba" name="PruebasSelect" ng-change="getAtletas()" ng-model="PruebasSelect">
-            <option ng-repeat="evento in eventos|orderBy:'_created'|aguasFilter:Aguasmodel" value="{{evento}}">{{evento.Tipo.Nombre}}:
+            <option ng-repeat="evento in eventos|orderBy:['Tipo.Nombre','_created','Genero']|aguasFilter:Aguasmodel" value="{{evento}}">{{evento.Tipo.Nombre}}:
               {{evento.Nombre}}, Genero:
               {{evento.Genero}}</option>
           </select>
@@ -41,7 +41,13 @@
               <input id="{{idx.id}}" type="hidden">
 
               <!--<input class="form-control" id="{{idx.idt}}" placeholder="Tiempo" type="text">-->
-
+              <label>Resultado</label>
+              <select class="form-control" ng-change="setResultado(idx)" id="{{idx.Result}}" ng-model="idx.Result">
+                        <option selected value="Tiempo">Tiempo</option>
+                        <option value="NSP">No se Presentó</option>
+                        <option value="DQ">Descalificado</option>
+              </select>
+              <div ng-show="idx.show">
               <div class="row">
                 <div class="col-md-3">
                   <input class="form-control col-md-3"  readonly value="Horas" type="text">
@@ -71,8 +77,10 @@
                     <input id="{{idx.idtmil}}" class="form-control .col-md-4" placeholder="milisegundos" type="number" ng-model="idx.idtmil">
                 </div>
                 </div>
-
-<!-- /input-group -->
+              </div>
+              <br>
+              <br>
+<!-- input-group -->
             </div>
           </div>
           <button class="btn btn-primary"  type="submit">Submit</button>

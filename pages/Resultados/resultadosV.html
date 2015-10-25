@@ -63,7 +63,7 @@
 -->
 
 
-                            <div class="panel panel-default Normal" ng-repeat="prueba in edicion.eventos|filter:AtletasSelect" ng-show="(prueba.atletas.length!==0)">
+                            <div class="panel panel-default Normal" ng-repeat="prueba in edicion.eventos|filter:AtletasSelect|orderBy:['Tipo.Nombre','_created','Genero']" ng-show="(prueba.atletas.length!==0)">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">{{prueba.Tipo.Nombre}} {{prueba.Nombre}} Género {{prueba.Genero}} </h3>
                                 </div>
@@ -98,13 +98,13 @@
 
 -->
 
-                                <div ng-repeat="atleta in prueba.atletas|filter: AtletasSelect">
+                                <div ng-repeat="atleta in prueba.atletas|filter: AtletasSelect|orderBy:'TiempoRealizado'">
                                     <br>
                                     <div class="input-group ">
                                         <span class="input-group-addon spamEvent">Nombre</span>
                                         <input type="text" class="form-control" value='{{atleta.Atleta.Nombre.Nombre+" "+atleta.Atleta.Nombre.Apellido1+ " " +atleta.Atleta.Nombre.Apellido2}}' readonly/>
                                         <span class="input-group-btn ">
-        <button class="btn btn-danger spamEventB" type="button " ng-click="deleteR(atleta._id, atleta._etag) ">Eliminar</button>
+        <button class="btn btn-danger spamEventB" type="button " ng-click="deleteR(atleta._id, atleta._etag,atleta) ">Eliminar</button>
       </span>
                                     </div>
 
